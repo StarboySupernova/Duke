@@ -2,7 +2,7 @@
 //  DukeApp.swift
 //  Duke
 //
-//  Created by user226714 on 12/2/22.
+//  Created by Simbarashe Dombodzvuku on 12/2/22.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct DukeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PermissionView()
         }
     }
 }

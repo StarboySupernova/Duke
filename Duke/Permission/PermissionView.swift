@@ -2,20 +2,20 @@
 //  ContentView.swift
 //  Duke
 //
-//  Created by user226714 on 12/2/22.
+//  Created by Simbarashe Dombodzvuku on 12/2/22.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct PermissionView: View {
     var body: some View {
         Text("Hello, world!")
             .padding()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct PermissionView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PermissionView()
     }
 }
