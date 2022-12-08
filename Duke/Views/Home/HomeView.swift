@@ -14,6 +14,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView { //should replace htese with ZStacks since NavigationViews are still unstable
             VStack {
+                //Category
                 Group {
                     Text("Categories")
                         .bold()
@@ -27,10 +28,10 @@ struct HomeView: View {
                         .padding()
                     }
                 }
-                List {
-                    ForEach(viewModel.businesses, id: \.id){ business in
-                        Text(business.name ?? "")
-                    }
+                //List
+                List(viewModel.businesses, id: \.id){ business in
+                    BusinessCell(business: business)
+                        .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 .navigationTitle("Pretoria")
@@ -42,7 +43,7 @@ struct HomeView: View {
                 }
                 .onAppear {
                     viewModel.search()
-            }
+                }
             }
         }
     }

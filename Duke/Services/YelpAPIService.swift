@@ -87,6 +87,28 @@ struct Business: Codable {
     }
 }
 
+extension Business {
+    var formattedRating : String {
+        String(format: "%.1f", rating ?? 0.0)
+    }
+    
+    var formattedCategory : String {
+        categories?.first?.title ?? "none"
+    }
+    
+    var formattedName : String {
+        name ?? "none"
+    }
+    
+    var formattedImageURL : URL? {
+        if let imageURL = imageURL {
+            return URL(string: imageURL)
+        }
+        
+        return nil
+    }
+}
+
 // MARK: - Category
 struct Category: Codable {
     let alias, title: String?
