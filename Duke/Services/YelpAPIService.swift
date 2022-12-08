@@ -32,7 +32,7 @@ extension YelpAPIService {
             .init(name: "term", value: searchTerm),
             .init(name: "longitude", value: String(location.coordinate.longitude)),
             .init(name: "latitude", value: String(location.coordinate.latitude)),
-            .init(name: "category", value: category)
+            .init(name: "category", value: category ?? "restaurants")
         ]
         //app-internally constructed url
         let url = urlComponents.url!
@@ -71,7 +71,7 @@ struct Business: Codable {
     let isClosed: Bool?
     let location: Location?
     let name, phone, price: String?
-    let rating, reviewCount: Int?
+    let rating, reviewCount: Double?
     let transactions: [String]?
     let url: String?
 

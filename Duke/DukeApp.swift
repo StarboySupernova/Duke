@@ -11,7 +11,7 @@ import SwiftUI
 struct DukeApp: App {
     var body: some Scene {
         WindowGroup {
-            PermissionView()
+            HomeView()
         }
     }
 }
