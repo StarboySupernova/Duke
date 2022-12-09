@@ -39,4 +39,23 @@ final class HomeViewModel: ObservableObject {
             }
             .assign(to: &$businesses)
     }
+    
+    func requestDetails(forID id : String) {
+        let live = YelpAPIService.live
+        
+        let details = live.detailRequest(.detail(id: id))
+            .share() //share output with multiple subscribers, i.e. business & region
+        
+        details
+            .compactMap { business in
+                CLLocationCoordinate2D(latitude: business?.coordinates?.latitude ?? 0, longitude: business?.coordinates?.longitude ?? 0)
+            }
+            .compactMap { coordinates in
+                MKCoordinateRegion(center: coordinates, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            }
+            .assign(to: &$region)
+        
+        details
+            .assign(to: &$business)
+    }
 }

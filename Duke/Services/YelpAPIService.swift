@@ -18,10 +18,11 @@ struct YelpAPIService {
     //category optional to handle when the "All" category is selected
     //AnyPublisher is output leveraged to update ListView
     var request : (EndPoint) -> AnyPublisher<[Business], Never>
+    var detailRequest : (EndPoint) -> AnyPublisher<Business?, Never>
 }
 
 extension YelpAPIService {
-    static let live = YelpAPIService { endpoint in
+    static let live = YelpAPIService (request: { endpoint in
         //URL request and return  [Businesses]
         return URLSession.shared.dataTaskPublisher(for: endpoint.request)
             .map(\.data) //should find a way to use response here for error handling
@@ -30,7 +31,15 @@ extension YelpAPIService {
             .replaceError(with: []) //replace error with empty array
             .receive(on: DispatchQueue.main) //iffy here, may freeze up app UI if this takes too long
             .eraseToAnyPublisher()
-    }
+    }, detailRequest: { endpoint in
+        //URL request and return Business
+        return URLSession.shared.dataTaskPublisher(for: endpoint.request)
+            .map(\.data) //should find a way to use response here for error handling
+            .decode(type: Business?.self, decoder: JSONDecoder())
+            .replaceError(with: nil) //we might possibly get nil result
+            .receive(on: DispatchQueue.main) //iffy here, may freeze up app UI if this takes too long
+            .eraseToAnyPublisher()
+    })
 }
 
 //should refactor and move into seperate files
