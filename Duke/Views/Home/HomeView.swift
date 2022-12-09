@@ -30,8 +30,10 @@ struct HomeView: View {
                 }
                 //List
                 List(viewModel.businesses, id: \.id){ business in
-                    BusinessCell(business: business)
-                        .listRowSeparator(.hidden)
+                    NavigationLink(destination: DetailView()) {
+                        BusinessCell(business: business)
+                            .listRowSeparator(.hidden)
+                    }
                 }
                 .listStyle(.plain)
                 .navigationTitle("Pretoria")
