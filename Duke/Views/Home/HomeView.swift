@@ -12,7 +12,7 @@ struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
     
     var body: some View {
-        NavigationView { //should replace htese with ZStacks since NavigationViews are still unstable
+        NavigationView { //should replace these with ZStacks since NavigationViews are still unstable
             VStack {
                 //Category
                 Group {
@@ -40,9 +40,6 @@ struct HomeView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Image(systemName: "person")
                     }
-                }
-                .onAppear {
-                    viewModel.search()
                 }
             }
         }
