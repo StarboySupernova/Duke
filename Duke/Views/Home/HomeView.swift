@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject var viewModel = HomeViewModel()
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         NavigationView { //should replace these with ZStacks since NavigationViews are still unstable
@@ -30,7 +30,7 @@ struct HomeView: View {
                 }
                 //List
                 List(viewModel.businesses, id: \.id){ business in
-                    NavigationLink(destination: DetailView()) {
+                    NavigationLink(destination: DetailView(id: "QPOI0dYeAl3U8iPM_IYWnA")) {
                         BusinessCell(business: business)
                             .listRowSeparator(.hidden)
                     }
@@ -51,5 +51,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(HomeViewModel())
     }
 }

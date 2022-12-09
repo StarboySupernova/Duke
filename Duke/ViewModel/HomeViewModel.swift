@@ -7,15 +7,20 @@
 
 import Foundation
 import Combine
+import MapKit
 
 final class HomeViewModel: ObservableObject {
     @Published var businesses = [Business]()
     @Published var searchText : String
     @Published var selectedCategory: FoodCategory
+    @Published var region : MKCoordinateRegion
+    @Published var business : Business?
     
     init() {
         searchText = ""
         selectedCategory = .all
+        region = .init()
+        business = nil //initialized as nil until fetched from API
         
         request()
     }

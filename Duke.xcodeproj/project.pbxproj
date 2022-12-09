@@ -131,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				C909022B293AC76B0050E808 /* HomeView.swift */,
+				C9E2AB64294238050001270B /* CategoryView.swift */,
+				C9FFE4FE2942887E00DE106F /* BusinessCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -163,8 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				C99B7B9A2943BC1200F0F8FD /* Details */,
-				C9E2AB64294238050001270B /* CategoryView.swift */,
-				C9FFE4FE2942887E00DE106F /* BusinessCell.swift */,
 				C9090230293AC93B0050E808 /* Home */,
 				C909022A293AC6830050E808 /* Permission */,
 			);
