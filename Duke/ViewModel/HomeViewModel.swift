@@ -14,13 +14,13 @@ final class HomeViewModel: ObservableObject {
     @Published var searchText : String
     @Published var selectedCategory: FoodCategory
     @Published var region : MKCoordinateRegion
-    @Published var business : Business?
+    @Published var businessDetails : BusinessDetails?
     
     init() {
         searchText = ""
         selectedCategory = .all
         region = .init()
-        business = nil //initialized as nil until fetched from API
+        businessDetails = nil //initialized as nil until fetched from API
         
         request()
     }
@@ -51,11 +51,12 @@ final class HomeViewModel: ObservableObject {
                 CLLocationCoordinate2D(latitude: business?.coordinates?.latitude ?? 0, longitude: business?.coordinates?.longitude ?? 0)
             }
             .compactMap { coordinates in
-                MKCoordinateRegion(center: coordinates, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                MKCoordinateRegion(center: coordinates, span: .init(latitudeDelta: 0.001, longitudeDelta: 0.001))
             }
             .assign(to: &$region)
         
         details
-            .assign(to: &$business)
+            .print()
+            .assign(to: &$businessDetails)
     }
 }

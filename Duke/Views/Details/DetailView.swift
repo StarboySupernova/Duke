@@ -21,19 +21,19 @@ struct DetailView: View {
                 .frame(height: UIScreen.main.bounds.height * 0.45)
         }
         .overlay (
-            Rectangle()
-                .fill(Color.mint)
-                .frame(height: UIScreen.main.bounds.height * 0.55, alignment: .bottom)
-                .cornerRadius(20),
+            viewModel.businessDetails != nil ? DetailCard(businessDetail: viewModel.businessDetails!) : nil,
         alignment: .bottom
         )
-        .ignoresSafeArea(edges: .top)
+        .ignoresSafeArea(edges: [.top, .bottom])
+        .onAppear {
+            viewModel.requestDetails(forID: id)
+        }
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(id: "QPOI0dYeAl3U8iPM_IYWnA")
+        DetailView(id: "WavvLdfdP6g8aZTtbBQHTw")
             .environmentObject(HomeViewModel())
     }
 }

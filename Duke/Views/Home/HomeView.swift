@@ -30,7 +30,7 @@ struct HomeView: View {
                 }
                 //List
                 List(viewModel.businesses, id: \.id){ business in
-                    NavigationLink(destination: DetailView(id: "QPOI0dYeAl3U8iPM_IYWnA")) {
+                    NavigationLink(destination: DetailView(id: business.id!/*"WavvLdfdP6g8aZTtbBQHTw"*/)) {
                         BusinessCell(business: business)
                             .listRowSeparator(.hidden)
                     }

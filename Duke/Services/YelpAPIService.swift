@@ -18,7 +18,7 @@ struct YelpAPIService {
     //category optional to handle when the "All" category is selected
     //AnyPublisher is output leveraged to update ListView
     var request : (EndPoint) -> AnyPublisher<[Business], Never>
-    var detailRequest : (EndPoint) -> AnyPublisher<Business?, Never>
+    var detailRequest : (EndPoint) -> AnyPublisher<BusinessDetails?, Never>
 }
 
 extension YelpAPIService {
@@ -35,7 +35,7 @@ extension YelpAPIService {
         //URL request and return Business
         return URLSession.shared.dataTaskPublisher(for: endpoint.request)
             .map(\.data) //should find a way to use response here for error handling
-            .decode(type: Business?.self, decoder: JSONDecoder())
+            .decode(type: BusinessDetails?.self, decoder: JSONDecoder())
             .replaceError(with: nil) //we might possibly get nil result
             .receive(on: DispatchQueue.main) //iffy here, may freeze up app UI if this takes too long
             .eraseToAnyPublisher()
@@ -135,6 +135,14 @@ extension Business {
     
     var formattedName : String {
         name ?? "none"
+    }
+    
+    var formattedPhoneNumber : String {
+        displayPhone ?? "none"
+    }
+    
+    var formattedPrice : String {
+        price ?? "none"
     }
     
     var formattedImageURL : URL? {

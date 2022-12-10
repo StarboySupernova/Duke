@@ -18,7 +18,9 @@
 		C9090242293AD3FE0050E808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9090241293AD3FE0050E808 /* Assets.xcassets */; };
 		C9090245293AD7CA0050E808 /* ExtensionKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9090244293AD7CA0050E808 /* ExtensionKit */; };
 		C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9B2943BC2600F0F8FD /* DetailView.swift */; };
+		C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */; };
 		C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */; };
+		C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0F0322944218700EF3174 /* BusinessDetails.swift */; };
 		C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB62294232450001270B /* HomeViewModel.swift */; };
 		C9E2AB65294238050001270B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB64294238050001270B /* CategoryView.swift */; };
 		C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FFE4FE2942887E00DE106F /* BusinessCell.swift */; };
@@ -36,7 +38,9 @@
 		C9090235293ACA4E0050E808 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C9090241293AD3FE0050E808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C99B7B9B2943BC2600F0F8FD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCard.swift; sourceTree = "<group>"; };
 		C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpAPIService.swift; sourceTree = "<group>"; };
+		C9D0F0322944218700EF3174 /* BusinessDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetails.swift; sourceTree = "<group>"; };
 		C9E2AB62294232450001270B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C9E2AB64294238050001270B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		C9FFE4FE2942887E00DE106F /* BusinessCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				C99B7B9B2943BC2600F0F8FD /* DetailView.swift */,
+				C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */,
+				C9D0F0322944218700EF3174 /* BusinessDetails.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -248,12 +254,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C909022E293AC8440050E808 /* CGFloat.swift in Sources */,
+				C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */,
 				C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */,
 				C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */,
 				C9090234293AC9DE0050E808 /* Images.swift in Sources */,
 				C9090213293AB2320050E808 /* PermissionView.swift in Sources */,
 				C9E2AB65294238050001270B /* CategoryView.swift in Sources */,
 				C909022C293AC76B0050E808 /* HomeView.swift in Sources */,
+				C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */,
 				C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */,
 				C9090236293ACA4E0050E808 /* String.swift in Sources */,
 				C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */,
