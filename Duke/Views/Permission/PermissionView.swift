@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PermissionView: View {
     @State private var isAnimating: Bool = false
+    let action : () -> Void
     
     var animation : Animation {
         .interpolatingSpring(stiffness: 0.5, damping: 0.5)
@@ -62,6 +63,6 @@ struct PermissionView: View {
 
 struct PermissionView_Previews: PreviewProvider {
     static var previews: some View {
-        PermissionView()
+        PermissionView() {}
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import MapKit
+import ExtensionKit
 
 final class HomeViewModel: ObservableObject {
     @Published var businesses = [Business]()
@@ -15,29 +16,60 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedCategory: FoodCategory
     @Published var region : MKCoordinateRegion
     @Published var businessDetails : BusinessDetails?
+    @Published var status :  CLAuthorizationStatus
+    @Published var cityName : String = ""
+    
+    let manager = CLLocationManager()
     
     init() {
         searchText = ""
         selectedCategory = .all
         region = .init()
         businessDetails = nil //initialized as nil until fetched from API
+        status = manager.authorizationStatus
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters //using best accuracy location in computationally expensive and battery intensive
         
         request()
     }
     
+    //using methods from ExtensionKit to leverage Combine to provide AuthorizationStatus publisher and avoid implementing a delegate pattern
+    func requestPermission() {
+        manager
+            .requestLocationWhenInUseAuthorization()
+            .assign(to: &$status)
+    }
+    
+    func getLocation () -> AnyPublisher<CLLocation, Never> {
+        manager.receiveLocationUpdates(oneTime: true) //will run when app launches
+            .replaceError(with: [])
+            .compactMap(\.first)
+            .eraseToAnyPublisher()
+    }
+    
     func request (service: YelpAPIService = .live) {
-        //combining search text notifications with notifications from the selected category
+        let location = getLocation().share()
+        
+        //combining search text notifications with notifications from the selected category & location
         $searchText
-            .combineLatest($selectedCategory)
-        //transforming htese 2 publishers (tuple) into a search request
-            .flatMap { (term, category) in
+            .combineLatest($selectedCategory, location)
+        //transforming publishers (tuple) into a search request
+            .flatMap { (term, category, location) in
                 service.request(
                     .search(
                         searchTerm: term,
-                        location: .init(latitude: 42.3601, longitude: -71.0589),
+                        location: location,
                         category: (term.isEmpty || term.isBlank) ? category : nil)) //should try adding or condition for isBlank
             }
             .assign(to: &$businesses)
+        
+        location
+            .flatMap {
+                $0.reverseGeocode()
+            }
+            .compactMap(\.first)
+            .compactMap(\.locality)
+            .replaceError(with: "Loading...")
+            .assign(to: &$cityName)
     }
     
     func requestDetails(forID id : String) {
