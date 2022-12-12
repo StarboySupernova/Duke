@@ -16,9 +16,9 @@
 		C9090234293AC9DE0050E808 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9090233293AC9DE0050E808 /* Images.swift */; };
 		C9090236293ACA4E0050E808 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9090235293ACA4E0050E808 /* String.swift */; };
 		C9090242293AD3FE0050E808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9090241293AD3FE0050E808 /* Assets.xcassets */; };
-		C9090245293AD7CA0050E808 /* ExtensionKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9090244293AD7CA0050E808 /* ExtensionKit */; };
 		C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9B2943BC2600F0F8FD /* DetailView.swift */; };
 		C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */; };
+		C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9C39ABC2947D9F70036874D /* ExtensionKit */; };
 		C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */; };
 		C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0F0322944218700EF3174 /* BusinessDetails.swift */; };
 		C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB62294232450001270B /* HomeViewModel.swift */; };
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9090245293AD7CA0050E808 /* ExtensionKit in Frameworks */,
+				C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +208,7 @@
 			);
 			name = Duke;
 			packageProductDependencies = (
-				C9090244293AD7CA0050E808 /* ExtensionKit */,
+				C9C39ABC2947D9F70036874D /* ExtensionKit */,
 			);
 			productName = Duke;
 			productReference = C909020D293AB2320050E808 /* Duke.app */;
@@ -240,6 +240,7 @@
 			mainGroup = C9090204293AB2320050E808;
 			packageReferences = (
 				C9090243293AD7CA0050E808 /* XCRemoteSwiftPackageReference "ExtensionKit" */,
+				C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */,
 			);
 			productRefGroup = C909020E293AB2320050E808 /* Products */;
 			projectDirPath = "";
@@ -495,12 +496,20 @@
 				kind = branch;
 			};
 		};
+		C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StarboySupernova/ExtensionKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C9090244293AD7CA0050E808 /* ExtensionKit */ = {
+		C9C39ABC2947D9F70036874D /* ExtensionKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C9090243293AD7CA0050E808 /* XCRemoteSwiftPackageReference "ExtensionKit" */;
+			package = C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */;
 			productName = ExtensionKit;
 		};
 /* End XCSwiftPackageProductDependency section */
