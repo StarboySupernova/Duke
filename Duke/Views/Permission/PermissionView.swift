@@ -35,6 +35,7 @@ struct PermissionView: View {
                 Text("Duke")
                     .font(.largeTitle)
                     .fontWeight(.ultraLight)
+                    .padding(.bottom, .large)
                 
                 Text("Event Search Companion App")
                     .font(.headline)
@@ -42,9 +43,9 @@ struct PermissionView: View {
                 Spacer()
                 
                 Button {
-                    
+                    action()
                 } label: {
-                    Text("Get Started")
+                    Text(L10n.getStarted)
                         .bold()
                 }
                 .padding()
@@ -52,6 +53,7 @@ struct PermissionView: View {
                 .background(Color.black)
                 .cornerRadius(15)
                 .shadow(radius: 10)
+                .modifier(ShadowModifier())
                 .foregroundColor(.white)
             }
         }

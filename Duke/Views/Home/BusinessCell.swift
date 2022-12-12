@@ -35,6 +35,10 @@ struct BusinessCell: View {
             
             Spacer()
         }
+        .padding(.small)
+        .background(Color.white)
+        .cornerRadius(.large)
+        .modifier(ShadowModifier())
     }
 }
 

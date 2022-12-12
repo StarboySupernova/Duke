@@ -25,7 +25,9 @@ struct CategoryView: View {
         .padding(.horizontal, .medium)
         .background(selectedCategory == category ? Color.red : Color.white)
         .cornerRadius(20)
-        .shadow(radius: 4)
+        .padding(.top, .small)
+        .padding(.bottom, .large)
+        .modifier(ShadowModifier())
         .foregroundColor(.black)
     }
 }

@@ -17,7 +17,9 @@ struct DetailView: View {
             Rectangle() //note to self - alignment has no effect when this is a Spacer
                 .fill(Color.teal.opacity(0.1))
             
-            Map(coordinateRegion: $viewModel.region)
+            Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.businessDetails != nil ? viewModel.businessDetails!.mapItems : []) {
+                MapMarker(coordinate: $0.coordinate, tint: .teal)
+            }
                 .frame(height: UIScreen.main.bounds.height * 0.45)
         }
         .overlay (

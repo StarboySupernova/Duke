@@ -19,6 +19,7 @@ struct YelpAPIService {
     //AnyPublisher is output leveraged to update ListView
     var request : (EndPoint) -> AnyPublisher<[Business], Never>
     var detailRequest : (EndPoint) -> AnyPublisher<BusinessDetails?, Never>
+    var completion : (EndPoint) -> AnyPublisher<[Term], Never>
 }
 
 extension YelpAPIService {
@@ -39,13 +40,23 @@ extension YelpAPIService {
             .replaceError(with: nil) //we might possibly get nil result
             .receive(on: DispatchQueue.main) //iffy here, may freeze up app UI if this takes too long
             .eraseToAnyPublisher()
-    })
+    }) { endpoint in
+        //URL request and return completions
+        return URLSession.shared.dataTaskPublisher(for: endpoint.request)
+            .map(\.data) //should find a way to use response here for error handling
+            .decode(type: Completions.self, decoder: JSONDecoder())
+            .map(\.terms)
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main) //iffy here, may freeze up app UI if this takes too long
+            .eraseToAnyPublisher()
+    }
 }
 
 //should refactor and move into seperate files
 enum EndPoint {
     case search(searchTerm: String?, location: CLLocation, category: FoodCategory?)
     case detail(id: String)
+    case completion(text: String, location : CLLocation)
     
     var path: String {
         switch self {
@@ -53,6 +64,8 @@ enum EndPoint {
             return "/v3/businesses/search"
         case .detail(let id):
             return "/v3/businesses/\(id)"
+        case .completion :
+            return "/v3/autocomplete"
         }
     }
     
@@ -70,6 +83,12 @@ enum EndPoint {
         case .detail:
             //returning empty array here because all that's required is the id
             return []
+        case .completion(let text, let location) :
+            return [
+                .init(name: "text", value: text),
+                .init(name: "longitude", value: String(location.coordinate.longitude)),
+                .init(name: "latitude", value: String(location.coordinate.latitude)),
+            ]
         }
     }
     
@@ -111,7 +130,7 @@ struct Business: Codable {
     let rating, reviewCount: Double?
     let transactions: [String]?
     let url: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case alias, categories, coordinates
         case displayPhone = "display_phone"
@@ -152,6 +171,7 @@ extension Business {
         
         return nil
     }
+    
 }
 
 // MARK: - Category
@@ -170,7 +190,7 @@ struct Location: Codable {
     let country: String?
     let displayAddress: [String]?
     let state, zipCode: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case address1, address2, address3, city, country
         case displayAddress = "display_address"

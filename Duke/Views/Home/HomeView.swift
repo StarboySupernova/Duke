@@ -16,9 +16,9 @@ struct HomeView: View {
             VStack {
                 //Category
                 Group {
-                    Text("Categories")
+                    Text(L10n.categories)
                         .bold()
-                        .padding(.leading, .large)
+                        .padding(.top, .small)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(FoodCategory.allCases, id: \.self) { category in
@@ -28,21 +28,39 @@ struct HomeView: View {
                         .padding()
                     }
                 }
+                .padding(.leading, .large)
+
                 //List
                 List(viewModel.businesses, id: \.id){ business in
-                    NavigationLink(destination: DetailView(id: business.id!/*"WavvLdfdP6g8aZTtbBQHTw"*/)) {
+                    NavigationLink(destination: DetailView(id: business.id!)) {
                         BusinessCell(business: business)
                             .listRowSeparator(.hidden)
                     }
                 }
                 .listStyle(.plain)
-                .navigationTitle("Pretoria")
-                .searchable(text: $viewModel.searchText)
+                .navigationTitle(viewModel.cityName)
+                .searchable(text: $viewModel.searchText, prompt: Text(L10n.searchFood)) {
+                    ForEach(viewModel.completions, id : \.self) { completion in
+                        Text(completion).searchCompletion(completion)
+                    }
+                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Image(systemName: "person")
                     }
                 }
+                .safeAreaInset(edge: .bottom) {
+                    Rectangle()
+                        .fill(LinearGradient(colors: [.white, .white.opacity(0)], startPoint: .bottom, endPoint: .top))
+                        .frame(height: 90)
+                }
+                .edgesIgnoringSafeArea(.bottom)
+            }
+            .sheet(isPresented: $viewModel.showModal, onDismiss: nil) {
+                PermissionView() {viewModel.requestPermission()}
+            }
+            .onChange(of: viewModel.showModal) { newValue in
+                viewModel.request()
             }
         }
     }

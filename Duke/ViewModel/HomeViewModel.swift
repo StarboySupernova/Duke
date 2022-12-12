@@ -16,8 +16,9 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedCategory: FoodCategory
     @Published var region : MKCoordinateRegion
     @Published var businessDetails : BusinessDetails?
-    @Published var status :  CLAuthorizationStatus
+    @Published var showModal : Bool
     @Published var cityName : String = ""
+    @Published var completions = [String]()
     
     let manager = CLLocationManager()
     
@@ -26,7 +27,7 @@ final class HomeViewModel: ObservableObject {
         selectedCategory = .all
         region = .init()
         businessDetails = nil //initialized as nil until fetched from API
-        status = manager.authorizationStatus
+        showModal = manager.authorizationStatus == .notDetermined
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters //using best accuracy location in computationally expensive and battery intensive
         
         request()
@@ -36,7 +37,8 @@ final class HomeViewModel: ObservableObject {
     func requestPermission() {
         manager
             .requestLocationWhenInUseAuthorization()
-            .assign(to: &$status)
+            .map { $0 == .notDetermined } //if this is false, the modal sheet will dismiss
+            .assign(to: &$showModal)
     }
     
     func getLocation () -> AnyPublisher<CLLocation, Never> {
@@ -51,6 +53,7 @@ final class HomeViewModel: ObservableObject {
         
         //combining search text notifications with notifications from the selected category & location
         $searchText
+            .debounce(for: 0.4, scheduler: DispatchQueue.main)
             .combineLatest($selectedCategory, location)
         //transforming publishers (tuple) into a search request
             .flatMap { (term, category, location) in
@@ -70,6 +73,15 @@ final class HomeViewModel: ObservableObject {
             .compactMap(\.locality)
             .replaceError(with: "Loading...")
             .assign(to: &$cityName)
+        
+        $searchText
+            .debounce(for: 0.4, scheduler: DispatchQueue.main)
+            .combineLatest(location)
+            .flatMap { term, location in
+                service.completion(.completion(text: term, location: location))
+            }
+            .map { $0.map(\.text) }
+            .assign(to: &$completions)
     }
     
     func requestDetails(forID id : String) {

@@ -15,30 +15,42 @@ struct DetailCard: View {
             Group {
                 Text(businessDetail.formattedName)
                     .bold()
-                Text(businessDetail.formattedCategory)
+                Text(businessDetail.formattedCategories)
                     .font(.subheadline)
+                    .padding(.bottom, .large)
             }
             
             Group {
                 HStack {
                     Image("map")
-                    Text(businessDetail.formattedAddress)
+                    Button {
+                        navigate()
+                    } label: {
+                        Text(businessDetail.formattedAddress)
+                    }
                     Image("star")
                     Text(businessDetail.formattedRating)
                     Image("money")
                     Text(businessDetail.formattedPrice)
                 }
-                .padding(.bottom, .small)
+                .font(.subheadline)
             }
             
             Group {
                 HStack {
                     Image("clock")
-                    Text("Open")
+                    Text(businessDetail.dayOfTheWeek)
                     Image("phone")
-                    Text(businessDetail.formattedPhoneNumber)
+                    Button {
+                        phone()
+                    } label: {
+                        Text(businessDetail.formattedPhoneNumber)
+                    }
+
                     Spacer() //Spacer affects other groups in same VStack
                 }
+                .font(.subheadline)
+                .padding(.bottom, .large)
             }
             
             Group {
@@ -60,7 +72,18 @@ struct DetailCard: View {
         }
         .padding()
         .padding() //hacky
-        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.6)
+        .background(Color.white)
+        .cornerRadius(20)
+        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.65)
+    }
+    
+    func phone () {
+        UIApplication.shared.openPhone(calling: businessDetail.phone ?? "")
+    }
+    
+    func navigate () {
+        let query : String = "\(businessDetail.coordinates?.latitude ?? 0),\(businessDetail.coordinates?.longitude ?? 0)"
+        UIApplication.shared.openExternalMapApp(query: query)
     }
 }
 
@@ -68,8 +91,6 @@ struct DetailCard: View {
 struct DetailCard_Previews: PreviewProvider {
     static var previews: some View {
         DetailCard(businessDetail: .init(id: nil, alias: nil, name: "Sweetgreen", imageURL: "https://loremflickr.com/g/620/440/paris", isClaimed: nil, isClosed: nil, url: nil, phone: nil, displayPhone: "(555) 895-007", reviewCount: nil, categories: [.init(alias: nil, title: "Cafe")], rating: 4.5, location: nil, coordinates: nil, photos: ["https://loremflickr.com/g/620/440/paris", "https://loremflickr.com/g/620/440/paris"], price: "$", hours: nil, transactions: nil))
-        //DetailCard(businessDetail: BusinessDetails(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClaimed: nil, isClosed: nil, dateOpened: nil, dateClosed: nil, location: nil, name: "Blue bottle", phone: nil, photos: ["https://loremflickr.com/g/620/440/paris", "https://loremflickr.com/g/620/440/paris"], price: nil, rating: 4.5, reviewCount: nil, hours: nil, specialHours: nil, transactions: nil, url: nil, attributes: nil, messaging: nil))
-        //DetailCard(business: Business(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Blue bottle", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil))
     }
 }
 
