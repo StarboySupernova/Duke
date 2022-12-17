@@ -21,7 +21,7 @@ struct PermissionView: View {
         GeometryReader { geometry in
             VStack {
                 ZStack {
-                    ForEach(1..<14) { index in
+                    ForEach(1..<14, id: \.self) { index in
                         Image("food\(index % 7)")
                         //self positioning through geometry bounds
                             .position(x: .random(in: 0...geometry.size.width),
@@ -41,7 +41,7 @@ struct PermissionView: View {
                     .font(.headline)
                 
                 Spacer()
-                
+                                
                 Button {
                     action()
                 } label: {
@@ -57,6 +57,7 @@ struct PermissionView: View {
                 .foregroundColor(.white)
             }
         }
+        .background(Color("background"))
         .onAppear {
             isAnimating.toggle()
         }
@@ -66,5 +67,6 @@ struct PermissionView: View {
 struct PermissionView_Previews: PreviewProvider {
     static var previews: some View {
         PermissionView() {}
+            .preferredColorScheme(.dark)
     }
 }

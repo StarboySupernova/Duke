@@ -23,17 +23,21 @@ struct CategoryView: View {
         }
         .padding(.small)
         .padding(.horizontal, .medium)
-        .background(selectedCategory == category ? Color.red : Color.white)
+        .background(selectedCategory == category ? Color.black : Color.white)
         .cornerRadius(20)
         .padding(.top, .small)
         .padding(.bottom, .large)
-        .modifier(ShadowModifier())
-        .foregroundColor(.black)
+        .foregroundColor(selectedCategory == category ? Color.white : Color.black)
+        .if(selectedCategory == category) { view in
+            view
+                .buttonStyle(CapsuleButtonStyle())
+        }
     }
 }
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryView(selectedCategory: .constant(.coffee), category: .coffee)
+            .preferredColorScheme(.dark)
     }
 }

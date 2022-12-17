@@ -32,13 +32,14 @@ struct BusinessCell: View {
                     Image("star")
                 }
             }
+            .foregroundColor(.white)
             
             Spacer()
         }
         .padding(.small)
-        .background(Color.white)
+        .background(Color.black)
         .cornerRadius(.large)
-        .modifier(ShadowModifier())
+        .modifier(CompactConvexGlassView())
     }
 }
 
@@ -46,6 +47,7 @@ struct BusinessCell: View {
 struct BusinessCell_Previews: PreviewProvider {
     static var previews: some View {
         BusinessCell(business: Business(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Blue bottle", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil))
+            .preferredColorScheme(.dark)
     }
 }
 

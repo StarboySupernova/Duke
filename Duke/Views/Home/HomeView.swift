@@ -42,20 +42,28 @@ struct HomeView: View {
                 .searchable(text: $viewModel.searchText, prompt: Text(L10n.searchFood)) {
                     ForEach(viewModel.completions, id : \.self) { completion in
                         Text(completion).searchCompletion(completion)
+                            .foregroundColor(Color.white)
                     }
+                    .modifier(ConcaveGlassView())
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Image(systemName: "person")
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "person")
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
                     }
                 }
                 .safeAreaInset(edge: .bottom) {
                     Rectangle()
-                        .fill(LinearGradient(colors: [.white, .white.opacity(0)], startPoint: .bottom, endPoint: .top))
+                        .fill(LinearGradient(colors: [Color("Launchscreen-background"), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
                         .frame(height: 90)
                 }
                 .edgesIgnoringSafeArea(.bottom)
             }
+            .background(Color.black)
             .sheet(isPresented: $viewModel.showModal, onDismiss: nil) {
                 PermissionView() {viewModel.requestPermission()}
             }
@@ -70,5 +78,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(HomeViewModel())
+            .preferredColorScheme(.dark)
     }
 }

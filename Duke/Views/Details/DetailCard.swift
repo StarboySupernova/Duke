@@ -66,13 +66,13 @@ struct DetailCard: View {
                     }
                 }
                 .frame(height: 250)
-                .cornerRadius(.large)
+                .clipShape(RoundedCorner(radius: 30, corners: [.topLeft, .bottomRight]))
                 .tabViewStyle(.page)
             }
         }
         .padding()
         .padding() //hacky
-        .background(Color.white)
+        .background(LinearGradient(mycolors: Color("background"), Color.black, .black, Color("background")))
         .cornerRadius(20)
         .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.65)
     }
@@ -91,6 +91,7 @@ struct DetailCard: View {
 struct DetailCard_Previews: PreviewProvider {
     static var previews: some View {
         DetailCard(businessDetail: .init(id: nil, alias: nil, name: "Sweetgreen", imageURL: "https://loremflickr.com/g/620/440/paris", isClaimed: nil, isClosed: nil, url: nil, phone: nil, displayPhone: "(555) 895-007", reviewCount: nil, categories: [.init(alias: nil, title: "Cafe")], rating: 4.5, location: nil, coordinates: nil, photos: ["https://loremflickr.com/g/620/440/paris", "https://loremflickr.com/g/620/440/paris"], price: "$", hours: nil, transactions: nil))
+            .preferredColorScheme(.dark)
     }
 }
 
