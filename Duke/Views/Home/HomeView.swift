@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var viewModel: HomeViewModel
+    @State private var showLogin: Bool = false
     
     var body: some View {
         NavigationView { //should replace these with ZStacks since NavigationViews are still unstable
@@ -49,7 +50,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            
+                            showLogin.toggle()
                         } label: {
                             Image(systemName: "person")
                         }
@@ -67,6 +68,11 @@ struct HomeView: View {
             .sheet(isPresented: $viewModel.showModal, onDismiss: nil) {
                 PermissionView() {viewModel.requestPermission()}
             }
+            .sheet(isPresented: $showLogin, onDismiss: {
+                showLogin = false
+            }, content: {
+                //login screen comes here
+            })
             .onChange(of: viewModel.showModal) { newValue in
                 viewModel.request()
             }
