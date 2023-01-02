@@ -71,7 +71,7 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showLogin, onDismiss: {
                 showLogin = false
             }, content: {
-                //login screen comes here
+                //login screen will come here
             })
             .onChange(of: viewModel.showModal) { newValue in
                 viewModel.request()
