@@ -68,7 +68,7 @@ struct HomeView: View {
             .sheet(isPresented: $viewModel.showModal, onDismiss: nil) {
                 PermissionView() {viewModel.requestPermission()}
             }
-            .sheet(isPresented: $showLogin, onDismiss: {
+            .fullScreenCover(isPresented: $showLogin, onDismiss: {
                 showLogin = false
             }, content: {
                 //login screen comes here
