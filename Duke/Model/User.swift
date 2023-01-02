@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct InternalUser: Identifiable, Codable {
+struct User: Identifiable, Codable {
     @DocumentID var id : String?
     var userName: String
     var userBio : String //substitution for userBio

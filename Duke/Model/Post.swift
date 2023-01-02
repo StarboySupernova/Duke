@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct InternalPost: Identifiable, Codable, Equatable, Hashable {
+struct Post: Identifiable, Codable, Equatable, Hashable {
     @DocumentID var id: String?
     var text: String
     var imageURL: URL?
