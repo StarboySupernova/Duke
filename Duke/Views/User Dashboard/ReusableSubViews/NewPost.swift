@@ -47,23 +47,25 @@ struct NewPost: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, .large)
                         .padding(.vertical, .medium)
-                        .background(.black, in: Capsule())
+                        .background(.pink, in: Capsule())
                 }
                 .disableWithOpacity(postVM.postText == "")
             }
             .padding(.horizontal, .large)
             .padding(.vertical, .medium)
-            /*.background {
+            .background (
                 Rectangle()
                     .fill(.gray.opacity(0.05))
                     .ignoresSafeArea()
-            }*/
+            )
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     if #available(iOS 16.0, *) {
                         TextField("What's New", text: $postVM.postText, axis: .vertical)
                             .focused($showKeyboard)
+                            .padding(postVM.postText.isEmpty ? .xLarge : 0)
+                            .paddedBorder(.white, 1)
                     } else {
                         // Fallback on earlier versions
                     }
@@ -106,11 +108,13 @@ struct NewPost: View {
                 }
                 .horizontalAlign(.leading)
                 
-                Button("Done") {
+                Button {
                     showKeyboard = false
+                } label: {
+                    Text("Hide Keyboard")
                 }
             }
-            .foregroundColor(.black)
+            .foregroundColor(.white)
             .padding(.horizontal, .large)
             .padding(.vertical, 10)
         }
@@ -146,5 +150,6 @@ struct NewPost_Previews: PreviewProvider {
             
         }
         .environmentObject(PostViewModel())
+        .preferredColorScheme(.dark)
     }
 }

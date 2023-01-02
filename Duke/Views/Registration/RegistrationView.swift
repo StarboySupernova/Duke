@@ -30,14 +30,14 @@ struct RegistrationView: View {
             
             HStack {
                 Text("Already have an account?")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                 
                 Button {
                     dismiss()
                 } label: {
                     Text("Login Now")
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.pink)
                 }
 
             }
@@ -63,7 +63,7 @@ struct RegistrationView: View {
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
                         .background(
-                            Color(.black)
+                            Color("unicorn")
                                 .opacity(0.1)
                                 .customCornerRadius(20, corners: [.topLeft, .bottomRight])
                                 .glow(color: .green.opacity(0.02), radius: 1)
@@ -76,7 +76,7 @@ struct RegistrationView: View {
                     Image(systemName: "person.badge.plus")
                         .renderingMode(.original)
                         .resizable()
-                        .foregroundColor(Color.customOrange)
+                        .foregroundColor(Color.white)
                         .scaledToFill()
                         .frame(width: 150, height: 150)
                         .clipShape(Rectangle())
@@ -113,18 +113,19 @@ struct RegistrationView: View {
                 .textContentType(.newPassword)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            /* Available iOS 16 and later
-            TextField("About You", text: $jobTitle, axis: .vertical)
-                .frame(minHeight: 100, alignment: .top)
-                .textContentType(.emailAddress)
-                .border(.gray.opacity(0.5), 1)
-            */
-                            
-            TextField("A little about Yourself(Optional)", text: $userVM.userBio)
-                .textContentType(.jobTitle)
-                .paddedBorder(.gray.opacity(0.5), 1)
+            if #available(iOS 16.0, *) {
+                TextField("A little about Yourself (Optional)", text: $userVM.userBio, axis: .vertical)
+                    .frame(minHeight: 100, alignment: .top)
+                    .textContentType(.emailAddress)
+                    .paddedBorder(.gray.opacity(0.5), 1)
+            } else {
+                // Fallback on earlier versions
+                TextField("A little about Yourself (Optional)", text: $userVM.userBio)
+                    .textContentType(.jobTitle)
+                    .paddedBorder(.gray.opacity(0.5), 1)
+            }
             
-            TextField("Link to Bio(Optional)", text: $userVM.userBioLink)
+            TextField("Link to Bio (Optional)", text: $userVM.userBioLink)
                 .textContentType(.URL)
                 .paddedBorder(.gray.opacity(0.5), 1)
                             
@@ -138,9 +139,9 @@ struct RegistrationView: View {
                 Text("Sign Up")
                     .foregroundColor(.white)
                     .horizontalAlign(.center)
-                    .fillView(.black)
+                    .fillView(.pink)
             }
-            .disableWithOpacity(userVM.userName == "" || userVM.email == "" || userVM.userBio == "" || userVM.password == "")
+            .disableWithOpacity(userVM.userName == "" || userVM.email == "" || userVM.password == "")
             .padding(.top, .medium)
         }
     }
@@ -150,5 +151,6 @@ struct InternalRegisterView_Previews: PreviewProvider {
     static var previews: some View {
         RegistrationView()
             .environmentObject(UserViewModel())
+            .preferredColorScheme(.dark)
     }
 }

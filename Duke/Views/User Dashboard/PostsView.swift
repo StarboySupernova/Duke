@@ -24,7 +24,7 @@ struct PostsView: View {
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .padding(.large)
-                                .background(.black, in: Circle())
+                                .background(.pink, in: Circle())
                         }
                         .padding(.large)
                     }
@@ -34,13 +34,13 @@ struct PostsView: View {
                                 SearchUserView()
                             } label: {
                                 Image(systemName: "magnifyingglass")
-                                    .tint(.black)
+                                    .tint(.pink)
                                     .scaleEffect(0.9)
                             }
 
                         }
                     })
-                    .navigationTitle("Posts")
+                    .navigationTitle("Feed")
             }
             .fullScreenCover(isPresented: $createNewPost) {
                 createNewPost = false
@@ -61,5 +61,6 @@ struct PostsView: View {
 struct PostsView_Previews: PreviewProvider {
     static var previews: some View {
         PostsView()
+            .preferredColorScheme(.dark)
     }
 }

@@ -10,7 +10,6 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var loginVM : UserViewModel
     //Profile Data
-    //@State private var myProfile: InternalUser?
     @State private var isLoading: Bool = false //rename to processing
     var body: some View {
         if #available(iOS 16.0, *) {
@@ -22,7 +21,6 @@ struct ProfileView: View {
                                 loginVM.myProfile = nil
                                 do {
                                     try await loginVM.fetchUser()
-                                    //myProfile = intraLoginVM.myProfile! //this code after try runs if no error is caught, hence it is safe to unwrap here
                                 } catch {
                                     await setError(error)
                                 }
@@ -42,6 +40,7 @@ struct ProfileView: View {
                                 isLoading = false
                             } label: {
                                 Text("Logout")
+                                    .foregroundColor(.white)
                             }
                             
                             Button(role: .destructive) {
@@ -55,7 +54,7 @@ struct ProfileView: View {
                         } label: {
                             Image(systemName: "ellipsis")
                                 .rotationEffect(.init(degrees: 90))
-                                .tint(.black)
+                                .tint(.white)
                                 .scaleEffect(0.8)
                         }
                     }
@@ -71,7 +70,6 @@ struct ProfileView: View {
                 }
                 do  {
                     try await loginVM.fetchUser()
-                    //myProfile = intraLoginVM.myProfile //this code after try runs if no error is caught, hence it is safe to unwrap here
                 } catch {
                     await setError(error)
                 }
@@ -98,7 +96,7 @@ struct ProfileView: View {
                         
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                             .rotationEffect(.init(degrees: 90))
                             .font(.system(size: 20, weight: .bold))
                             .frame(height: 30)
@@ -115,5 +113,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .environmentObject(UserViewModel())
+            .preferredColorScheme(.dark)
     }
 }

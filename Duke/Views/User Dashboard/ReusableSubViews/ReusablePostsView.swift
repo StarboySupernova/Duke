@@ -24,8 +24,9 @@ struct ReusablePostsView: View {
                         .padding(.top, .xxLarge)
                 } else {
                     if posts.isEmpty {
-                        Text("No Posts Found")
+                        Text("Feed empty, and waiting for you. Create new content now")
                             .font(.callout)
+                            .multilineTextAlignment(.center)
                             .foregroundColor(.gray)
                             .padding(.top, .xxLarge)
                     } else {
@@ -111,9 +112,9 @@ struct ReusablePostsView: View {
             let docs = try await query.getDocuments()
             let fetchedPosts = try docs.documents.compactMap { document -> Post in
                 try document.data(as: Post.self)
-            } //iffy
+            } 
             
-            //saving last fetched dco so that it can be used for pagination in Firestore
+            //saving last fetched doc so that it can be used for pagination in Firestore
             await MainActor.run(body: {
                 posts.append(contentsOf: fetchedPosts)
                 paginationDoc = docs.documents.last
@@ -128,5 +129,6 @@ struct ReusablePostsView: View {
 struct ReusablePostsView_Previews: PreviewProvider {
     static var previews: some View {
         PostsView()
+            .preferredColorScheme(.dark)
     }
 }

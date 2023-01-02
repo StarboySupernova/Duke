@@ -25,7 +25,7 @@ struct LoginContainerView: View {
                         Text("Profile")
                     }
             }
-            .tint(.black)
+            .tint(.pink)
         } else {
             LoginView()
         }
@@ -35,5 +35,7 @@ struct LoginContainerView: View {
 struct LoginContainerView_Previews: PreviewProvider {
     static var previews: some View {
         LoginContainerView()
+            .preferredColorScheme(.dark)
+            .environmentObject(UserViewModel())
     }
 }

@@ -67,7 +67,7 @@ struct UserPostCardView: View {
                     Image(systemName: "ellipsis")
                         .font(.caption)
                         .rotationEffect(.init(degrees: -90))
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .padding(.medium)
                         .contentShape(Rectangle())
                 }
@@ -113,17 +113,17 @@ struct UserPostCardView: View {
     @ViewBuilder func InternalPostInteraction() -> some View {
         HStack(spacing: .small) {
             Button {
-                likePost()
+                upvote()
             } label: {
                 Image(systemName: post.upvoteIDs.contains(UserDefaults.standard.string(forKey: "user_id")!) ? "hand.thumbsup.fill": "hand.thumbsup")
             }
             
             Text("\(post.upvoteIDs.count)")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.green)
 
             Button {
-                dislikePost()
+                downVote()
             } label: {
                 Image(systemName: post.downvoteIDs.contains(UserDefaults.standard.string(forKey: "user_id")!) ? "hand.thumbsdown.fill" : "hand.thumbsdown")
             }
@@ -131,16 +131,16 @@ struct UserPostCardView: View {
             
             Text("\(post.downvoteIDs.count)")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.red)
         }
-        .foregroundColor(.black)
+        .foregroundColor(.white)
         .padding(.vertical, .medium)
     }
     
     //should find a way to use this while following MVVM
     //make these guard conditions at global scope so that these views will not used if the guard fails
     //should changed to upvote
-    func likePost() {
+    func upvote() {
         Task {
             //functionality to allow removing an upvote from a post if it had previously been upvoted
             guard let postID = post.id else {
@@ -165,7 +165,7 @@ struct UserPostCardView: View {
         }
     }
     
-    func dislikePost() {
+    func downVote() {
         Task {
             //functionality to allow removing an upvote from a post if it had previously been upvoted
             guard let postID = post.id else {
@@ -198,7 +198,7 @@ struct UserPostCardView: View {
         Task {
             //step 1 - delete image from firebase storage
             do {
-                guard let userUID = UserDefaults.standard.string(forKey: "internal_user_id") else {
+                guard let userUID = UserDefaults.standard.string(forKey: "user_id") else {
                     showErrorAlertView("Error", "Login Initialisation Error", handler: {})
                     return
                 }
@@ -210,7 +210,7 @@ struct UserPostCardView: View {
                     showErrorAlertView("Error", "Something went wrong with initalising this missive", handler: {})
                     return
                 }
-                try await Firestore.firestore().collection("Internal_Posts").document(postID).delete()
+                try await Firestore.firestore().collection("Posts").document(postID).delete()
             } catch {
                 await setError(error)
             }

@@ -54,7 +54,7 @@ struct LoginView: View {
                     Text("Sign In")
                         .foregroundColor(.white)
                         .horizontalAlign(.center)
-                        .fillView(.black)
+                        .fillView(.pink)
                 }
                 .padding(.top, .medium)
                 
@@ -62,14 +62,14 @@ struct LoginView: View {
             
             HStack {
                 Text("Don't have an account?")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                 
                 Button {
                     createAccount.toggle()
                 } label: {
                     Text("Register Now")
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.pink)
                 }
                 
             }
@@ -91,6 +91,7 @@ struct InternalLoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .environmentObject(UserViewModel())
+            .preferredColorScheme(.dark)
     }
 }
 
@@ -123,10 +124,10 @@ extension View {
         self
             .padding(.horizontal, .large)
             .padding(.vertical, .medium)
-        /*.background {
-         RoundedRectangle(cornerRadius: 5, style: .continuous)
-         .stroke(color, lineWidth: linewidth)
-         }*/
+            .background (
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(color, lineWidth: linewidth)
+            )
     }
     
     //MARK: Custom Filling View
@@ -134,10 +135,10 @@ extension View {
         self
             .padding(.horizontal, .large)
             .padding(.vertical, .medium)
-        /*.background {
-         RoundedRectangle(cornerRadius: 5, style: .continuous)
-         .fill(color)
-         }*/
+            .background (
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .fill(color)
+            )
     }
     
 }
