@@ -25,6 +25,19 @@
 		C96B70702962B4AE009B3444 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706F2962B4AE009B3444 /* FirebaseStorage */; };
 		C96B70742962C1AD009B3444 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70732962C1AD009B3444 /* User.swift */; };
 		C96B70762962C238009B3444 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70752962C238009B3444 /* Post.swift */; };
+		C96B70792962C97B009B3444 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70782962C97B009B3444 /* PostsView.swift */; };
+		C96B707B2962CA7B009B3444 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B707A2962CA7B009B3444 /* ProfileView.swift */; };
+		C96B707D2962CB61009B3444 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B707C2962CB61009B3444 /* LoginView.swift */; };
+		C96B70802962CDF8009B3444 /* ReusablePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B707F2962CDF8009B3444 /* ReusablePostsView.swift */; };
+		C96B70822962CFDB009B3444 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70812962CFDB009B3444 /* SearchUserView.swift */; };
+		C96B70842962D0F3009B3444 /* NewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70832962D0F3009B3444 /* NewPost.swift */; };
+		C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70852962D21A009B3444 /* PostViewModel.swift */; };
+		C96B70882962D933009B3444 /* ReusableProfileContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70872962D933009B3444 /* ReusableProfileContent.swift */; };
+		C96B708A2962DAC0009B3444 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70892962DAC0009B3444 /* LoadingView.swift */; };
+		C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B708C2962DD74009B3444 /* PhotoPicker.swift */; };
+		C96B70902962E711009B3444 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C96B708F2962E711009B3444 /* SDWebImageSwiftUI */; };
+		C96B70922962E785009B3444 /* UserPostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70912962E785009B3444 /* UserPostCardView.swift */; };
+		C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70942962F6E1009B3444 /* RegistrationView.swift */; };
 		C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9B2943BC2600F0F8FD /* DetailView.swift */; };
 		C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */; };
 		C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9C39ABC2947D9F70036874D /* ExtensionKit */; };
@@ -77,6 +90,18 @@
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C96B70732962C1AD009B3444 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C96B70752962C238009B3444 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		C96B70782962C97B009B3444 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
+		C96B707A2962CA7B009B3444 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C96B707C2962CB61009B3444 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C96B707F2962CDF8009B3444 /* ReusablePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePostsView.swift; sourceTree = "<group>"; };
+		C96B70812962CFDB009B3444 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
+		C96B70832962D0F3009B3444 /* NewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPost.swift; sourceTree = "<group>"; };
+		C96B70852962D21A009B3444 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		C96B70872962D933009B3444 /* ReusableProfileContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProfileContent.swift; sourceTree = "<group>"; };
+		C96B70892962DAC0009B3444 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C96B708C2962DD74009B3444 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		C96B70912962E785009B3444 /* UserPostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCardView.swift; sourceTree = "<group>"; };
+		C96B70942962F6E1009B3444 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C99B7B9B2943BC2600F0F8FD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCard.swift; sourceTree = "<group>"; };
 		C9C39AC62947EB200036874D /* AnimatableGradientModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableGradientModifier.swift; sourceTree = "<group>"; };
@@ -117,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96B70902962E711009B3444 /* SDWebImageSwiftUI in Frameworks */,
 				C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */,
 				C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */,
 				C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */,
@@ -147,6 +173,7 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
+				C96B708B2962DD59009B3444 /* Components */,
 				C96B70722962C188009B3444 /* Model */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
@@ -222,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				C937A1FB2962222B00B36856 /* LoginContainerView.swift */,
+				C96B707C2962CB61009B3444 /* LoginView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -233,6 +261,44 @@
 				C96B70752962C238009B3444 /* Post.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C96B70772962C948009B3444 /* User Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				C96B707E2962CDD3009B3444 /* ReusableSubViews */,
+				C96B70782962C97B009B3444 /* PostsView.swift */,
+				C96B707A2962CA7B009B3444 /* ProfileView.swift */,
+				C96B70812962CFDB009B3444 /* SearchUserView.swift */,
+			);
+			path = "User Dashboard";
+			sourceTree = "<group>";
+		};
+		C96B707E2962CDD3009B3444 /* ReusableSubViews */ = {
+			isa = PBXGroup;
+			children = (
+				C96B707F2962CDF8009B3444 /* ReusablePostsView.swift */,
+				C96B70872962D933009B3444 /* ReusableProfileContent.swift */,
+				C96B70832962D0F3009B3444 /* NewPost.swift */,
+				C96B70912962E785009B3444 /* UserPostCardView.swift */,
+			);
+			path = ReusableSubViews;
+			sourceTree = "<group>";
+		};
+		C96B708B2962DD59009B3444 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C96B708C2962DD74009B3444 /* PhotoPicker.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C96B70932962F6AC009B3444 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				C96B70942962F6E1009B3444 /* RegistrationView.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		C99B7B9A2943BC1200F0F8FD /* Details */ = {
@@ -297,6 +363,7 @@
 			children = (
 				C9E2AB62294232450001270B /* HomeViewModel.swift */,
 				C937A1FD296223A400B36856 /* UserViewModel.swift */,
+				C96B70852962D21A009B3444 /* PostViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -318,10 +385,13 @@
 		C9FFE4FD294286D300DE106F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C96B70932962F6AC009B3444 /* Registration */,
+				C96B70772962C948009B3444 /* User Dashboard */,
 				C937A1FA2962211500B36856 /* Login */,
 				C99B7B9A2943BC1200F0F8FD /* Details */,
 				C9090230293AC93B0050E808 /* Home */,
 				C909022A293AC6830050E808 /* Permission */,
+				C96B70892962DAC0009B3444 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,6 +418,7 @@
 				C96B706B2962B4AE009B3444 /* FirebaseFirestore */,
 				C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */,
 				C96B706F2962B4AE009B3444 /* FirebaseStorage */,
+				C96B708F2962E711009B3444 /* SDWebImageSwiftUI */,
 			);
 			productName = Duke;
 			productReference = C909020D293AB2320050E808 /* Duke.app */;
@@ -381,6 +452,7 @@
 				C9090243293AD7CA0050E808 /* XCRemoteSwiftPackageReference "ExtensionKit" */,
 				C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */,
 				C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = C909020E293AB2320050E808 /* Products */;
 			projectDirPath = "";
@@ -415,25 +487,35 @@
 				C9C39AF42947EDD10036874D /* ExtensionOnLinearGradient.swift in Sources */,
 				C9C39ACE2947EB200036874D /* OffsetModifier.swift in Sources */,
 				C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */,
+				C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
+				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,
 				C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */,
 				C9C39AF72947EDD10036874D /* ExtensionOnView.swift in Sources */,
 				C9C39ADA2947EB960036874D /* Helper Methods.swift in Sources */,
+				C96B70822962CFDB009B3444 /* SearchUserView.swift in Sources */,
 				C9C39AD62947EB490036874D /* Backgrounds.swift in Sources */,
+				C96B708A2962DAC0009B3444 /* LoadingView.swift in Sources */,
 				C9C39AF92947EDD10036874D /* HardwareScreenSize.swift in Sources */,
 				C9C39AE12947EBDC0036874D /* EmbossedButton.swift in Sources */,
 				C9090234293AC9DE0050E808 /* Images.swift in Sources */,
 				C9C39AE22947EBDC0036874D /* RaisedButton.swift in Sources */,
+				C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */,
 				C9C39AF12947EDD10036874D /* ExtensionOnEncodable.swift in Sources */,
 				C9C39AD52947EB490036874D /* ButtonStyles.swift in Sources */,
 				C9C39ACF2947EB200036874D /* ConvexGlassModifier.swift in Sources */,
 				C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */,
+				C96B70922962E785009B3444 /* UserPostCardView.swift in Sources */,
+				C96B70842962D0F3009B3444 /* NewPost.swift in Sources */,
 				C9090213293AB2320050E808 /* PermissionView.swift in Sources */,
 				C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */,
 				C9C39AF52947EDD10036874D /* ExtensionOnImage.swift in Sources */,
 				C96B70762962C238009B3444 /* Post.swift in Sources */,
+				C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */,
+				C96B70802962CDF8009B3444 /* ReusablePostsView.swift in Sources */,
 				C9E2AB65294238050001270B /* CategoryView.swift in Sources */,
+				C96B70882962D933009B3444 /* ReusableProfileContent.swift in Sources */,
 				C909022C293AC76B0050E808 /* HomeView.swift in Sources */,
 				C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */,
 				C9C39AD02947EB200036874D /* ConcaveGlassModifier.swift in Sources */,
@@ -443,11 +525,13 @@
 				C9C39ACC2947EB200036874D /* AnimatableGradientModifier.swift in Sources */,
 				C9EE10682947541800103492 /* Completions.swift in Sources */,
 				C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */,
+				C96B707D2962CB61009B3444 /* LoginView.swift in Sources */,
 				C9C39AD12947EB200036874D /* DarkModeViewModifier.swift in Sources */,
 				C9C39ADF2947EBDC0036874D /* RoundedCorner.swift in Sources */,
 				C9C39AF32947EDD10036874D /* ExtensionOnInteger.swift in Sources */,
 				C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */,
 				C9090236293ACA4E0050E808 /* String.swift in Sources */,
+				C96B707B2962CA7B009B3444 /* ProfileView.swift in Sources */,
 				C9C39AE02947EBDC0036874D /* Corners.swift in Sources */,
 				C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */,
 				C9090211293AB2320050E808 /* DukeApp.swift in Sources */,
@@ -673,6 +757,14 @@
 				kind = branch;
 			};
 		};
+		C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StarboySupernova/ExtensionKit";
@@ -703,6 +795,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		C96B708F2962E711009B3444 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		C9C39ABC2947D9F70036874D /* ExtensionKit */ = {
 			isa = XCSwiftPackageProductDependency;

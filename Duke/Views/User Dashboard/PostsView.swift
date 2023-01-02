@@ -13,7 +13,7 @@ struct PostsView: View {
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
-                ReusablePostsView(internalPosts: $recentPosts)
+                ReusablePostsView(posts: $recentPosts)
                     .horizontalAlign(.center)
                     .verticalAlign(.center)
                     .overlay(alignment: .bottomTrailing) {

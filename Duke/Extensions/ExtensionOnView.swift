@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 extension View {
-    //using the custom RoundedCorner Shape
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+    ///using the custom RoundedCorner Shape to render custom rounding on a view
+    func customCornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
     

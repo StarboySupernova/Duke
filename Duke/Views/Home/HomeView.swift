@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var viewModel: HomeViewModel
+    @StateObject var userViewModel: UserViewModel = UserViewModel()
     @State private var showLogin: Bool = false
     
     var body: some View {
@@ -71,7 +72,8 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showLogin, onDismiss: {
                 showLogin = false
             }, content: {
-                //login screen will come here
+                LoginContainerView()
+                    .environmentObject(userViewModel)
             })
             .onChange(of: viewModel.showModal) { newValue in
                 viewModel.request()
