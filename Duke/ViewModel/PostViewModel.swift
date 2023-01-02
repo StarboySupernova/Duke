@@ -49,7 +49,7 @@ class PostViewModel: ObservableObject {
     
     func createDocumentInFirebase(_ post : Post, _ onPost: @escaping (Post) -> ()) async throws {
         //writing document to firebase firestore
-        let doc = Firestore.firestore().collection("Internal_Posts").document()
+        let doc = Firestore.firestore().collection("Posts").document()
         let _ = try doc.setData(from: post, completion: { error in
             if error == nil {
                 var updatedPost = post

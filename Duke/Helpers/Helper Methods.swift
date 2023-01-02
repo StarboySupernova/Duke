@@ -88,3 +88,13 @@ func restoreVerificationID () -> String? {
     return verificationID
 }
 
+func userProvidedImage(_ stringKey: String) -> UIImage? {
+    var image: UIImage? = nil
+    if let value = UserDefaults.standard.data(forKey: stringKey) {
+        if let unwrapped = UIImage(data: value) {
+            image = unwrapped
+        }
+    }
+    return image
+}
+
