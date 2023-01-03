@@ -28,10 +28,12 @@ struct LoginView: View {
             VStack(spacing: 12) {
                 TextField("Email", text: $loginVM.loginEmail)
                     .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
                     .paddedBorder(.gray.opacity(0.5), 1)
                     .padding(.top, .xLarge)
                 
                 SecureField("Password", text: $loginVM.loginPassword)
+                    .textInputAutocapitalization(.never)
                     .textContentType(.password)
                     .paddedBorder(.gray.opacity(0.5), 1)
                 
@@ -41,7 +43,7 @@ struct LoginView: View {
                     Text("Reset Password?")
                         .font(.callout)
                         .fontWeight(.medium)
-                        .tint(.black)
+                        .tint(.white)
                         .horizontalAlign(.trailing)
                 }
                 

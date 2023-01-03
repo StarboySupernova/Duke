@@ -60,7 +60,7 @@ struct HomeView: View {
                 }
                 .safeAreaInset(edge: .bottom) {
                     Rectangle()
-                        .fill(LinearGradient(colors: [Color("Launchscreen-background"), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
+                        .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
                         .frame(height: 90)
                 }
                 .edgesIgnoringSafeArea(.bottom)

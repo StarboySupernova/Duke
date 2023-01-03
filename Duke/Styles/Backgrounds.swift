@@ -23,7 +23,7 @@ struct ColorfulBackground<S: Shape>: View {
             } else {
                 shape
                     .fill(LinearGradient(mycolors: Color.darkStart, Color.darkEnd))
-                    .overlay(shape.stroke(LinearGradient(mycolors: Color.lightStart, Color.lightEnd), lineWidth: 4))
+                    .overlay(shape.stroke(LinearGradient(mycolors: Color.pink, Color.lightEnd), lineWidth: 4))
                     .shadow(color: Color.darkStart, radius: 5, x: -10, y: -10)
                     .shadow(color: Color.darkEnd, radius: 5, x: 10, y: 10)
             }

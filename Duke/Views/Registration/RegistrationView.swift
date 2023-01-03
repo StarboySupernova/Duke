@@ -102,15 +102,18 @@ struct RegistrationView: View {
             
             TextField("Username", text: $userVM.userName)
                 .textContentType(.username)
+                .autocorrectionDisabled(true)
                 .paddedBorder(.gray.opacity(0.5), 1)
                 .padding(.top, .xLarge)
 
             TextField("Email", text: $userVM.email)
                 .textContentType(.emailAddress)
+                .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
             SecureField("Password", text: $userVM.password)
                 .textContentType(.newPassword)
+                .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
             if #available(iOS 16.0, *) {
