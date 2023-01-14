@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
+/// retrieve values from UserDefaults
 func extract(_ stringKey: String) -> String? {
     let value = UserDefaults.standard.string(forKey: stringKey)
     return value

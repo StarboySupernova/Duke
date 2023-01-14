@@ -64,7 +64,6 @@
 		C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE92947EDD00036874D /* ExtensionOnArray.swift */; };
 		C9C39AF72947EDD10036874D /* ExtensionOnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE82947EDD00036874D /* ExtensionOnView.swift */; };
 		C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE62947EDD00036874D /* ExtensionOnColor.swift */; };
-		C9C39AF92947EDD10036874D /* HardwareScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AEA2947EDD00036874D /* HardwareScreenSize.swift */; };
 		C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */; };
 		C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0F0322944218700EF3174 /* BusinessDetails.swift */; };
 		C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB62294232450001270B /* HomeViewModel.swift */; };
@@ -123,7 +122,6 @@
 		C9C39AE72947EDD00036874D /* ExtensionOnInteger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnInteger.swift; sourceTree = "<group>"; };
 		C9C39AE82947EDD00036874D /* ExtensionOnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnView.swift; sourceTree = "<group>"; };
 		C9C39AE92947EDD00036874D /* ExtensionOnArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnArray.swift; sourceTree = "<group>"; };
-		C9C39AEA2947EDD00036874D /* HardwareScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareScreenSize.swift; sourceTree = "<group>"; };
 		C9C39AEB2947EDD00036874D /* ExtensionOnString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnString.swift; sourceTree = "<group>"; };
 		C9C39AEC2947EDD00036874D /* ExtensionOnLinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnLinearGradient.swift; sourceTree = "<group>"; };
 		C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnUserDefaults.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 				C9C39AEB2947EDD00036874D /* ExtensionOnString.swift */,
 				C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */,
 				C9C39AE82947EDD00036874D /* ExtensionOnView.swift */,
-				C9C39AEA2947EDD00036874D /* HardwareScreenSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -509,7 +506,6 @@
 				C96B70822962CFDB009B3444 /* SearchUserView.swift in Sources */,
 				C9C39AD62947EB490036874D /* Backgrounds.swift in Sources */,
 				C96B708A2962DAC0009B3444 /* LoadingView.swift in Sources */,
-				C9C39AF92947EDD10036874D /* HardwareScreenSize.swift in Sources */,
 				C9C39AE12947EBDC0036874D /* EmbossedButton.swift in Sources */,
 				C9090234293AC9DE0050E808 /* Images.swift in Sources */,
 				C9C39AE22947EBDC0036874D /* RaisedButton.swift in Sources */,

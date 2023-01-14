@@ -14,9 +14,18 @@ extension View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
     
-    //Extending view to get screen size
+    /// returns screen size
     func getRect() -> CGRect {
         return UIScreen.main.bounds
+    }
+    
+    /// Returns screen size as CGSize
+    func getScreenSize() -> CGSize {
+        guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return .zero
+        }
+
+        return window.screen.bounds.size
     }
     
     //Safe Area Values
