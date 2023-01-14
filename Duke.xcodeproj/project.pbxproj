@@ -71,6 +71,7 @@
 		C9E2AB65294238050001270B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB64294238050001270B /* CategoryView.swift */; };
 		C9EE106629473F7600103492 /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE106529473F7600103492 /* ShadowModifier.swift */; };
 		C9EE10682947541800103492 /* Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE10672947541800103492 /* Completions.swift */; };
+		C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F88BFA2972712700CE4524 /* ParallaxView.swift */; };
 		C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FFE4FE2942887E00DE106F /* BusinessCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +135,7 @@
 		C9E2AB64294238050001270B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		C9EE106529473F7600103492 /* ShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifier.swift; sourceTree = "<group>"; };
 		C9EE10672947541800103492 /* Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completions.swift; sourceTree = "<group>"; };
+		C9F88BFA2972712700CE4524 /* ParallaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxView.swift; sourceTree = "<group>"; };
 		C9FFE4FE2942887E00DE106F /* BusinessCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +175,7 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
+				C98B5CE72971C4B400086457 /* Scaffold */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
 				C9FFE4FD294286D300DE106F /* Views */,
@@ -299,6 +302,14 @@
 				C96B70942962F6E1009B3444 /* RegistrationView.swift */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		C98B5CE72971C4B400086457 /* Scaffold */ = {
+			isa = PBXGroup;
+			children = (
+				C9F88BFA2972712700CE4524 /* ParallaxView.swift */,
+			);
+			path = Scaffold;
 			sourceTree = "<group>";
 		};
 		C99B7B9A2943BC1200F0F8FD /* Details */ = {
@@ -488,6 +499,7 @@
 				C9C39ACE2947EB200036874D /* OffsetModifier.swift in Sources */,
 				C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */,
 				C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */,
+				C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
 				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,
