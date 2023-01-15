@@ -101,8 +101,9 @@ struct RegistrationView: View {
             }
             
             TextField("Username", text: $userVM.userName)
+                .disableAutocorrection(true)
                 .textContentType(.username)
-                .autocorrectionDisabled(true)
+                //.autocorrectionDisabled(true) ? not entirely sure why this is throwing an error
                 .paddedBorder(.gray.opacity(0.5), 1)
                 .padding(.top, .xLarge)
 

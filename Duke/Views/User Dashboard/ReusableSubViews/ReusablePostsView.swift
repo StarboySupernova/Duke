@@ -93,10 +93,10 @@ struct ReusablePostsView: View {
         do {
             var query: Query!
             ///implementing pagination
-            if let paginationDoc {
+            if paginationDoc != nil {
                 query = Firestore.firestore().collection("Posts")
                     .order(by: "publishedDate", descending: true)
-                    .start(afterDocument: paginationDoc)
+                    .start(afterDocument: paginationDoc!)
                     .limit(to: 20)
             } else {
                 query = Firestore.firestore().collection("Posts")

@@ -34,7 +34,48 @@ struct ParallaxView: View {
                     .zIndex(0)
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    if #available(iOS 16.0, *) {
+                    Text("Duke")
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                        .kerning(2)
+                    
+                    HStack {
+                        BlendedText("Discover your ambience")
+                        
+                        Spacer()
+                        
+                        BlendedText("New on iOS")
+                    }
+
+                    HStack{
+                        BlendedText("Create your favourites")
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Join")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("rw-dark"))
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, .large)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.yellow)
+                                        .brightness(-0.1)
+                                )
+
+                        }
+                    }
+                    .padding(.top, .large)
+                    
+                    Image("star")
+                        .resizedToFit(width: 35, height: 35)
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 10)
+                    //MARK: iOS 16 code
+                    /*if #available(iOS 16.0, *) {
                         Text("Duke")
                             .font(.callout)
                             .fontWeight(.semibold)
@@ -116,7 +157,7 @@ struct ParallaxView: View {
                             .resizedToFit(width: 35, height: 35)
                             .frame(maxWidth: .infinity)
                             .padding(.bottom, 10)
-                    }
+                    }*/
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -164,7 +205,8 @@ struct ParallaxView: View {
     }
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
-        if #available(iOS 16.0, *) {
+        //MARK: iOS 16 code
+        /*if #available(iOS 16.0, *) {
             Text(stringValue)
                 .font(.title3)
                 .fontWeight(.semibold)
@@ -177,7 +219,12 @@ struct ParallaxView: View {
                 .fontWeight(.semibold)
                 .kerning(2)
                 .blendMode(.difference)
-        }
+        }*/
+        Text(stringValue)
+            .font(.title3)
+            .fontWeight(.semibold)
+            .kerning(2)
+            .blendMode(.difference)
     }
 }
 

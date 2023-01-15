@@ -84,11 +84,11 @@ struct UserPostCardView: View {
                     return
                 }
                 docListener = Firestore.firestore().collection("Posts").document(postID).addSnapshotListener({ snapshot, error in
-                    if let snapshot {
-                        if snapshot.exists {
+                    if snapshot != nil {
+                        if snapshot!.exists { //iffy
                             /// - Document updated
                             /// fetching updated document
-                            if let updatedPost = try? snapshot.data(as: Post.self) {
+                            if let updatedPost = try? snapshot!.data(as: Post.self) {
                                 onUpdate(updatedPost)
                             }
                         } else {
@@ -102,8 +102,8 @@ struct UserPostCardView: View {
         .onDisappear {
             //MARK: Ensuring that live updates only occur for documents visible on screen to lower I/O cost of Firebase reads
             //MARK: DocumentListener is removed in such instances
-            if let docListener {
-                docListener.remove()
+            if docListener != nil {
+                docListener!.remove()
                 self.docListener = nil
             }
         }

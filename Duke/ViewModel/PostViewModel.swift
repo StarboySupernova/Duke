@@ -29,8 +29,8 @@ class PostViewModel: ObservableObject {
                 //uploading image, if any
                 let imageReferenceID = "\(profileID)\(Date())"
                 let storageRef = Storage.storage().reference().child(profileID).child("Social_Images").child(imageReferenceID)
-                if let postImageData {
-                    let _ = try await storageRef.putDataAsync(postImageData)
+                if postImageData != nil {
+                    let _ = try await storageRef.putDataAsync(postImageData!)
                     let downloadURL = try await storageRef.downloadURL()
                     
                     //creating post image
