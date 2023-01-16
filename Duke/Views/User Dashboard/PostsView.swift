@@ -11,7 +11,8 @@ struct PostsView: View {
     @State private var recentPosts: [Post] = []
     @State private var createNewPost: Bool = false
     var body: some View {
-        if #available(iOS 16.0, *) {
+        //MARK: iOS 16 code
+        /*if #available(iOS 16.0, *) {
             NavigationStack {
                 ReusablePostsView(posts: $recentPosts)
                     .horizontalAlign(.center)
@@ -37,7 +38,7 @@ struct PostsView: View {
                                     .tint(.pink)
                                     .scaleEffect(0.9)
                             }
-
+                            
                         }
                     })
                     .navigationTitle("Feed")
@@ -45,7 +46,7 @@ struct PostsView: View {
             .fullScreenCover(isPresented: $createNewPost) {
                 createNewPost = false
             } content: {
-                NewPost { post in //should use environmentObject here
+                NewPost { post in
                     //insert created post at the top on the recent posts list
                     recentPosts.insert(post, at: 0)
                 }
@@ -53,8 +54,27 @@ struct PostsView: View {
             }
         } else {
             // Fallback on earlier versions
+        }*/
+        ZStack {
+            Color.white.edgesIgnoringSafeArea(.all)
+            VStack {
+                HStack {
+                    Button(action: {
+                        // handle navigation back
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.black)
+                    }
+                    Spacer()
+                    Text("Navigation Title")
+                        .foregroundColor(.black)
+                    Spacer()
+                }
+                Divider()
+                Spacer()
+                // Add your content here
+            }
         }
-        
     }
 }
 

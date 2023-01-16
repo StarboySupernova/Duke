@@ -117,7 +117,12 @@ struct RegistrationView: View {
                 .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            if #available(iOS 16.0, *) {
+            TextField("A little about Yourself (Optional)", text: $userVM.userBio)
+                .textContentType(.jobTitle)
+                .paddedBorder(.gray.opacity(0.5), 1)
+
+            //MARK: iOS 16 code
+            /*if #available(iOS 16.0, *) {
                 TextField("A little about Yourself (Optional)", text: $userVM.userBio, axis: .vertical)
                     .frame(minHeight: 100, alignment: .top)
                     .textContentType(.emailAddress)
@@ -127,7 +132,7 @@ struct RegistrationView: View {
                 TextField("A little about Yourself (Optional)", text: $userVM.userBio)
                     .textContentType(.jobTitle)
                     .paddedBorder(.gray.opacity(0.5), 1)
-            }
+            }*/
             
             TextField("Link to Bio (Optional)", text: $userVM.userBioLink)
                 .textContentType(.URL)

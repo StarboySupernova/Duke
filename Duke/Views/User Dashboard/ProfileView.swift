@@ -12,7 +12,15 @@ struct ProfileView: View {
     //Profile Data
     @State private var isLoading: Bool = false //rename to processing
     var body: some View {
-        if #available(iOS 16.0, *) {
+        VStack {
+            MenuBar()
+            ScrollView(.vertical, showsIndicators: false) {
+                
+            }
+        }
+        .padding(.top, .small)
+        
+        /*if #available(iOS 16.0, *) {
             NavigationStack {
                 VStack {
                     if loginVM.myProfile != nil {
@@ -83,7 +91,7 @@ struct ProfileView: View {
                 }
             }
             .padding(.top, .small)
-        }
+        }*/
     }
     
     struct MenuBar: View {

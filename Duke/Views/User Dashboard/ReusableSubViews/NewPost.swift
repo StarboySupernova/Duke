@@ -61,14 +61,38 @@ struct NewPost: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    if #available(iOS 16.0, *) {
+                    //MARK: iOS 16 code
+                    /*if #available(iOS 16.0, *) {
                         TextField("What's New", text: $postVM.postText, axis: .vertical)
                             .focused($showKeyboard)
                             .padding(postVM.postText.isEmpty ? .xLarge : 0)
                             .paddedBorder(.white, 1)
                     } else {
                         // Fallback on earlier versions
+                        List {
+                            Text("What's New")
+                            
+                            ZStack {
+                                TextEditor(text: $postVM.postText)
+                                Text(postVM.postText)
+                                    .opacity(0)
+                                    .padding(.all, .medium)
+                            }
+                            .shadow(radius: 1)
+                        }
+                    }*/
+                    List {
+                        Text("What's New")
+                        
+                        ZStack {
+                            TextEditor(text: $postVM.postText)
+                            Text(postVM.postText)
+                                .opacity(0)
+                                .padding(.all, .medium)
+                        }
+                        .shadow(radius: 1)
                     }
+
                     
                     if let postImageData = postVM.postImageData, let image = UIImage(data: postImageData) {
                         GeometryReader{ geometry in
@@ -125,9 +149,9 @@ struct NewPost: View {
             PhotoPicker(avatar: $avatar)
         }
         .onChange(of: avatar) { newValue in
-            if let newValue { //may be iffy here, complier possibly cannot see the type of the object to change, i.e. avatar
+            if newValue != nil { //may be iffy here, complier possibly cannot see the type of the object to change, i.e. avatar
                 Task {
-                    if let data = newValue.jpegData(compressionQuality: 1.0) {
+                    if let data = newValue!.jpegData(compressionQuality: 1.0) {
                         //UI must be updated on Main Thread
                         //iOS expects all UI changes to be on the main thread. SwiftUI is no exception
                         await MainActor.run(body: {
