@@ -14,6 +14,7 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             MenuBar()
+            
             ScrollView(.vertical, showsIndicators: false) {
                 
             }
@@ -94,24 +95,42 @@ struct ProfileView: View {
         }*/
     }
     
-    struct MenuBar: View {
-        var body: some View {
-            ZStack {
-                HStack {
-                    Spacer()
-                    
+    @ViewBuilder func MenuBar() -> some View {
+        ZStack {
+            HStack {
+                Spacer()
+                
+                Menu {
                     Button {
-                        
+                        isLoading = true
+                        loginVM.internalUserLogout()
+                        UserDefaults.standard.set(false, forKey: "sign_in_status")
+                        isLoading = false
                     } label: {
-                        Image(systemName: "ellipsis")
+                        Text("Logout")
                             .foregroundColor(.white)
-                            .rotationEffect(.init(degrees: 90))
-                            .font(.system(size: 20, weight: .bold))
-                            .frame(height: 30)
                     }
+                    
+                    Button(role: .destructive) {
+                        isLoading = true
+                        loginVM.deleteInternalUser()
+                        UserDefaults.standard.set(false, forKey: "sign_in_status")
+                        isLoading = false
+                    } label: {
+                        Text("Delete Account")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: .large, weight: .bold, design: .rounded))
+                        .rotationEffect(.init(degrees: 90))
+                        .tint(.white)
+                        .scaleEffect(0.8)
+                        .frame(height: 30)
                 }
-                .padding(.horizontal, .medium)
+                
             }
+            .frame(height: 30)
+            .padding(.horizontal, .medium)
         }
     }
 
