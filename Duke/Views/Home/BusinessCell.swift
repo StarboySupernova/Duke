@@ -17,7 +17,7 @@ struct BusinessCell: View {
                 image
                     .resizable()
             } placeholder: {
-                Color.blue.shimmer() //remove shimmer in prod
+                Color.blue.shimmer() 
             }
             .frame(width: 110, height: 110)
             .cornerRadius(10)

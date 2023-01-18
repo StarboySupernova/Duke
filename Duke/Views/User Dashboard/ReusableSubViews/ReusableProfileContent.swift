@@ -18,14 +18,15 @@ struct ReusableProfileContent: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
                 HStack(spacing: .medium) {
-                    Image(uiImage: /*(status) ?*/ avatar ?? userProvidedImage("user_Image") ?? UIImage.init(named: "DEMTLogo")! /*: UIImage.init(named: "usericon")!*/)
+                    #warning("change default image here")
+                    Image(uiImage: /*(status) ?*/ avatar ?? userProvidedImage("user_Image") ?? UIImage.init(named: "chef")! /*: UIImage.init(named: "usericon")!*/)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 70, height: 70)
                         .cornerRadius(10)
                         .padding(.top, .xxLarge)
                         .onTapGesture {
-                            //hvaen't defined status yet from UserDefaults
+                            #warning("haven't defined status yet from UserDefaults")
                             /*if status {
                                 isShowingPhotoPicker = true
                             }*/

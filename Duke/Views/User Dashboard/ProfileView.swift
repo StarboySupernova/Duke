@@ -14,12 +14,42 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             MenuBar()
+                .background (Color.pink.opacity(0.3))
+                .customCornerRadius(10, corners: [.topLeft, .bottomRight])
+#warning("find more elegant implementation here & restrict to safe area insets")
             
-            ScrollView(.vertical, showsIndicators: false) {
-                
+            ZStack {
+                if loginVM.myProfile != nil {
+                    ReusableProfileContent(user: loginVM.myProfile! /*?? User(userName: "Jon", userBio: "Sales", userBioLink: "jon@twitter.com", userUID: "jon", userEmail: "jon@gmail.com")*/)
+                        .refreshable {
+                            loginVM.myProfile = nil
+                            do {
+                                try await loginVM.fetchUser()
+                            } catch {
+                                await setError(error)
+                            }
+                        }
+                } else {
+                    ProgressView()
+                        .frame(width: getRect().width * 0.95, height: getRect().height * 0.9)
+                }
             }
         }
         .padding(.top, .small)
+        .overlay {
+            LoadingView(show: $isLoading)
+        }
+        .task {
+            if loginVM.myProfile != nil { //fetch operation only occurs when myProfile is nil since task runs on view appear
+                //show up to date notice here
+                return
+            }
+            do  {
+                try await loginVM.fetchUser()
+            } catch {
+                await setError(error)
+            }
+        }
         
         /*if #available(iOS 16.0, *) {
             NavigationStack {
