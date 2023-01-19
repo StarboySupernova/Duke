@@ -92,7 +92,6 @@ struct NewPost: View {
                         }
                         .shadow(radius: 1)
                     }
-
                     
                     if let postImageData = postVM.postImageData, let image = UIImage(data: postImageData) {
                         GeometryReader{ geometry in

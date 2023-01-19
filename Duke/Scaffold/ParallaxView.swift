@@ -231,5 +231,6 @@ struct ParallaxView: View {
 struct ParallaxView_Previews: PreviewProvider {
     static var previews: some View {
         ParallaxView()
+            .preferredColorScheme(.dark)
     }
 }

@@ -11,6 +11,7 @@ struct PostsView: View {
     @State private var recentPosts: [Post] = []
     @State private var createNewPost: Bool = false
     var body: some View {
+        
         //MARK: iOS 16 code
         /*if #available(iOS 16.0, *) {
             NavigationStack {
@@ -55,24 +56,48 @@ struct PostsView: View {
         } else {
             // Fallback on earlier versions
         }*/
+        #warning("ChatGPT Generated")
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
-                    Button(action: {
-                        // handle navigation back
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.black)
-                    }
                     Spacer()
-                    Text("Navigation Title")
-                        .foregroundColor(.black)
+                    Text("Feed")
+                        .foregroundColor(.white)
                     Spacer()
+                    Image(systemName: "magnifyingglass")
+                        .tint(.pink)
+                        .scaleEffect(0.9)
+                        .contentShape(Rectangle())
                 }
+                .padding(.medium)
                 Divider()
+
                 Spacer()
-                // Add your content here
+                
+                ReusablePostsView(posts: $recentPosts)
+                    .horizontalAlign(.center)
+                    .verticalAlign(.center)
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            createNewPost.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                                .padding(.large)
+                                .background(.pink, in: Circle())
+                        }
+                        .padding(.large)
+                    }
+            }
+            .fullScreenCover(isPresented: $createNewPost) {
+                createNewPost = false
+            } content: {
+                NewPost { post in
+                    //insert created post at the top on the recent posts list
+                    recentPosts.insert(post, at: 0)
+                }
+                .environmentObject(PostViewModel()) //iffy. defining enviromnetObject on modal sheet
             }
         }
     }

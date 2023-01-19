@@ -156,6 +156,7 @@ struct ProfileView: View {
                         .tint(.white)
                         .scaleEffect(0.8)
                         .frame(height: 30)
+                        .contentShape(Rectangle())
                 }
                 
             }

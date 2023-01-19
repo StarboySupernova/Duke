@@ -19,6 +19,7 @@
 		C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FB2962222B00B36856 /* LoginContainerView.swift */; };
 		C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FD296223A400B36856 /* UserViewModel.swift */; };
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
+		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
 		C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C96B70692962B4AE009B3444 /* FirebaseAuth */; };
 		C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706B2962B4AE009B3444 /* FirebaseFirestore */; };
 		C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */; };
@@ -40,6 +41,8 @@
 		C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70942962F6E1009B3444 /* RegistrationView.swift */; };
 		C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9B2943BC2600F0F8FD /* DetailView.swift */; };
 		C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */; };
+		C9B01C5429789DE600689998 /* FavouritesContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B01C5329789DE600689998 /* FavouritesContentView.swift */; };
+		C9B01C5629789ECB00689998 /* FavouritesHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B01C5529789ECB00689998 /* FavouritesHome.swift */; };
 		C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9C39ABC2947D9F70036874D /* ExtensionKit */; };
 		C9C39ACC2947EB200036874D /* AnimatableGradientModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AC62947EB200036874D /* AnimatableGradientModifier.swift */; };
 		C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AC72947EB200036874D /* FlatGlassModifier.swift */; };
@@ -88,6 +91,7 @@
 		C937A1FB2962222B00B36856 /* LoginContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContainerView.swift; sourceTree = "<group>"; };
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C96B70732962C1AD009B3444 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C96B70752962C238009B3444 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C96B70782962C97B009B3444 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		C96B70942962F6E1009B3444 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		C99B7B9B2943BC2600F0F8FD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCard.swift; sourceTree = "<group>"; };
+		C9B01C5329789DE600689998 /* FavouritesContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesContentView.swift; sourceTree = "<group>"; };
+		C9B01C5529789ECB00689998 /* FavouritesHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHome.swift; sourceTree = "<group>"; };
 		C9C39AC62947EB200036874D /* AnimatableGradientModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableGradientModifier.swift; sourceTree = "<group>"; };
 		C9C39AC72947EB200036874D /* FlatGlassModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatGlassModifier.swift; sourceTree = "<group>"; };
 		C9C39AC82947EB200036874D /* OffsetModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetModifier.swift; sourceTree = "<group>"; };
@@ -260,6 +266,7 @@
 			children = (
 				C96B70732962C1AD009B3444 /* User.swift */,
 				C96B70752962C238009B3444 /* Post.swift */,
+				C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -306,6 +313,8 @@
 			isa = PBXGroup;
 			children = (
 				C9F88BFA2972712700CE4524 /* ParallaxView.swift */,
+				C9B01C5329789DE600689998 /* FavouritesContentView.swift */,
+				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -504,6 +513,7 @@
 				C9C39AF72947EDD10036874D /* ExtensionOnView.swift in Sources */,
 				C9C39ADA2947EB960036874D /* Helper Methods.swift in Sources */,
 				C96B70822962CFDB009B3444 /* SearchUserView.swift in Sources */,
+				C9B01C5429789DE600689998 /* FavouritesContentView.swift in Sources */,
 				C9C39AD62947EB490036874D /* Backgrounds.swift in Sources */,
 				C96B708A2962DAC0009B3444 /* LoadingView.swift in Sources */,
 				C9C39AE12947EBDC0036874D /* EmbossedButton.swift in Sources */,
@@ -518,6 +528,7 @@
 				C96B70842962D0F3009B3444 /* NewPost.swift in Sources */,
 				C9090213293AB2320050E808 /* PermissionView.swift in Sources */,
 				C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */,
+				C9B01C5629789ECB00689998 /* FavouritesHome.swift in Sources */,
 				C9C39AF52947EDD10036874D /* ExtensionOnImage.swift in Sources */,
 				C96B70762962C238009B3444 /* Post.swift in Sources */,
 				C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */,
@@ -539,6 +550,7 @@
 				C9C39AF32947EDD10036874D /* ExtensionOnInteger.swift in Sources */,
 				C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */,
 				C9090236293ACA4E0050E808 /* String.swift in Sources */,
+				C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */,
 				C96B707B2962CA7B009B3444 /* ProfileView.swift in Sources */,
 				C9C39AE02947EBDC0036874D /* Corners.swift in Sources */,
 				C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */,
