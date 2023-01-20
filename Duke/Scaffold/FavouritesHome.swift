@@ -17,8 +17,31 @@ struct FavouritesHome: View {
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
+                .overlay(alignment: .bottomTrailing, content: {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.title3)
+                            //.fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                            .frame(width: .xxxLarge, height: .xxxLarge)
+                            .background(
+                                Ellipse()
+                                    .fill(.white)
+                                    .shadow(color: .black.opacity(0.35), radius: 5, x: 5, y: 5)
+                            )
+                    }
+                    .offset(x: -.large, y: .large)
+                })
+                .zIndex(1)
             FavouritesCardView()
+                .zIndex(0)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            
+        )
     }
     
     @ViewBuilder func HeaderView () -> some View {
@@ -76,15 +99,47 @@ struct FavouritesHome: View {
                     }
                 }
                 .padding(.horizontal, .xxLarge)
+                .offset(y: offsetY)
+                .offset(y: currentCardIndex * -200.0)
+                
+                //Gradient
+                Rectangle()
+                    .fill(.linearGradient(colors: [
+                        .clear,
+                        .clear,
+                        .clear,
+                        .clear,
+                        .white.opacity(0.3),
+                        .white.opacity(0.8),
+                        .white,
+                    ], startPoint: .top, endPoint: .bottom))
+                    .allowsHitTesting(false) //users need to interact with underlying views
+                
+                #warning("when user clicks on one past favourite restaurant, they can rebook without going through the payment walkthrough")
+                Button {
+                    
+                } label: {
+                    Text("Confirm Booking") //ADD PRICE FROM FAVOURITE RESTAURANT CARD
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, .xxLarge)
+                        .padding(.vertical, .medium)
+                        .background(
+                            Capsule()
+                                .fill(LinearGradient(mycolors: .purple, .pink, .purple))
+                        )
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, safeArea.bottom == 0 ? .large : safeArea.bottom)
             }
             .coordinateSpace(name: "SCROLL")
         }
         .contentShape(Rectangle())
-        .offset(y: offsetY)
         .gesture (
             DragGesture()
                 .onChanged { value in
-                    offsetY = value.translation.height
+                    offsetY = value.translation.height * 0.3 //MARK: multiplying by 0.3 to decrease animation speed
                 }
                 .onEnded { value in
                     let translation = value.translation.height
@@ -116,14 +171,32 @@ struct FavouritesHome: View {
             //MARK: Stacked Card Animation
                 .rotation3DEffect(.init(degrees: constrainedProgress * 40.0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
                 .padding(.top, progress * -160.0)
-            
+            //moving current card out of view when dragged
+                .offset(y: progress < 0 ? progress * 250 : 0)
         }
         .frame(height: 200)
         .zIndex(Double(sampleCards.count - index))
+        .onTapGesture {
+            
+        }
     }
+}
+
+struct FavouritesHome_Previews: PreviewProvider {
+    static var previews: some View {
+        FavouritesContentView()
+            .preferredColorScheme(.dark)
+    }
+}
+
+#warning("code string value here should come from Firebase")
+struct BookedVenueView : View {
+    var alignment: HorizontalAlignment = .leading
+    var place: String
+    var code: String
+    var timing: String
     
-    #warning("code string value here should come from Firebase")
-    @ViewBuilder func BookedVenueView(alignment: HorizontalAlignment = .leading, place: String, code: String, timing: String) -> some View {
+    var body: some View {
         VStack {
             Text(place)
                 .font(.caption)
@@ -141,9 +214,159 @@ struct FavouritesHome: View {
     }
 }
 
-struct FavouritesHome_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouritesContentView()
-            .preferredColorScheme(.dark)
+struct PaymentDetailView: View {
+    var size: CGSize
+    var safeArea: EdgeInsets
+    var body: some View {
+        VStack {
+            VStack(spacing: 0) {
+                VStack {
+                    Image("chef")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100)
+                    
+                    Text("Your order has been submitted")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.top, .medium)
+                    
+                    Text("We are waiting for booking confirmation")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, .xxLarge)
+                .padding(.bottom, .xxxLarge)
+                .background(
+                    RoundedRectangle(cornerRadius: .large, style: .continuous)
+                        .fill(.white.opacity(0.1))
+                )
+                
+                HStack {
+                    #warning("create scroll like effect here")
+                    BookedVenueView(place: "Johannesburg", code: "JHB", timing: "02:30")
+                    
+                    VStack {
+                        Image(systemName: "chevron.left")
+                            .font(.title3)
+                        
+                        Text("Next Order")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    
+                    BookedVenueView(alignment: .trailing, place: "Cape Town", code: "CPT", timing: "14:30").opacity(0.5)
+                }
+                .padding(.large)
+                .padding(.bottom, 70)
+                .background(
+                    RoundedRectangle(cornerRadius: .large, style: .continuous)
+                        .fill(.ultraThinMaterial)
+                )
+                .padding(.top, -.xLarge)
+            }
+            .padding(.horizontal, .large)
+            .padding(.top, safeArea.top + .large)
+            .padding([.horizontal, .bottom], .large)
+            .background(
+                Rectangle()
+                    .fill(.pink)
+                    .padding(.bottom, 80)
+            )
+            
+            GeometryReader { geometry in
+                ScrollView(.vertical, showsIndicators: false) {
+                    AccountInformationView()
+                }
+            }
+
+        }
+    }
+    
+    @ViewBuilder func ContactView (name: String, email: String, profileImage: String) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: .small) {
+                Text(name)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text(email)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Image(profileImage)
+                .resizedToFill(width: .xxxLarge, height: .xxxLarge)
+                .clipShape(Circle())
+        }
+        .padding(.horizontal, .large)
+    }
+    
+    @ViewBuilder func AccountInformationView () -> some View {
+        VStack(spacing: .large) {
+            HStack {
+                #warning("Include ambience and time information here")
+                OrderInformationView(title: "Dinner/Supper", subtitle: "African Traditional")
+                OrderInformationView(title: "Breakfast", subtitle: "Greek")
+                OrderInformationView(title: "Lunch", subtitle: "Chinese")
+                OrderInformationView(title: "Breakfast", subtitle: "No Category")
+            }
+            
+            ContactView(name: "Jonathan", email: "jonathan@gmail.com", profileImage: "chef")
+                .padding(.top, .xxLarge)
+            ContactView(name: "Jonathan", email: "jonathan@gmail.com", profileImage: "chef")
+            
+            VStack(alignment: .leading, spacing: .small) {
+                Text("Total")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+                
+                Text("R536.79")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, .xLarge)
+            .padding(.leading, .large)
+
+            Button {
+                
+            } label: {
+                Text("Home")
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, .xxLarge)
+                    .padding(.vertical, .medium)
+                    .background(
+                        Capsule()
+                            .fill(.linearGradient(colors: [.purple, .purple, .pink], startPoint: .top, endPoint: .bottom))
+                    )
+            }
+            .padding(.top, .large)
+            .frame(maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, safeArea.bottom)
+        }
+        .padding(.large)
+        .padding(.top, .xLarge)
+    }
+    
+    @ViewBuilder func OrderInformationView (title: String, subtitle: String) -> some View {
+        VStack(alignment: .leading, spacing: .small) {
+            Text(title)
+                .font(.caption2)
+                .fontWeight(.semibold)
+                .foregroundColor(.gray)
+            
+            Text(subtitle)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.gray)
+        }
+        .frame(maxWidth: .infinity)
     }
 }
+
