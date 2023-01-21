@@ -67,6 +67,7 @@
 		C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE92947EDD00036874D /* ExtensionOnArray.swift */; };
 		C9C39AF72947EDD10036874D /* ExtensionOnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE82947EDD00036874D /* ExtensionOnView.swift */; };
 		C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AE62947EDD00036874D /* ExtensionOnColor.swift */; };
+		C9CEDAA3297C7C7E0013C87A /* PaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */; };
 		C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */; };
 		C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0F0322944218700EF3174 /* BusinessDetails.swift */; };
 		C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB62294232450001270B /* HomeViewModel.swift */; };
@@ -133,6 +134,7 @@
 		C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnUserDefaults.swift; sourceTree = "<group>"; };
 		C9C39AEE2947EDD10036874D /* ExtensionOnImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnImage.swift; sourceTree = "<group>"; };
 		C9C39AEF2947EDD10036874D /* ExtensionOnEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnEncodable.swift; sourceTree = "<group>"; };
+		C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
 		C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpAPIService.swift; sourceTree = "<group>"; };
 		C9D0F0322944218700EF3174 /* BusinessDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetails.swift; sourceTree = "<group>"; };
 		C9E2AB62294232450001270B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				C9F88BFA2972712700CE4524 /* ParallaxView.swift */,
 				C9B01C5329789DE600689998 /* FavouritesContentView.swift */,
 				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
+				C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */,
 				C96B707D2962CB61009B3444 /* LoginView.swift in Sources */,
 				C9C39AD12947EB200036874D /* DarkModeViewModifier.swift in Sources */,
+				C9CEDAA3297C7C7E0013C87A /* PaymentStatus.swift in Sources */,
 				C9C39ADF2947EBDC0036874D /* RoundedCorner.swift in Sources */,
 				C9C39AF32947EDD10036874D /* ExtensionOnInteger.swift in Sources */,
 				C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */,
