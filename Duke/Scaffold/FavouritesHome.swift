@@ -12,8 +12,11 @@ struct FavouritesHome: View {
     var size: CGSize
     var safeArea : EdgeInsets
     //MARK: Gesture Values
-    @State var offsetY: CGFloat = 0
-    @State var currentCardIndex: CGFloat = 0
+    @State private var offsetY: CGFloat = 0
+    @State private var currentCardIndex: CGFloat = 0
+    // MARK: Animator State
+    @StateObject var animator : Animator = .init()
+    
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
@@ -33,6 +36,7 @@ struct FavouritesHome: View {
                             )
                     }
                     .offset(x: -.large, y: .large)
+                    .offset(x: animator.startAnimation ? 80 : 0)
                 })
                 .zIndex(1)
             FavouritesCardView()
@@ -40,8 +44,158 @@ struct FavouritesHome: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
+            ZStack(alignment: .bottom) {
+                ZStack {
+                    if animator.showClouds {
+                        Group {
+                            //cloud views
+                            CloudView(delay: 0.5, size: size)
+                                .offset(y: size.height * -0.1)
+                            
+                            CloudView(delay: 0, size: size)
+                                .offset(y: size.height * 0.3)
+                            
+                            CloudView(delay: 1, size: size)
+                                .offset(y: size.height * 0.2)
+
+                        }
+                    }
+                }
+                .frame(maxHeight: .infinity)
+                
+                CloudView(delay: 1.25, size: size)
+                
+                if animator.showLoadingView {
+                    RingBackgroundView()
+                        .transition(.scale)
+                        .opacity(animator.showFinalView ? 0 : 1)
+                }
+            }
+        )
+        .allowsHitTesting(!animator.showFinalView)
+        .background(
+            //safety check
+            //if animator.startAnimation {} will not run
+            PaymentDetailView(size: size, safeArea: safeArea)
+                .environmentObject(animator)
+        )
+        .overlayPreferenceValue(RectKey.self, { value in
+            if let anchor = value["HEADERBOUNDS"] {
+                //using GeometryReader to extract a CGRect from anchor
+                GeometryReader { geometry in
+                    let rect = geometry[anchor]
+                    let imageRect = animator.initialImagePostion
+                    let status = animator.currentPaymentStatus
+                    let animationStatus = status == .finished && !animator.showFinalView
+                    
+                    Image("favourite")
+                        .resizedToFit(width: imageRect.width, height: imageRect.height)
+                        .rotationEffect(.init(degrees: animationStatus ? -10 : 0)) //flight movement animation
+                        .shadow(color: .black.opacity(0.25), radius: 1, x: animationStatus ? -400 : 0, y: animationStatus ? 170 : 0)
+                        .offset(x: imageRect.minX, y: imageRect.minY)
+                        .offset(y: animator.startAnimation ? 50 : 0)
+                        .scaleEffect(animator.showFinalView ? 0.9 : 1)
+                        .offset(y: animator.showFinalView ? 30 : 0)
+                        .onAppear {
+                            animator.initialImagePostion = rect
+                        }
+                        .animation(.easeInOut(duration: animationStatus ? 3.5 : 1.5), value: animationStatus)
+                }
+            }
+        })
+        .overlay(content: {
+            if animator.showClouds {
+                CloudView(delay: 1.2, size: size)
+                    .offset(y: -size.height * 0.25)
+            }
+        })
+        .background (
             
         )
+        //simulating change to finished processing
+        .onChange(of: animator.currentPaymentStatus) { newValue in
+            if newValue == .finished {
+                animator.showClouds = true
+                
+                //enabling final view
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        animator.showFinalView = true
+                    }
+                }
+            }
+        }
+    }
+    
+    func makeBookingPurchase () {
+        //animating content
+        withAnimation(.easeInOut(duration: 0.1)) {
+            animator.startAnimation = true
+        }
+        
+        //showLoadingView after delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                animator.showLoadingView = true
+            }
+        }
+    }
+    
+    //MARK: Background View with ring animations
+    @ViewBuilder func RingBackgroundView() -> some View {
+        VStack {
+            //Payment Status
+            VStack(spacing: 0) {
+                ForEach(PaymentStatus.allCases, id: \.rawValue){ status in
+                    Text(status.rawValue)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.gray.opacity(0.5))
+                        .frame(height: .xxLarge)
+                }
+            }
+            .offset(y: animator.currentPaymentStatus == .started ? -30 : animator.currentPaymentStatus == .finished ? -60 : 0)
+            .frame(height: .xxLarge)
+            .clipped()
+            .zIndex(1)
+            
+            ZStack {
+                //only appears in light mode
+                /*Circle()
+                    .fill(Color.offWhite)
+                    .shadow(color: .white.opacity(0.45), radius: 5, x: 5, y: 5)
+                    .shadow(color: .white.opacity(0.45), radius: 5, x: -5, y: -5)
+                    .scaleEffect(2)*/
+                
+                Circle()
+                    .fill(Color.black)
+                    .shadow(color: .white.opacity(0.2), radius: 5, x: 5, y: 5)
+                    .shadow(color: .white.opacity(0.2), radius: 5, x: -5, y: -5)
+                    .scaleEffect(1.12) //is 1.22 in light mode
+                
+                Circle()
+                    .fill(Color.offWhite)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 5, y: 5)
+                
+                Image(systemName: animator.currentPaymentStatus.symbolImage)
+                    .font(.largeTitle)
+                    .foregroundColor(.black.opacity(0.9))
+            }
+            .frame(width: 80, height: 80)
+            .padding(.top, .xLarge)
+            .zIndex(0)
+        }
+        //MARK: Using Timer to simulate loading process. Will replace with actual payment process, likely with Stripe
+        .onReceive(Timer.publish(every: 2.3, on: .main, in: .common).autoconnect()) { _ in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                if animator.currentPaymentStatus == .initiated {
+                    animator.currentPaymentStatus = .started
+                } else {
+                    animator.currentPaymentStatus = .finished
+                }
+            }
+        }
+        .padding(.bottom, size.height * 0.15)
     }
     
     @ViewBuilder func HeaderView () -> some View {
@@ -54,7 +208,7 @@ struct FavouritesHome: View {
             
             HStack {
                 #warning("create scroll like effect here")
-                BookedVenueView(place: "Johannesburg", code: "JHB", timing: "02:30")
+                BookedVenueView(place: "The Icarus", code: "JHB", time: "17:30", categories: ["Greek", "Vegan"])
                 
                 VStack {
                     Image(systemName: "chevron.left")
@@ -66,7 +220,7 @@ struct FavouritesHome: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 
-                BookedVenueView(alignment: .trailing, place: "Cape Town", code: "CPT", timing: "14:30").opacity(0.5)
+                BookedVenueView(alignment: .trailing, place: "Dionysius Cafe", code: "CPT", time: "14:30", categories: ["Local Micro Brew",]).opacity(0.5)
             }
             .padding(.top, .xLarge)
             
@@ -74,6 +228,10 @@ struct FavouritesHome: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 160)
+                .opacity(0)
+                .anchorPreference(key: RectKey.self, value: .bounds, transform: { anchor in
+                    return ["HEADERBOUNDS": anchor]
+                })
                 .padding(.bottom, .large)
         }
         .padding([.horizontal, .top], .large)
@@ -82,6 +240,8 @@ struct FavouritesHome: View {
             Rectangle()
                 .fill(.linearGradient(colors: [.purple, .purple, .pink], startPoint: .top, endPoint: .bottom))
         )
+        .rotation3DEffect(.init(degrees: animator.startAnimation ? 90.0 : 0.0), axis: (x: 1, y: 0, z: 0), anchor: UnitPoint(x: 0.5, y: 0.8))
+        .offset(y: animator.startAnimation ? -100 : 0)
     }
     
     @ViewBuilder func FavouritesCardView () -> some View {
@@ -109,15 +269,15 @@ struct FavouritesHome: View {
                         .clear,
                         .clear,
                         .clear,
-                        .white.opacity(0.3),
-                        .white.opacity(0.8),
-                        .white,
+                        .black.opacity(0.3),
+                        .black.opacity(0.6),
+                        .black.opacity(0.8),
                     ], startPoint: .top, endPoint: .bottom))
                     .allowsHitTesting(false) //users need to interact with underlying views
                 
                 #warning("when user clicks on one past favourite restaurant, they can rebook without going through the payment walkthrough")
                 Button {
-                    
+                    makeBookingPurchase()
                 } label: {
                     Text("Confirm Booking") //ADD PRICE FROM FAVOURITE RESTAURANT CARD
                         .font(.callout)
@@ -136,6 +296,7 @@ struct FavouritesHome: View {
             .coordinateSpace(name: "SCROLL")
         }
         .contentShape(Rectangle())
+        //MARK: swipe up functionality
         .gesture (
             DragGesture()
                 .onChanged { value in
@@ -156,6 +317,10 @@ struct FavouritesHome: View {
                     }
                 }
         )
+        .background(Color.white.ignoresSafeArea())
+        .clipped()
+        .rotation3DEffect(.init(degrees: animator.startAnimation ? -90.0 : 0.0), axis: (x: 1, y: 0, z: 0), anchor: UnitPoint(x: 0.5, y: 0.25))
+        .offset(y: animator.startAnimation ? 100 : 0)
     }
     
     @ViewBuilder func Favourite(index: Int) -> some View {
@@ -166,8 +331,9 @@ struct FavouritesHome: View {
             let constrainedProgress = progress > 1 ? 1 : progress < 0 ? 0 : progress
             
             Image(sampleCards[index].cardImage)
-                .resizedToFit(width: geometry.width, height: geometry.height)
-                .shadow(color: .primary.opacity(0.14), radius: 8, x: 6, y: 6)
+                .resizedToFill(width: geometry.width, height: geometry.height)
+                .cornerRadius(30)
+                .shadow(color: .black.opacity(0.5), radius: 8, x: 6, y: 6)
             //MARK: Stacked Card Animation
                 .rotation3DEffect(.init(degrees: constrainedProgress * 40.0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
                 .padding(.top, progress * -160.0)
@@ -185,7 +351,29 @@ struct FavouritesHome: View {
 struct FavouritesHome_Previews: PreviewProvider {
     static var previews: some View {
         FavouritesContentView()
-            .preferredColorScheme(.dark)
+            //.preferredColorScheme(.dark)
+    }
+}
+
+struct CloudView: View {
+    var delay: Double
+    var size: CGSize
+    @State private var move : Bool = false
+    
+    var body: some View {
+        ZStack {
+            Image("cloud")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: size.width * 3)
+                .offset(x: move ? -size.width * 2 : size.width * 2)
+        }
+        .onAppear {
+            //Delay is the speed of animation movement
+            withAnimation(.easeIn(duration: 1).delay(delay)) {
+                move.toggle()
+            }
+        }
     }
 }
 
@@ -194,7 +382,8 @@ struct BookedVenueView : View {
     var alignment: HorizontalAlignment = .leading
     var place: String
     var code: String
-    var timing: String
+    var time: String
+    var categories : [String] = []
     
     var body: some View {
         VStack {
@@ -202,11 +391,23 @@ struct BookedVenueView : View {
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
             
+            Divider()
+            
+            HStack {
+                ForEach(categories, id: \.self){ text in
+                    Text("|  " + text + ".")
+                        .font(.caption)
+                        .foregroundColor(.white)
+                        .truncationMode(.tail)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            
             Text(code)
                 .font(.title)
                 .foregroundColor(.white)
             
-            Text(timing)
+            Text(time)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
         }
@@ -217,6 +418,7 @@ struct BookedVenueView : View {
 struct PaymentDetailView: View {
     var size: CGSize
     var safeArea: EdgeInsets
+    @EnvironmentObject var animator : Animator
     var body: some View {
         VStack {
             VStack(spacing: 0) {
@@ -226,12 +428,12 @@ struct PaymentDetailView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100)
                     
-                    Text("Your order has been submitted")
+                    Text("Your order has been submitted successfully")
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .padding(.top, .medium)
                     
-                    Text("We are waiting for booking confirmation")
+                    Text("Check your inbox for order confirmation")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
@@ -245,8 +447,8 @@ struct PaymentDetailView: View {
                 
                 HStack {
                     #warning("create scroll like effect here")
-                    BookedVenueView(place: "Johannesburg", code: "JHB", timing: "02:30")
-                    
+                    BookedVenueView(place: "The Icarus", code: "JHB", time: "17:30", categories: ["Greek", "Vegan"])
+
                     VStack {
                         Image(systemName: "chevron.left")
                             .font(.title3)
@@ -257,7 +459,7 @@ struct PaymentDetailView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     
-                    BookedVenueView(alignment: .trailing, place: "Cape Town", code: "CPT", timing: "14:30").opacity(0.5)
+                    BookedVenueView(alignment: .trailing, place: "Dionysius Cafe", code: "CPT", time: "14:30", categories: ["Local Micro Brew",]).opacity(0.5)
                 }
                 .padding(.large)
                 .padding(.bottom, 70)
@@ -270,19 +472,23 @@ struct PaymentDetailView: View {
             .padding(.horizontal, .large)
             .padding(.top, safeArea.top + .large)
             .padding([.horizontal, .bottom], .large)
+            .offset(y: animator.showFinalView ? 0 : 300)
             .background(
                 Rectangle()
                     .fill(.pink)
+                    .scaleEffect(y: animator.showFinalView ? 1 : 0.001, anchor: .top)
                     .padding(.bottom, 80)
             )
+            .clipped()
             
             GeometryReader { geometry in
                 ScrollView(.vertical, showsIndicators: false) {
                     AccountInformationView()
                 }
+                .offset(y: animator.showFinalView ? 0 : size.height)
             }
-
         }
+        .animation(.easeInOut(duration: animator.showFinalView ? 0.4 : 0.1).delay(animator.showFinalView ? 0.4 : 0), value: animator.showFinalView)
     }
     
     @ViewBuilder func ContactView (name: String, email: String, profileImage: String) -> some View {
@@ -309,15 +515,14 @@ struct PaymentDetailView: View {
         VStack(spacing: .large) {
             HStack {
                 #warning("Include ambience and time information here")
-                OrderInformationView(title: "Dinner/Supper", subtitle: "African Traditional")
-                OrderInformationView(title: "Breakfast", subtitle: "Greek")
-                OrderInformationView(title: "Lunch", subtitle: "Chinese")
-                OrderInformationView(title: "Breakfast", subtitle: "No Category")
+                OrderInformationView(title: "Venue", subtitle: "The Icarus")
+                OrderInformationView(title: "Cuisine", subtitle: "Greek")
+                OrderInformationView(title: "Meal", subtitle: "Taramasalata")
+                OrderInformationView(title: "Specifics", subtitle: "No Category")
             }
             
-            ContactView(name: "Jonathan", email: "jonathan@gmail.com", profileImage: "chef")
+            ContactView(name: "Jonathan Burke", email: "jonathan@gmail.com", profileImage: "chef")
                 .padding(.top, .xxLarge)
-            ContactView(name: "Jonathan", email: "jonathan@gmail.com", profileImage: "chef")
             
             VStack(alignment: .leading, spacing: .small) {
                 Text("Total")
@@ -334,7 +539,7 @@ struct PaymentDetailView: View {
             .padding(.leading, .large)
 
             Button {
-                
+                resetAnimationAndView()
             } label: {
                 Text("Home")
                     .fontWeight(.semibold)
@@ -367,6 +572,44 @@ struct PaymentDetailView: View {
                 .foregroundColor(.gray)
         }
         .frame(maxWidth: .infinity)
+    }
+    
+    ///resetting animation
+    func resetAnimationAndView() {
+        animator.currentPaymentStatus = .started
+        animator.showClouds = false
+        withAnimation(.easeInOut(duration: 0.3)) {
+            animator.showFinalView = false
+        }
+        
+        animator.showLoadingView = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            animator.startAnimation = false
+        }
+    }
+}
+
+/// Animator observable object to hold all the animation properties
+class Animator : ObservableObject {
+    @Published var startAnimation : Bool = false
+    @Published var initialImagePostion : CGRect = .zero
+    @Published var currentPaymentStatus: PaymentStatus = .initiated
+    @Published var showLoadingView : Bool = false
+    @Published var showClouds : Bool = false
+    @Published var showFinalView: Bool = false
+}
+
+//MARK: Anchor Preference Key
+/*
+ Functionality to be implemented - Make Header Image transparent & rotate it out of screen, and overlay same image in place of the original
+ 
+ we use PrefenceKey here because the Header Image rotates when 3D animation is applied & we must first determine its screen position in order to add that image as an overlay. With preferenceKey we can recover its precise location on screen
+ */
+
+struct RectKey: PreferenceKey {
+    static var defaultValue: [String: Anchor<CGRect>] = [:]
+    static func reduce(value: inout [String : Anchor<CGRect>], nextValue: () -> [String : Anchor<CGRect>]) {
+        value.merge(nextValue()){$1}
     }
 }
 

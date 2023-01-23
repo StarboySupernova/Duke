@@ -268,7 +268,6 @@
 			children = (
 				C96B70732962C1AD009B3444 /* User.swift */,
 				C96B70752962C238009B3444 /* Post.swift */,
-				C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,6 +317,7 @@
 				C9B01C5329789DE600689998 /* FavouritesContentView.swift */,
 				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
 				C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */,
+				C9B91C3A297F13C8002E6764 /* ScaffoldModel */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -329,6 +329,14 @@
 				C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		C9B91C3A297F13C8002E6764 /* ScaffoldModel */ = {
+			isa = PBXGroup;
+			children = (
+				C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */,
+			);
+			path = ScaffoldModel;
 			sourceTree = "<group>";
 		};
 		C9C39AD82947EB660036874D /* Styles */ = {
