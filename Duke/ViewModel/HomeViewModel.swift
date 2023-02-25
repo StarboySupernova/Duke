@@ -13,7 +13,7 @@ import ExtensionKit
 final class HomeViewModel: ObservableObject {
     @Published var businesses = [Business]()
     @Published var searchText : String
-    @Published var selectedCategory: FoodCategory
+    @Published var selectedCategory: String
     @Published var region : MKCoordinateRegion
     @Published var businessDetails : BusinessDetails?
     @Published var showModal : Bool
@@ -24,7 +24,7 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         searchText = ""
-        selectedCategory = .all
+        selectedCategory = FoodCategory.all.rawValue
         region = .init()
         businessDetails = nil //initialized as nil until fetched from API
         showModal = manager.authorizationStatus == .notDetermined
@@ -61,7 +61,8 @@ final class HomeViewModel: ObservableObject {
                     .search(
                         searchTerm: term,
                         location: location,
-                        category: (term.isEmpty || term.isBlank) ? category : nil)) //should try adding or condition for isBlank
+                        category: (term.isEmpty || term.isBlank) ? category : nil)
+                )
             }
             .assign(to: &$businesses)
         

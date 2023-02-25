@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CategoryView: View {
-    @Binding var selectedCategory : FoodCategory
+    @Binding var selectedCategory : String
     let category: FoodCategory
     
     var body: some View {
         Button {
-            selectedCategory = category
+            selectedCategory = category.rawValue
         } label: {
             HStack {
                 Text(category.emoji)
@@ -23,12 +23,12 @@ struct CategoryView: View {
         }
         .padding(.small)
         .padding(.horizontal, .medium)
-        .background(selectedCategory == category ? Color.black : Color.white)
+        .background(selectedCategory == category.rawValue ? Color.black : Color.white)
         .cornerRadius(20)
         .padding(.top, .small)
         .padding(.bottom, .large)
-        .foregroundColor(selectedCategory == category ? Color.white : Color.black)
-        .if(selectedCategory == category) { view in
+        .foregroundColor(selectedCategory == category.rawValue ? Color.white : Color.black)
+        .if(selectedCategory == category.rawValue) { view in
             view
                 .buttonStyle(CapsuleButtonStyle())
         }
@@ -37,7 +37,7 @@ struct CategoryView: View {
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView(selectedCategory: .constant(.coffee), category: .coffee)
+        CategoryView(selectedCategory: .constant(FoodCategory.coffee.rawValue), category: .coffee)
             .preferredColorScheme(.dark)
     }
 }

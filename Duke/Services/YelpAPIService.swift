@@ -54,7 +54,7 @@ extension YelpAPIService {
 
 //should refactor and move into seperate files
 enum EndPoint {
-    case search(searchTerm: String?, location: CLLocation, category: FoodCategory?)
+    case search(searchTerm: String?, location: CLLocation, category: String?)
     case detail(id: String)
     case completion(text: String, location : CLLocation)
     
@@ -78,7 +78,7 @@ enum EndPoint {
                 .init(name: "term", value: searchTerm),
                 .init(name: "longitude", value: String(location.coordinate.longitude)),
                 .init(name: "latitude", value: String(location.coordinate.latitude)),
-                .init(name: "category", value: category?.rawValue ?? FoodCategory.all.rawValue)
+                .init(name: "category", value: category ?? FoodCategory.all.rawValue)
             ]
         case .detail:
             //returning empty array here because all that's required is the id
