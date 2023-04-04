@@ -37,8 +37,14 @@ final class HomeViewModel: ObservableObject {
     func requestPermission() {
         manager
             .requestLocationWhenInUseAuthorization()
-            .map { $0 == .notDetermined } //if this is false, the modal sheet will dismiss
+            .map { [unowned self] in
+                islocationAccessGranted($0)
+            } //if this is false, the modal sheet will dismiss
             .assign(to: &$showModal)
+    }
+    
+    private func islocationAccessGranted(_ status: CLAuthorizationStatus) -> Bool {
+        return status == .denied || status == .restricted || status == .notDetermined
     }
     
     func getLocation () -> AnyPublisher<CLLocation, Never> {
