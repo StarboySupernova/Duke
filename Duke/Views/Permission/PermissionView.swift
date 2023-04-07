@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import CoreLocationUI
+
 
 struct PermissionView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var isAnimating: Bool = false
     let action : () -> Void
     
@@ -42,19 +45,16 @@ struct PermissionView: View {
                 
                 Spacer()
                                 
-                Button {
-                    action()
-                } label: {
-                    Text(L10n.getStarted)
-                        .bold()
-                }
-                .padding()
-                .frame(width: geometry.size.width - 30)
-                .background(Color.black)
-                .cornerRadius(15)
-                .shadow(radius: 10)
-                .modifier(ShadowModifier())
-                .foregroundColor(.white)
+                LocationButton(.shareMyCurrentLocation, action: {
+                            
+                })
+                .symbolVariant(.fill)
+                .font(.system(size: .large))
+                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
+                .tint(colorScheme == .dark ? Color.white : Color.black)
+                .cornerRadius(.medium)
+                .padding(.bottom)
+                
             }
         }
         .background(Color("background"))

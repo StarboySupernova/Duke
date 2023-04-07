@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var userViewModel: UserViewModel = UserViewModel()
     @State private var showLogin: Bool = false
     
@@ -24,7 +24,7 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(FoodCategory.allCases, id: \.self) { category in
-                                CategoryView(selectedCategory: $viewModel.selectedCategory, category: category)
+                                CategoryView(selectedCategory: $homeViewModel.selectedCategory, category: category)
                             }
                         }
                         .padding()
@@ -33,16 +33,16 @@ struct HomeView: View {
                 .padding(.leading, .large)
 
                 //List
-                List(viewModel.businesses, id: \.id){ business in
+                List(homeViewModel.businesses, id: \.id){ business in
                     NavigationLink(destination: DetailView(id: business.id!)) {
                         BusinessCell(business: business)
                             .listRowSeparator(.hidden)
                     }
                 }
                 .listStyle(.plain)
-                .navigationTitle(viewModel.cityName)
-                .searchable(text: $viewModel.searchText, prompt: Text(L10n.searchFood)) {
-                    ForEach(viewModel.completions, id : \.self) { completion in
+                .navigationTitle(homeViewModel.cityName)
+                .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
+                    ForEach(homeViewModel.completions, id : \.self) { completion in
                         Text(completion).searchCompletion(completion)
                             .foregroundColor(Color.white)
                     }
@@ -66,8 +66,8 @@ struct HomeView: View {
                 .edgesIgnoringSafeArea(.bottom)
             }
             .background(Color.black)
-            .sheet(isPresented: $viewModel.showModal, onDismiss: nil) {
-                PermissionView() {viewModel.requestPermission()}
+            .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+                PermissionView() { homeViewModel.requestPermission() }
             }
             .fullScreenCover(isPresented: $showLogin, onDismiss: {
                 showLogin = false
@@ -75,8 +75,8 @@ struct HomeView: View {
                 LoginContainerView()
                     .environmentObject(userViewModel)
             })
-            .onChange(of: viewModel.showModal) { newValue in
-                viewModel.request()
+            .onChange(of: homeViewModel.showModal) { newValue in
+                homeViewModel.request()
             }
         }
         #warning("create home tabview that will be overlaid by get started view on each launch")

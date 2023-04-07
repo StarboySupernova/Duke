@@ -36,7 +36,7 @@ final class HomeViewModel: ObservableObject {
     //using methods from ExtensionKit to leverage Combine to provide AuthorizationStatus publisher and avoid implementing a delegate pattern
     func requestPermission() {
         manager
-            .requestLocationWhenInUseAuthorization()
+            .requestLocationAlwaysAuthorization()
             .map { [unowned self] in
                 islocationAccessGranted($0)
             } //if this is false, the modal sheet will dismiss
