@@ -27,7 +27,7 @@ final class HomeViewModel: ObservableObject {
         selectedCategory = FoodCategory.all.rawValue
         region = .init()
         businessDetails = nil //initialized as nil until fetched from API
-        showModal = manager.authorizationStatus == .notDetermined
+        showModal = manager.authorizationStatus == .notDetermined 
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters //using best accuracy location in computationally expensive and battery intensive
         
         request()
@@ -37,15 +37,10 @@ final class HomeViewModel: ObservableObject {
     func requestPermission() {
         manager
             .requestLocationAlwaysAuthorization()
-            .map { [unowned self] in
-                islocationAccessGranted($0)
-            } //if this is false, the modal sheet will dismiss
-            .assign(to: &$showModal)
+            .map { $0 == .notDetermined || $0 == .denied || $0 == .restricted } //if this is false, the modal sheet will dismiss
+            .assign(to: &$showModal)//show modal should be responsbile for showing error if location access is not given
     }
     
-    private func islocationAccessGranted(_ status: CLAuthorizationStatus) -> Bool {
-        return status == .denied || status == .restricted || status == .notDetermined
-    }
     
     func getLocation () -> AnyPublisher<CLLocation, Never> {
         manager.receiveLocationUpdates(oneTime: true) //will run when app launches

@@ -23,8 +23,7 @@ struct DukeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //HomeView()
-            Test()
+            HomeView()
                 .modifier(DarkModeViewModifier())
                 .environmentObject(HomeViewModel())
         }

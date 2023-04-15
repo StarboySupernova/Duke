@@ -7,11 +7,14 @@
 
 import SwiftUI
 import CoreLocationUI
+import MapKit
 
 
 struct PermissionView: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var homeViewModel: HomeViewModel
     @State private var isAnimating: Bool = false
+    @State private var showMap: Bool = false
     let action : () -> Void
     
     var animation : Animation {
@@ -44,16 +47,19 @@ struct PermissionView: View {
                     .font(.headline)
                 
                 Spacer()
-                                
-                LocationButton(.shareMyCurrentLocation, action: {
-                            
-                })
-                .symbolVariant(.fill)
-                .font(.system(size: .large))
-                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                .tint(colorScheme == .dark ? Color.white : Color.black)
-                .cornerRadius(.medium)
-                .padding(.bottom)
+                
+                Button {
+                    action()
+                } label: {
+                    Text(L10n.getStarted)
+                        .bold()
+                }
+                .padding()
+                .frame(width: geometry.size.width - 30)
+                .background(colorScheme == .light ? Color.black : Color.white)
+                .cornerRadius(15)
+                .shadow(radius: 10)
+                .foregroundColor(colorScheme == .light ? Color.white : Color.black)
                 
             }
         }

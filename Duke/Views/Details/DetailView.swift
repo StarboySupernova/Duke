@@ -35,7 +35,7 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(id: "WavvLdfdP6g8aZTtbBQHTw")
+        DetailView(id: "WavvLdfdP6g8aZTtbBQHTw") //sample id from API docs
             .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
     }
