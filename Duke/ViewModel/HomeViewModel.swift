@@ -37,10 +37,22 @@ final class HomeViewModel: ObservableObject {
     func requestPermission() {
         manager
             .requestLocationAlwaysAuthorization()
-            .map { $0 == .notDetermined || $0 == .denied || $0 == .restricted } //if this is false, the modal sheet will dismiss
+            .map {  [unowned self] in
+                isLocationAccessGranted($0)
+            } //if this is false, the modal sheet will dismiss
             .assign(to: &$showModal)//show modal should be responsbile for showing error if location access is not given
     }
     
+    func isLocationAccessGranted(_ locationStatus: CLAuthorizationStatus) -> Bool {
+        if locationStatus == .notDetermined || locationStatus == .denied || locationStatus == .restricted {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showErrorAlertView("Location access not given", "This application cannot function properly without location access. Please enable location access inside Settings App", handler: {})
+            }
+            return false
+        } else {
+            return false
+        }
+    }
     
     func getLocation () -> AnyPublisher<CLLocation, Never> {
         manager.receiveLocationUpdates(oneTime: true) //will run when app launches
