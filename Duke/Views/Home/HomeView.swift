@@ -12,76 +12,68 @@ struct HomeView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var userViewModel: UserViewModel = UserViewModel()
     @State private var showLogin: Bool = false
+    @State var selectedBusiness: Business?
     
     var body: some View {
-        NavigationView { //should replace these with ZStacks since NavigationViews are still unstable
-            VStack {
-                //Category
-                Group {
-                    Text(L10n.categories)
-                        .bold()
-                        .padding(.top, .small)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(FoodCategory.allCases, id: \.self) { category in
-                                CategoryView(selectedCategory: $homeViewModel.selectedCategory, category: category)
-                            }
-                        }
-                        .padding()
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            List(homeViewModel.businesses, id: \.id){ business in
+                BusinessCell(business: business)
+                    .listRowSeparator(.hidden)
+                    .onTapGesture {
+                        selectedBusiness = business
                     }
-                }
-                .padding(.leading, .large)
-
-                //List
-                List(homeViewModel.businesses, id: \.id){ business in
-                    NavigationLink(destination: DetailView(id: business.id!)) {
-                        BusinessCell(business: business)
-                            .listRowSeparator(.hidden)
-                    }
-                }
-                .listStyle(.plain)
-                .navigationTitle(homeViewModel.cityName)
-                .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
-                    ForEach(homeViewModel.completions, id : \.self) { completion in
-                        Text(completion).searchCompletion(completion)
-                            .foregroundColor(Color.white)
-                    }
-                    .modifier(ConcaveGlassView())
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showLogin.toggle()
-                        } label: {
-                            Image(systemName: "person")
-                        }
-                        .buttonStyle(ColorfulButtonStyle())
-                    }
-                }
-                .safeAreaInset(edge: .bottom) {
-                    Rectangle()
-                        .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
-                        .frame(height: 90)
-                }
-                .edgesIgnoringSafeArea(.bottom)
             }
-            .background(Color.black)
-            .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-                PermissionView() { homeViewModel.requestPermission() }
+            .listStyle(.plain)
+            .navigationTitle(homeViewModel.cityName)
+            .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
+                ForEach(homeViewModel.completions, id : \.self) { completion in
+                    Text(completion).searchCompletion(completion)
+                        .foregroundColor(Color.white)
+                }
+                .modifier(ConcaveGlassView())
             }
-            .fullScreenCover(isPresented: $showLogin, onDismiss: {
-                showLogin = false
-            }, content: {
-                LoginContainerView()
-                    .environmentObject(userViewModel)
-            })
-            .onChange(of: homeViewModel.showModal) { newValue in
-                homeViewModel.request()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showLogin.toggle()
+                    } label: {
+                        Image(systemName: "person")
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 90)
+            }
+            .edgesIgnoringSafeArea(.bottom)
+            
+            if let selectedBusiness = selectedBusiness {
+                withAnimation(.easeInOut) {
+                    DetailView(id: selectedBusiness.id!)
+                        .edgesIgnoringSafeArea(.all)
+                        .transition(.move(edge: .trailing))
+                }
             }
         }
-        #warning("create home tabview that will be overlaid by get started view on each launch")
+        /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+            PermissionView() { homeViewModel.requestPermission() }
+        }*/
+        .fullScreenCover(isPresented: $showLogin, onDismiss: {
+            showLogin = false
+        }, content: {
+            LoginContainerView()
+                .environmentObject(userViewModel)
+        })
+        .onChange(of: homeViewModel.showModal) { newValue in
+            homeViewModel.request()
+        }
+        
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
