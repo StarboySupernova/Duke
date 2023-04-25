@@ -16,10 +16,15 @@
 		C9090234293AC9DE0050E808 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9090233293AC9DE0050E808 /* Images.swift */; };
 		C9090236293ACA4E0050E808 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9090235293ACA4E0050E808 /* String.swift */; };
 		C9090242293AD3FE0050E808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9090241293AD3FE0050E808 /* Assets.xcassets */; };
+		C919888029F3C718007EDECF /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919887F29F3C718007EDECF /* Arc.swift */; };
+		C919888229F3C769007EDECF /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888129F3C769007EDECF /* Trapezoid.swift */; };
+		C919888429F3C7DB007EDECF /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888329F3C7DB007EDECF /* SegmentedControl.swift */; };
+		C919888629F3C851007EDECF /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888529F3C851007EDECF /* WeatherWidget.swift */; };
 		C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FB2962222B00B36856 /* LoginContainerView.swift */; };
 		C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FD296223A400B36856 /* UserViewModel.swift */; };
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
 		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
+		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
 		C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C96B70692962B4AE009B3444 /* FirebaseAuth */; };
 		C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706B2962B4AE009B3444 /* FirebaseFirestore */; };
 		C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */; };
@@ -90,6 +95,10 @@
 		C9090233293AC9DE0050E808 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		C9090235293ACA4E0050E808 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C9090241293AD3FE0050E808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C919887F29F3C718007EDECF /* Arc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arc.swift; sourceTree = "<group>"; };
+		C919888129F3C769007EDECF /* Trapezoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trapezoid.swift; sourceTree = "<group>"; };
+		C919888329F3C7DB007EDECF /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		C919888529F3C851007EDECF /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		C937A1FB2962222B00B36856 /* LoginContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContainerView.swift; sourceTree = "<group>"; };
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -136,6 +145,7 @@
 		C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnUserDefaults.swift; sourceTree = "<group>"; };
 		C9C39AEE2947EDD10036874D /* ExtensionOnImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnImage.swift; sourceTree = "<group>"; };
 		C9C39AEF2947EDD10036874D /* ExtensionOnEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnEncodable.swift; sourceTree = "<group>"; };
+		C9C4E5F029EC7C5900131E97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
 		C9CF8AE5293FFA5C005FF0F5 /* YelpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpAPIService.swift; sourceTree = "<group>"; };
 		C9D0F0322944218700EF3174 /* BusinessDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetails.swift; sourceTree = "<group>"; };
@@ -154,6 +164,7 @@
 			files = (
 				C96B70902962E711009B3444 /* SDWebImageSwiftUI in Frameworks */,
 				C9C39ABD2947D9F70036874D /* ExtensionKit in Frameworks */,
+				C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */,
 				C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */,
 				C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */,
 				C96B70702962B4AE009B3444 /* FirebaseStorage in Frameworks */,
@@ -183,6 +194,7 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
+				C9C4E5F029EC7C5900131E97 /* Info.plist */,
 				C98B5CE72971C4B400086457 /* Scaffold */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
@@ -308,6 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				C96B708C2962DD74009B3444 /* PhotoPicker.swift */,
+				C919888329F3C7DB007EDECF /* SegmentedControl.swift */,
+				C919888529F3C851007EDECF /* WeatherWidget.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -367,6 +381,8 @@
 				C9C39ADB2947EBDC0036874D /* EmbossedButton.swift */,
 				C9C39ADC2947EBDC0036874D /* RaisedButton.swift */,
 				C9C39ADE2947EBDC0036874D /* RoundedCorner.swift */,
+				C919887F29F3C718007EDECF /* Arc.swift */,
+				C919888129F3C769007EDECF /* Trapezoid.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -458,6 +474,7 @@
 				C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */,
 				C96B706F2962B4AE009B3444 /* FirebaseStorage */,
 				C96B708F2962E711009B3444 /* SDWebImageSwiftUI */,
+				C95B136529F866C600A07CE7 /* BottomSheet */,
 			);
 			productName = Duke;
 			productReference = C909020D293AB2320050E808 /* Duke.app */;
@@ -492,6 +509,7 @@
 				C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */,
 				C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				C95B136429F866C600A07CE7 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			productRefGroup = C909020E293AB2320050E808 /* Products */;
 			projectDirPath = "";
@@ -530,6 +548,7 @@
 				C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */,
 				C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
+				C919888029F3C718007EDECF /* Arc.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
 				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,
 				C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */,
@@ -545,9 +564,11 @@
 				C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */,
 				C9C39AF12947EDD10036874D /* ExtensionOnEncodable.swift in Sources */,
 				C9C39AD52947EB490036874D /* ButtonStyles.swift in Sources */,
+				C919888229F3C769007EDECF /* Trapezoid.swift in Sources */,
 				C9C39ACF2947EB200036874D /* ConvexGlassModifier.swift in Sources */,
 				C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */,
 				C96B70922962E785009B3444 /* UserPostCardView.swift in Sources */,
+				C919888629F3C851007EDECF /* WeatherWidget.swift in Sources */,
 				C96B70842962D0F3009B3444 /* NewPost.swift in Sources */,
 				C9090213293AB2320050E808 /* PermissionView.swift in Sources */,
 				C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */,
@@ -564,6 +585,7 @@
 				C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */,
 				C9C39AF02947EDD10036874D /* ExtensionOnString.swift in Sources */,
 				C9C39AD72947EB490036874D /* LabelledDivider.swift in Sources */,
+				C919888429F3C7DB007EDECF /* SegmentedControl.swift in Sources */,
 				C9C39ACC2947EB200036874D /* AnimatableGradientModifier.swift in Sources */,
 				C9EE10682947541800103492 /* Completions.swift in Sources */,
 				C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */,
@@ -712,7 +734,10 @@
 				DEVELOPMENT_TEAM = ZD3ZX8KHC6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find the best restaurants in your area";
+				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -742,7 +767,10 @@
 				DEVELOPMENT_TEAM = ZD3ZX8KHC6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find the best restaurants in your area";
+				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -793,6 +821,14 @@
 				kind = branch;
 			};
 		};
+		C95B136429F866C600A07CE7 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Wouter125/BottomSheet";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -820,6 +856,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C95B136529F866C600A07CE7 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C95B136429F866C600A07CE7 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
 		C96B70692962B4AE009B3444 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
