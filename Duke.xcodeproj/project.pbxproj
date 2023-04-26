@@ -25,6 +25,8 @@
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
 		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
+		C95B136829F86B0600A07CE7 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136729F86B0600A07CE7 /* TabBar.swift */; };
+		C95B136A29F8706800A07CE7 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136929F8706800A07CE7 /* ForecastView.swift */; };
 		C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C96B70692962B4AE009B3444 /* FirebaseAuth */; };
 		C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706B2962B4AE009B3444 /* FirebaseFirestore */; };
 		C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */; };
@@ -103,6 +105,8 @@
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
+		C95B136729F86B0600A07CE7 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		C95B136929F8706800A07CE7 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		C96B70732962C1AD009B3444 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C96B70752962C238009B3444 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C96B70782962C97B009B3444 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
@@ -194,10 +198,10 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
-				C9C4E5F029EC7C5900131E97 /* Info.plist */,
-				C98B5CE72971C4B400086457 /* Scaffold */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
+				C9C4E5F029EC7C5900131E97 /* Info.plist */,
+				C98B5CE72971C4B400086457 /* Scaffold */,
 				C9FFE4FD294286D300DE106F /* Views */,
 				C96B70722962C188009B3444 /* Model */,
 				C9E2AB612942322F0001270B /* ViewModel */,
@@ -343,6 +347,8 @@
 				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
 				C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */,
 				C9B91C3A297F13C8002E6764 /* ScaffoldModel */,
+				C95B136729F86B0600A07CE7 /* TabBar.swift */,
+				C95B136929F8706800A07CE7 /* ForecastView.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -546,6 +552,7 @@
 				C9C39ACE2947EB200036874D /* OffsetModifier.swift in Sources */,
 				C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */,
 				C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */,
+				C95B136A29F8706800A07CE7 /* ForecastView.swift in Sources */,
 				C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
 				C919888029F3C718007EDECF /* Arc.swift in Sources */,
@@ -574,6 +581,7 @@
 				C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */,
 				C9B01C5629789ECB00689998 /* FavouritesHome.swift in Sources */,
 				C9C39AF52947EDD10036874D /* ExtensionOnImage.swift in Sources */,
+				C95B136829F86B0600A07CE7 /* TabBar.swift in Sources */,
 				C96B70762962C238009B3444 /* Post.swift in Sources */,
 				C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */,
 				C96B70802962CDF8009B3444 /* ReusablePostsView.swift in Sources */,
