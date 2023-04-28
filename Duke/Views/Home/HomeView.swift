@@ -6,72 +6,174 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var userViewModel: UserViewModel = UserViewModel()
+    @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
+    @State var press = false
+    @State var bottomSheetPosition: BottomSheetPosition = .bottom
+    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
+    @State var hasDragged: Bool = false
+    @State var currentTab: Tab = .home
+    
+    
+    var bottomSheetTranslationProrated: CGFloat {
+        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
+    }
+    
+    init() {
+        UITabBar.appearance().isHidden = true
+    }
+
     
     var body: some View {
-        ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
-            List(homeViewModel.businesses, id: \.id){ business in
-                BusinessCell(business: business)
-                    .listRowSeparator(.hidden)
-                    .onTapGesture {
-                        selectedBusiness = business
-                    }
-            }
-            .listStyle(.plain)
-            .navigationTitle(homeViewModel.cityName)
-            .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
-                ForEach(homeViewModel.completions, id : \.self) { completion in
-                    Text(completion).searchCompletion(completion)
-                        .foregroundColor(Color.white)
-                }
-                .modifier(ConcaveGlassView())
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showLogin.toggle()
-                    } label: {
-                        Image(systemName: "person")
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                }
-            }
-            .safeAreaInset(edge: .bottom) {
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 90)
-            }
-            .edgesIgnoringSafeArea(.bottom)
+        GeometryReader{ geometry in
+            let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
+            let imageOffset = screenHeight + 36
             
-            if let selectedBusiness = selectedBusiness {
-                withAnimation(.easeInOut) {
-                    DetailView(id: selectedBusiness.id!)
+            ZStack {
+                NavigationView {
+                    ZStack {
+                        if colorScheme == .dark {
+                            mainBackground
+                                .zIndex(-1)
+                        } else {
+                            lightBackground
+                                .zIndex(-1)
+                        }
+                        
+                        VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                            //List
+                            List(homeViewModel.businesses, id: \.id){ business in
+                                BusinessCell(business: business)
+                                    .listRowSeparator(.hidden)
+                                    .onTapGesture {
+                                        selectedBusiness = business
+                                    }
+                            }
+                            .opacity(showLogin ? 0 : 1)
+                            .listStyle(.plain)
+                            .navigationTitle(homeViewModel.cityName)
+                            .if(!showLogin, transform: { view in
+                                view
+                                    .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
+                                        ForEach(homeViewModel.completions, id : \.self) { completion in
+                                            Text(completion).searchCompletion(completion)
+                                                .foregroundColor(Color.white)
+                                        }
+                                        //.modifier(ConcaveGlassView())
+                                    }
+                            })
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarTrailing) {
+                                    accountButton
+                                }
+                            }
+                            .safeAreaInset(edge: .bottom) {
+                                Rectangle()
+                                    .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
+                                    .frame(height: 190)
+                            }
+                            .edgesIgnoringSafeArea(.bottom)
+                        }
+                        .padding(.top, 51)
+                        .offset(y: -bottomSheetTranslationProrated * 46)
+                        
+                        // MARK: Bottom Sheet - disabled and opacity zero until user clicks on account
+                        BottomSheetView(position: $bottomSheetPosition) {
+                            //                        possibly heading here when sheet is activated
+                        } content: {
+                            ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                                .environmentObject(userViewModel)
+                        }
+                        .onBottomSheetDrag { translation in
+                            bottomSheetTranslation = translation / screenHeight
+                            
+                            withAnimation(.easeInOut) {
+                                if bottomSheetPosition == BottomSheetPosition.top {
+                                    hasDragged = true
+                                } else {
+                                    hasDragged = false
+                                }
+                            }
+                        }
+                        
+                        
+                        // MARK: Tab Barq
+                        CustomTabBar(currentTab: $currentTab) {
+                            bottomSheetPosition = .top
+                        }
+                        .offset(y: bottomSheetTranslationProrated * 115)
+                    }
+                }
+                /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+                 PermissionView() { homeViewModel.requestPermission() }
+                 }*/
+                .onChange(of: homeViewModel.showModal) { newValue in
+                    homeViewModel.request()
+                }
+                
+                if selectedBusiness != nil {
+                    DetailView(id: selectedBusiness!.id!, selectedBusiness: $selectedBusiness)
                         .edgesIgnoringSafeArea(.all)
                         .transition(.move(edge: .trailing))
+                        .onAppear {
+                            showLogin = false
+                        }
+                }
+                
+                if showLogin {
+                    LoginContainerView()
+                        .environmentObject(userViewModel)
                 }
             }
         }
-        /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-            PermissionView() { homeViewModel.requestPermission() }
-        }*/
-        .fullScreenCover(isPresented: $showLogin, onDismiss: {
-            showLogin = false
-        }, content: {
-            LoginContainerView()
-                .environmentObject(userViewModel)
-        })
-        .onChange(of: homeViewModel.showModal) { newValue in
-            homeViewModel.request()
-        }
-        
     }
+    
+    var accountButton: some View {
+        Button {
+            withAnimation {
+                showLogin.toggle()
+            }
+            withAnimation(.spring()) {
+                press = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    press = false
+                }
+            }
+        } label: {
+            if #available(iOS 16.0, *) {
+                RoundedRectangle(cornerRadius: 30)
+                    .frame(width: 64, height: 44)
+                    .foregroundStyle(
+                        .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                        .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                        .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                    )
+                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
+                    .overlay(Image(systemName: "person.fill").foregroundStyle(.white))
+                    .padding(.small)
+            } else {
+                // Fallback on earlier versions
+                RoundedRectangle(cornerRadius: 30)
+                    .frame(width: 64, height: 44)
+                    .foregroundStyle(
+                        .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
+                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
+                    .overlay(Image(systemName: "arrowshape.turn.up.backward.fill").foregroundStyle(.white))
+                    .padding(.small)
+            }
+        }
+        .scaleEffect(press ? 1.2 : 1)
+    }
+    
 }
 
 
@@ -79,6 +181,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(HomeViewModel())
-            .preferredColorScheme(.dark)
+        //.preferredColorScheme(.dark)
     }
 }

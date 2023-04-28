@@ -134,7 +134,7 @@ struct RegistrationView: View {
                     .paddedBorder(.gray.opacity(0.5), 1)
             }*/
             
-            TextField("Link to Bio (Optional)", text: $userVM.userBioLink)
+            TextField("Link to Socials (Optional)", text: $userVM.userBioLink)
                 .textContentType(.URL)
                 .paddedBorder(.gray.opacity(0.5), 1)
                             

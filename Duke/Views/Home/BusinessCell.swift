@@ -12,34 +12,44 @@ struct BusinessCell: View {
     let business: Business
     
     var body: some View {
-        HStack{
-            AsyncImage(url: business.formattedImageURL) { image in
-                image
-                    .resizable()
-            } placeholder: {
-                Color.blue.shimmer() 
-            }
-            .frame(width: 110, height: 110)
-            .cornerRadius(10)
-            .padding(.small)
+        ZStack(alignment: .bottom) {
+            // MARK: Trapezoid
+            Trapezoid()
+                .fill(Color.red) //weatherWidgetBackground
+                .frame(width: getRect().width * 0.95, height: 130)
             
-            //Labels
-            VStack(alignment: .leading, spacing: .small) {
-                Text(business.formattedName)
-                Text(business.formattedCategory)
-                HStack {
-                    Text(business.formattedRating)
-                    Image("star")
+            // MARK: Content
+            HStack(alignment: .bottom) {
+                //Labels
+                VStack(alignment: .leading, spacing: .small) {
+                    Text(business.formattedName)
+                    Text(business.formattedCategory)
+                    HStack {
+                        Text(business.formattedRating)
+                        Image("star")
+                    }
                 }
+                .foregroundColor(.white)
+                
+                Spacer()
+                
+                AsyncImage(url: business.formattedImageURL) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Color.blue.shimmer()
+                }
+                .frame(width: 110, height: 110)
+                .cornerRadius(10)
+                .padding(.small)
+                .modifier(CompactConvexGlassView())
             }
             .foregroundColor(.white)
-            
-            Spacer()
+            .padding(.bottom, 20)
+            .padding(.leading, 20)
+            .padding(.small)
         }
-        .padding(.small)
-        .background(Color.black)
-        .cornerRadius(.large)
-        .modifier(CompactConvexGlassView())
+        .frame(width: getRect().width * 0.95, height: 140, alignment: .bottom)
     }
 }
 

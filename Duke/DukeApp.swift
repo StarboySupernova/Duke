@@ -15,10 +15,12 @@ import FirebaseStorage
 @main
 struct DukeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @Environment(\.colorScheme) var colorScheme
 
     init() {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .black
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
+        UISearchBar.appearance().overrideUserInterfaceStyle = .dark
     }
     
     var body: some Scene {

@@ -35,6 +35,7 @@ final class HomeViewModel: ObservableObject {
     
     //using methods from ExtensionKit to leverage Combine to provide AuthorizationStatus publisher and avoid implementing a delegate pattern
     func requestPermission() {
+#warning("should change code in this method, it is causing issues when user selects Allow Once")
         manager
             .requestLocationAlwaysAuthorization()
             .map {  [unowned self] in

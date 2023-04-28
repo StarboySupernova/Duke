@@ -14,14 +14,17 @@ struct LoginView: View {
     @State private var createAccount : Bool = false
     @State private var isLoading : Bool = false
     @EnvironmentObject var loginVM: UserViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 10) {
             Text("Let's Sign you in")
+                .foregroundColor(.white)
                 .font(.largeTitle.bold())
                 .horizontalAlign(.leading)
             
             Text("Welcome Back")
+                .foregroundColor(.white)
                 .font(.title3)
                 .horizontalAlign(.leading)
             
@@ -29,18 +32,20 @@ struct LoginView: View {
                 TextField("Email", text: $loginVM.loginEmail)
                     .textContentType(.emailAddress)
                     .textInputAutocapitalization(.never)
-                    .paddedBorder(.gray.opacity(0.5), 1)
+                    .paddedBorder(.gray.opacity(0.9), 1)
                     .padding(.top, .xLarge)
                 
                 SecureField("Password", text: $loginVM.loginPassword)
                     .textInputAutocapitalization(.never)
                     .textContentType(.password)
-                    .paddedBorder(.gray.opacity(0.5), 1)
+                    .paddedBorder(.gray.opacity(0.9), 1)
+                    .foregroundColor(.white)
                 
                 Button {
                     loginVM.resetPassword()
                 } label: {
                     Text("Reset Password?")
+                        .foregroundColor(.white)
                         .font(.callout)
                         .fontWeight(.medium)
                         .tint(.white)
