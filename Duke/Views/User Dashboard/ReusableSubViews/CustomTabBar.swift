@@ -16,6 +16,7 @@ struct CustomTabBar: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
+    @Environment(\.colorScheme) var colorScheme
     
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
@@ -35,7 +36,12 @@ struct CustomTabBar: View {
                     .overlay {
                         // MARK: Arc Border
                         Arc()
-                            .stroke(Color.tabBarBorder, lineWidth: 0.5)
+                            .stroke(Color.tabBarBorder, lineWidth: 0.9)
+                    }
+                    .overlay {
+                        // MARK: Arc Border
+                        Arc()
+                            .stroke(colorScheme == .dark ? Color.tabBarBorder : Color.black, lineWidth: 0.5)
                     }
                     .zIndex(-1)
                 

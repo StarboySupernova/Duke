@@ -68,7 +68,7 @@ var lightBackground: some View {
         Image("Background")
             .resizable()
             .ignoresSafeArea()
-            .opacity(0.5)
+            .opacity(0.1)
     }
 }
 
