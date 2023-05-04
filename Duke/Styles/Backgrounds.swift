@@ -68,6 +68,7 @@ var lightBackground: some View {
         Image("Background")
             .resizable()
             .ignoresSafeArea()
+            .opacity(0.5)
     }
 }
 
@@ -96,7 +97,7 @@ struct Blur: View {
 }
 
 extension Color {
-    static let background = LinearGradient(gradient: Gradient(colors: [Color("Background 1"), Color("Background 2")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let background = LinearGradient(gradient: Gradient(colors: [Color("Background 1"), Color("gradient-bottom")]), startPoint: .topLeading, endPoint: .bottomTrailing)
     static let bottomSheetBackground = LinearGradient(gradient: Gradient(colors: [Color("Background 1").opacity(0.26), Color("Background 2").opacity(0.26)]), startPoint: .topLeading, endPoint: .bottomTrailing)
     static let navBarBackground = LinearGradient(gradient: Gradient(colors: [Color("Background 1").opacity(0.1), Color("Background 2").opacity(0.1)]), startPoint: .topLeading, endPoint: .bottomTrailing)
     static let tabBarBackground = LinearGradient(gradient: Gradient(colors: [Color("Tab Bar Background 1").opacity(0.26), Color("Tab Bar Background 2").opacity(0.26)]), startPoint: .top, endPoint: .bottom)
@@ -141,6 +142,27 @@ enum BottomSheetPosition: CGFloat, CaseIterable {
     case middle = 0.385 // 325/844
     case bottom = 0.0
 }
+
+enum Weather {
+    case sunny(Double)
+    case rainy(Double)
+    case cloudy(Double)
+
+    var chanceOfRain: Double {
+        switch self {
+        case .sunny(let humidity):
+            return humidity * 0.1
+        case .rainy(let humidity):
+            return humidity * 0.9
+        case .cloudy(let humidity):
+            return humidity * 0.3
+        }
+    }
+}
+
+let sunnyWeather = Weather.sunny(0.5)
+//print(sunnyWeather.chanceOfRain) // Output: 0.05
+
 
 struct LightBackground: View {
     @State var bottomSheetPosition: BottomSheetPosition = .middle

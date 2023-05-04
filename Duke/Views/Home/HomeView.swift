@@ -19,8 +19,6 @@ struct HomeView: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
-    @State var currentTab: Tab = .home
-    
     
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
@@ -29,7 +27,6 @@ struct HomeView: View {
     init() {
         UITabBar.appearance().isHidden = true
     }
-
     
     var body: some View {
         GeometryReader{ geometry in
@@ -105,7 +102,7 @@ struct HomeView: View {
                         
                         
                         // MARK: Tab Barq
-                        CustomTabBar(currentTab: $currentTab) {
+                        CustomTabBar {
                             bottomSheetPosition = .top
                         }
                         .offset(y: bottomSheetTranslationProrated * 115)
@@ -181,6 +178,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(HomeViewModel())
-        //.preferredColorScheme(.dark)
+            //.preferredColorScheme(.dark)
     }
 }
