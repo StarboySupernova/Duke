@@ -67,6 +67,7 @@ struct ParallaxView: View {
                                 )
 
                         }
+                        .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
                     }
                     .padding(.top, .large)
                     
@@ -74,6 +75,8 @@ struct ParallaxView: View {
                         .resizedToFit(width: 35, height: 35)
                         .frame(maxWidth: .infinity)
                         .padding(.bottom, 10)
+                        .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+
                     //MARK: iOS 16 code
                     /*if #available(iOS 16.0, *) {
                         Text("Duke")
