@@ -59,7 +59,7 @@
 		C9C39ACF2947EB200036874D /* ConvexGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AC92947EB200036874D /* ConvexGlassModifier.swift */; };
 		C9C39AD02947EB200036874D /* ConcaveGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39ACA2947EB200036874D /* ConcaveGlassModifier.swift */; };
 		C9C39AD12947EB200036874D /* DarkModeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39ACB2947EB200036874D /* DarkModeViewModifier.swift */; };
-		C9C39AD52947EB490036874D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AD32947EB490036874D /* ButtonStyles.swift */; };
+		C9C39AD52947EB490036874D /* ButtonStyles & Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AD32947EB490036874D /* ButtonStyles & Buttons.swift */; };
 		C9C39AD62947EB490036874D /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AD22947EB490036874D /* Backgrounds.swift */; };
 		C9C39AD72947EB490036874D /* LabelledDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AD42947EB490036874D /* LabelledDivider.swift */; };
 		C9C39ADA2947EB960036874D /* Helper Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C39AD92947EB960036874D /* Helper Methods.swift */; };
@@ -135,7 +135,7 @@
 		C9C39ACA2947EB200036874D /* ConcaveGlassModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcaveGlassModifier.swift; sourceTree = "<group>"; };
 		C9C39ACB2947EB200036874D /* DarkModeViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkModeViewModifier.swift; sourceTree = "<group>"; };
 		C9C39AD22947EB490036874D /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
-		C9C39AD32947EB490036874D /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		C9C39AD32947EB490036874D /* ButtonStyles & Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyles & Buttons.swift"; sourceTree = "<group>"; };
 		C9C39AD42947EB490036874D /* LabelledDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledDivider.swift; sourceTree = "<group>"; };
 		C9C39AD92947EB960036874D /* Helper Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper Methods.swift"; sourceTree = "<group>"; };
 		C9C39ADB2947EBDC0036874D /* EmbossedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbossedButton.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C39AD22947EB490036874D /* Backgrounds.swift */,
-				C9C39AD32947EB490036874D /* ButtonStyles.swift */,
+				C9C39AD32947EB490036874D /* ButtonStyles & Buttons.swift */,
 				C9C39AD42947EB490036874D /* LabelledDivider.swift */,
 			);
 			path = Styles;
@@ -573,7 +573,7 @@
 				C9C39AE22947EBDC0036874D /* RaisedButton.swift in Sources */,
 				C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */,
 				C9C39AF12947EDD10036874D /* ExtensionOnEncodable.swift in Sources */,
-				C9C39AD52947EB490036874D /* ButtonStyles.swift in Sources */,
+				C9C39AD52947EB490036874D /* ButtonStyles & Buttons.swift in Sources */,
 				C919888229F3C769007EDECF /* Trapezoid.swift in Sources */,
 				C9C39ACF2947EB200036874D /* ConvexGlassModifier.swift in Sources */,
 				C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */,
