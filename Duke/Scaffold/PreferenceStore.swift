@@ -8,14 +8,16 @@
 import Foundation
 
 class Preference: ObservableObject {
-    @Published var headerText: String //should look into making this an attributed string
+    @Published var headerText: [String] //should look into making this an attributed string
     @Published var buttonText: [String] //should look into making each element of this array an attributed string
     //no need for button number, as buttons will be generated for each button text
+    @Published var imageName: [String]
     @Published var selected: PreferencesSelected = PreferencesSelected() // set to default values
     
-    init(headerText: String, buttonText: [String], selected: PreferencesSelected) {
+    init(headerText: [String], buttonText: [String], imageName: [String], selected: PreferencesSelected) {
         self.headerText = headerText
         self.buttonText = buttonText
+        self.imageName = imageName
         self.selected = selected
     }
     
