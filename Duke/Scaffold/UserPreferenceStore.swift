@@ -64,8 +64,6 @@ class UserPreference: ObservableObject {
             self.thai = thai
         }
     
-    #warning("SHOULD NVER, UNDER ANY CIRCUMSTANCE, USE THIS AD-HOC METHOD TO SET PROPOERTIES IN THIS CLASS")
-    ///setter required here only to satisy compiler requirements, should not use setter. This subscript is to be used to created a binding to properties of this class, provided they are of type Published<Bool>, from searching their variable names with a string parameter
     subscript(dynamicMember key: String) -> Binding<Bool> {
             Binding<Bool>(
                 get: {
