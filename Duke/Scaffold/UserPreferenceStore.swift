@@ -6,20 +6,32 @@
 //
 
 import Foundation
+import SwiftUI
 
 class UserPreference: ObservableObject {
+    ///Parallax properties
     @Published var headerText: [String] //should look into making this an attributed string
     @Published var buttonText: [String] //should look into making each element of this array an attributed string
     //no need for button number, as buttons will be generated for each button text
     @Published var imageName: [String]
-    @Published var selected: PreferencesSelected = PreferencesSelected() // set to default values
     
-    init(headerText: [String], buttonText: [String], imageName: [String], selected: PreferencesSelected) {
-        self.headerText = headerText
-        self.buttonText = buttonText
-        self.imageName = imageName
-        self.selected = selected
-    }
+    ///preferences
+    @Published var isHalaal: Bool = false
+    @Published var haram: Bool = false
+    @Published var pork: Bool = false
+    @Published var vegan: Bool = false
+    @Published var vegetarian: Bool = false
+    @Published var lactose: Bool = false
+    @Published var outdoor: Bool = false
+    @Published var wineTasting: Bool = false
+    @Published var wineFarms: Bool = false
+    
+    ///authentic experiences preferences
+    @Published var african: Bool = true
+    @Published var italian: Bool = true
+    @Published var greek: Bool = true
+    @Published var chinese: Bool = true
+    @Published var thai: Bool = true
     
     init(headerText: [String], buttonText: [String], imageName: [String]) {
         self.headerText = headerText
@@ -27,27 +39,63 @@ class UserPreference: ObservableObject {
         self.imageName = imageName
     }
     
-    struct PreferencesSelected {
-        /// String chosen here over Bool because Firebase seraching might be more complex for true or false values
-        /// To display preferred restaurants, we apply filters. Default values indicate that no filters will be applied
-        var isHalaal: Bool = false
-        var haram: Bool = false
-        var pork: Bool = false
-        var vegan: Bool = false
-        var vegetarian: Bool = false
-        var lactose: Bool = false
-        var outdoor: Bool = false
-        var wineTasting: Bool = false
-        var wineFarms: Bool = false
-        var authenticRestaurants: AuthenticRestaurant?
-        
-        struct AuthenticRestaurant {
-            var african: (String, Bool) = ("African", true) //when searching Firebase, remember to be case-agnostic
-            var italian: (String, Bool) = ("Italian", true)
-            var greek: (String, Bool) = ("Greek", true)
-            var chinese: (String, Bool) = ("Chinese", true)
-            var thai: (String, Bool) = ("Thai", true)
+    init(headerText: [String] = [], buttonText: [String] = [], imageName: [String] = [],
+             isHalaal: Bool = false, haram: Bool = false, pork: Bool = false, vegan: Bool = false,
+             vegetarian: Bool = false, lactose: Bool = false, outdoor: Bool = false,
+             wineTasting: Bool = false, wineFarms: Bool = false, african: Bool = true,
+             italian: Bool = true, greek: Bool = true, chinese: Bool = true, thai: Bool = true) {
+            
+            self.headerText = headerText
+            self.buttonText = buttonText
+            self.imageName = imageName
+            self.isHalaal = isHalaal
+            self.haram = haram
+            self.pork = pork
+            self.vegan = vegan
+            self.vegetarian = vegetarian
+            self.lactose = lactose
+            self.outdoor = outdoor
+            self.wineTasting = wineTasting
+            self.wineFarms = wineFarms
+            self.african = african
+            self.italian = italian
+            self.greek = greek
+            self.chinese = chinese
+            self.thai = thai
         }
-    }
+    
+    #warning("SHOULD NVER, UNDER ANY CIRCUMSTANCE, USE THIS AD-HOC METHOD TO SET PROPOERTIES IN THIS CLASS")
+    ///setter required here only to satisy compiler requirements, should not use setter. This subscript is to be used to created a binding to properties of this class, provided they are of type Published<Bool>, from searching their variable names with a string parameter
+    subscript(dynamicMember key: String) -> Binding<Bool> {
+            Binding<Bool>(
+                get: {
+                    return self.value(for: key)
+                },
+                set: { newValue in
+                    self.setValue(newValue, for: key)
+                }
+            )
+        }
+        
+        private func value(for key: String) -> Bool {
+            return Mirror(reflecting: self).children
+                .compactMap { $0 as? (label: String?, value: Bool) }
+                .first { $0.label == key }?.value ?? false
+        }
+        
+        private func setValue(_ newValue: Bool, for key: String) {
+            let mirror = Mirror(reflecting: self)
+            guard var target = mirror.children
+                .first(where: {
+                    ($0.label ?? "") == key
+                })?.value as? Published<Bool> else {
+                return
+            }
+            
+            target = Published<Bool>(wrappedValue: newValue)
+        }
+    
 }
+
+
 
