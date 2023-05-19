@@ -10,7 +10,7 @@ import SwiftUI
 struct ParallaxView: View {
     //Gesture properties
     @State private var offset: CGSize = .zero
-    @Binding var preference: UserPreference
+    @ObservedObject var preference: UserPreference
     var headerText: String
     var buttonText: [String]
     var imageName: String
@@ -246,67 +246,11 @@ struct ParallaxView: View {
             .blendMode(.difference)
     }
     
-    func booleanBinding(propertyName: String) -> Binding<Bool> {
-        let preferenceMirror = Mirror(reflecting: preference)
-        let booleanProperties = preferenceMirror.children.compactMap { (label, value) -> (String, Published<Bool>?) in
-            if let value = ((value as? Published<Bool>) != nil) && label == propertyName {
-                return (label, value)
-            }
-            return nil
-        }
-        
-        for child in preferenceMirror.children {
-            if child.label == propertyName {
-                if var property = child.value as? Published<Bool> && property
-
-                let binding = Binding<Bool> (
-                    get: {
-                        ch
-                    },
-                    set: {
-                        property = $0
-                    }
-                )
-            }
-        }
-        
-        if let property = preferenceMirror.children.first(where: { (child) -> Bool in
-            return child.label == propertyName
-        }) {
-            if let publishedBool = property.value as? Published<Bool> {
-                let binding: Binding<Bool> = Binding<Bool>(
-                    get: { preference.$.wrappedValue },
-                    set: { exampleObject.$x.wrappedValue = $0 }
-                )
-                
-                let binding = Binding<Bool>(
-                    get: { exampleObject.x },
-                    set: { exampleObject.x = $0 }
-                )
-                //we have
-                //preferenceMirror
-                //preference itself
-                //publishedBool
-                       
-            }
-            guard let wrappedValue = property.wrappedValue else {
-                return .constant(false)
-            }
-            
-            return Binding<Bool>(get: { wrappedValue },
-                                 set: { newValue in
-                property.wrappedValue = newValue
-            })
-        }
-        
-        // Return a default binding if no matching property found
-        return .constant(false)
-    }
 }
 
 struct ParallaxView_Previews: PreviewProvider {
     static var previews: some View {
-        ParallaxView(preference: .constant(PreferenceStore()))
+        ParallaxView(preference: UserPreference(headerText: [], buttonText: [], imageName: []), headerText: "", buttonText: [], imageName: "")
             .preferredColorScheme(.dark)
     }
 }
