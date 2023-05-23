@@ -46,7 +46,7 @@ struct ParallaxView: View {
                     //for each buttontext array element create new button
                     HStack(alignment: .top, spacing: 20.0) {
                         ForEach(buttonText.indices, id: \.self) { textIndex in
-                            SelectionButton(buttonText: buttonText[textIndex], isSelected: preference(dynamicMember: buttonText[textIndex]))
+                            SelectionButton(buttonText: buttonText[textIndex], isSelected: preference[dynamicMember: buttonText[textIndex]])
                         }
                     }
                     
@@ -221,6 +221,15 @@ struct ParallaxView: View {
     func offsetToAngle(_ isVertical: Bool = false) -> Angle {
         let progress = (isVertical ? offset.height : offset.width) / (isVertical ? getScreenSize().height : getScreenSize().width)
         return .init(degrees: progress * 10)
+    }
+    
+    ///getIndex here should target headerText on UserPreference
+    func getIndex() -> CGFloat {
+        let index = preference.headerText.firstIndex { text in
+            return self.headerText == text
+        } ?? 0
+        
+        return CGFloat(index)
     }
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
