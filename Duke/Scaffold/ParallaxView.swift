@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ParallaxView: View {
     //Gesture properties
-    @State private var offset: CGSize = .zero
+    @State private var parallaxOffset: CGSize = .zero
+    @State var offset: CGFloat = .zero
+    @State var height: CGFloat = 0
+    @GestureState var isDragging: Bool = false
     @ObservedObject var preference: UserPreference
     var headerText: String
     var buttonText: [String]
@@ -203,14 +206,48 @@ struct ParallaxView: View {
             .scaleEffect(0.9)
             .frame(maxWidth: .infinity, maxHeight: getRect().height)
             .contentShape(Rectangle())
-            .gesture(
+            ///// to determine which card shows up on top of the others based on getindex
+            ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
+            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(preference.headerText.count) - getIndex()) - 1 : Double(CGFloat(preference.headerText.count) - getIndex()))
+            .gesture (
                 DragGesture()
+                    .updating($isDragging, body: { _, out, _ in
+                        out = true
+                    })
                     .onChanged({ value in
-                        offset = value.translation
+                        var translation = value.translation.width
+                        let index = preference.headerText.firstIndex(of: headerText)
+                        var arrayStack = Array(preference.headerText[index!...])
+                        translation = arrayStack.first?.id == headerText.id ? translation : 0 //create a function here to create a mutable array based on headertexts, and check whether the id is of the first element in that array. swipes should mutate this array such that swipes are only available on the top card
+                        translation = isDragging ? translation : 0
+
+                        parallaxOffset = value.translation
+                        
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            offset = translation
+                            height = -offset / 5
+                        }
                     })
                     .onEnded({ _ in
                         withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.32, blendDuration: 0.32)) {
-                            offset = .zero
+                            parallaxOffset = .zero
+                        }
+                        let index = preference.headerText.firstIndex(of: headerText)
+                        let width = UIScreen.main.bounds.width
+                        let swipedLeft = -offset > (width / 2)
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            if swipedLeft {
+                                offset = -width
+                                //code block here for testing purposes
+                                withAnimation(.spring()) {
+                                    let index = preference.headerText.firstIndex(of: headerText)
+                                    var arrayStack = Array(preference.headerText[index!...])
+                                    arrayStack.removeFirst()
+                                }
+                            } else {
+                                offset = .zero
+                                height = .zero
+                            }
                         }
                     })
             )
@@ -219,7 +256,7 @@ struct ParallaxView: View {
     
     //MARK: method that translates offset (CGSize) into Angle values
     func offsetToAngle(_ isVertical: Bool = false) -> Angle {
-        let progress = (isVertical ? offset.height : offset.width) / (isVertical ? getScreenSize().height : getScreenSize().width)
+        let progress = (isVertical ? parallaxOffset.height : parallaxOffset.width) / (isVertical ? getScreenSize().height : getScreenSize().width)
         return .init(degrees: progress * 10)
     }
     
@@ -253,6 +290,13 @@ struct ParallaxView: View {
             .fontWeight(.semibold)
             .kerning(2)
             .blendMode(.difference)
+    }
+    
+    func createNewArrayStack(from string: String, in array: [String]) -> [String] {
+        let index = array.firstIndex(of: string)!
+        
+        let arrayStack = Array(array[index...])
+        return arrayStack
     }
     
 }

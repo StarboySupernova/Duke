@@ -42,14 +42,13 @@ struct CapsuleButtonStyle: ButtonStyle {
 
 
 
-struct DateButton: View {
-    @State var weekDay: String = "Sat"
-    @State var numDay: String = "23"
+struct SelectionButton: View {
+    @State var buttonText: String
     
     @State var width: CGFloat = 50
     @State var height: CGFloat = 80
     
-    @Binding var isSelected: Bool
+    @Binding var isSelected: Bool //will come from PreferenceStore variable
     @State var action: () -> Void = {}
     
     var currentBorderColors: [Color] = [Color("cyan"), Color("cyan").opacity(0), Color("cyan").opacity(0)]
@@ -63,9 +62,7 @@ struct DateButton: View {
             action()
         } label: {
             VStack {
-                Text(weekDay)
-                
-                Text(numDay)
+                Text(buttonText)
                     .fontWeight(.bold)
             }
             .font(.subheadline)
@@ -119,6 +116,31 @@ struct TimeButton: View {
     }
 }
 
+struct CircleButton: View {
+    @State var action: () ->Void
+    @State var image: String = "arrow.left"
+    
+    var gradient: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
+    
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: image)
+                .frame(width: 44, height: 44)
+                .background(.ultraThinMaterial)
+                .foregroundColor(.white)
+                .cornerRadius(30)
+                .overlay(
+                    Circle()
+                        .trim(from: 0, to: CGFloat(0.5))
+                        .stroke(LinearGradient(colors: gradient, startPoint: .top, endPoint: .bottom), style: StrokeStyle(lineWidth: 2))
+                        .rotationEffect(.degrees(135))
+                        .frame(width: 42, height: 42)
+                )
+        }
+    }
+}
 
 
 struct LargeButton: View {

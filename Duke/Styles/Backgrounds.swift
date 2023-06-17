@@ -51,6 +51,16 @@ struct ColourBackground<S: Shape>: View {
     }
 }
 
+struct CircleBackground: View {
+    @State var color: Color = Color("greenCircle")
+    
+    var body: some View {
+        Circle()
+            .frame(width: 300, height: 300)
+            .foregroundColor(color)
+    }
+}
+
 var mainBackground: some View {
     Rectangle()
         .fill(.radialGradient(colors: [Color(#colorLiteral(red: 0.2970857024, green: 0.3072845936, blue: 0.4444797039, alpha: 1)), .black], center: .center, startRadius: 1, endRadius: 400))
@@ -164,90 +174,6 @@ let sunnyWeather = Weather.sunny(0.5)
 //print(sunnyWeather.chanceOfRain) // Output: 0.05
 
 
-struct LightBackground: View {
-    @State var bottomSheetPosition: BottomSheetPosition = .middle
-    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
-    @State var hasDragged: Bool = false
-    
-    var bottomSheetTranslationProrated: CGFloat {
-        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
-    }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-            let imageOffset = screenHeight + 36
-            
-            ZStack {
-                // MARK: Background Color
-                Color.background
-                    .ignoresSafeArea()
-                
-                // MARK: Background Image
-                Image("Background")
-                    .resizable()
-                    .ignoresSafeArea()
-                    .offset(y: -bottomSheetTranslationProrated * imageOffset)
-                
-                //segregate all above this to be light background
-                
-                // MARK: Current Weather
-                VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                    //possibly list here
-                    
-                }
-                .padding(.top, 51)
-                .offset(y: -bottomSheetTranslationProrated * 46)
-                
-                // MARK: Bottom Sheet
-                BottomSheetView(position: $bottomSheetPosition) {
-//                        possibly heading here when sheet is activated
-                } content: {
-                    ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
-                }
-                .onBottomSheetDrag { translation in
-                    bottomSheetTranslation = translation / screenHeight
-                    
-                    withAnimation(.easeInOut) {
-                        if bottomSheetPosition == BottomSheetPosition.top {
-                            hasDragged = true
-                        } else {
-                            hasDragged = false
-                        }
-                    }
-                }
-                
-                // MARK: Tab Bar
-                TabBar(action: {
-                    bottomSheetPosition = .top
-                })
-                .offset(y: bottomSheetTranslationProrated * 115)
-            }
-        }
-
-    }
-    
-    private var attributedString: AttributedString {
-        var string = AttributedString("19°" + (hasDragged ? " | " : "\n ") + "Mostly Clear")
-        
-        if let temp = string.range(of: "19°") {
-            string[temp].font = .system(size: (96 - (bottomSheetTranslationProrated * (96 - 20))), weight: hasDragged ? .semibold : .thin)
-            string[temp].foregroundColor = hasDragged ? .secondary : .primary
-        }
-        
-        if let pipe = string.range(of: " | ") {
-            string[pipe].font = .title3.weight(.semibold)
-            string[pipe].foregroundColor = .secondary.opacity(bottomSheetTranslationProrated)
-        }
-        
-        if let weather = string.range(of: "Mostly Clear") {
-            string[weather].font = .title3.weight(.semibold)
-            string[weather].foregroundColor = .secondary
-        }
-        
-        return string
-    }
-}
 
 
 
