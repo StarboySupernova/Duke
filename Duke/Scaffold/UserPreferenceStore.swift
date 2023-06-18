@@ -65,7 +65,7 @@ class UserPreference: ObservableObject {
             self.thai = thai
         }
     ///subscript may not have been needed to be done in this way. Instead of creating our own Binding retunred from the subscript, we were supposed to pass in a UserPreference object as is to ParallaxView, then hook into the bindings provided by the StateObject on its @Published properties
-    ///-- Route taken in this case assumed StateObject values will change in-between PrallaxView swipes offscren, hence the need to create custom subscript returning custom bindings to our properties by string name
+    ///-- Route taken in this case assumed StateObject values will change in-between ParallaxView swipes offscren, hence the need to create custom subscript returning custom bindings to our properties by string name
     ///--However, this implmentation was needed such that ParaalxView can be able initialize it's buttons based on its buttonText array input and creating bindings to them on the fly
     ///The unintended result of this approach is that we have to explictly initalize the StateObject, which has performance and functionality side-effects we may not anticipate
     subscript(dynamicMember key: String) -> Binding<Bool> {

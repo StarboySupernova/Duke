@@ -30,45 +30,50 @@ struct PreferenceView: View {
                         animate.toggle()
                     }
                 }
+            
+            ForEach(preferenceStore.headerText.indices, id: \.self) { index in
+                let headerText = preferenceStore.headerText[index]
+                let imageName = preferenceStore.imageName[index]
+                
+                switch index {
+                case 0:
+                    // Attach functionality for the first headerText value
+                    // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
+                    let buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().prefix(3))
+                    ParallaxView(preference: preferenceStore, headerText: headerText, buttonText: buttonTextValues, imageName: imageName)
+                    
+                case 1:
+                    // Attach functionality for the second headerText value
+                    // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
+                    let buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().dropFirst(3).prefix(3))
+                    ParallaxView(preference: preferenceStore, headerText: headerText, buttonText: buttonTextValues, imageName: imageName)
+                    
+                case 2:
+                    // Attach functionality for the third headerText value
+                    // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
+                    let buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().dropFirst(6).prefix(3))
+                    ParallaxView(preference: preferenceStore, headerText: headerText, buttonText: buttonTextValues, imageName: imageName)
+
+                default:
+                    // Attach functionality for other headerText values
+                    // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
+                    let buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().suffix(5))
+                    ParallaxView(preference: preferenceStore, headerText: headerText, buttonText: buttonTextValues, imageName: imageName)
+
+                }
+            }
+
         }
         .background(
             LinearGradient(gradient: Gradient(colors: [Color("backgroundColor"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)
         )
         
-        ForEach(preferenceStore.headerText.indices, id: \.self) { index in
-            let headerText = preferenceStore.headerText[index]
-            let imageName = preferenceStore.imageName[index]
-            
-            switch index {
-            case 0:
-                // Attach functionality for the first headerText value
-                // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-                let buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().prefix(3))
-                ParallaxView(preference: preferenceStore, headerText: headerText, buttonText: buttonTextValues, imageName: imageName)
-                
-            case 1:
-                // Attach functionality for the second headerText value
-                // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-                let buttonTextValues = preferenceStore.collectBoolProperties().dropFirst(3).prefix(3)
-
-                
-            case 2:
-                // Attach functionality for the third headerText value
-                // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-                let buttonTextValues = preferenceStore.collectBoolProperties().dropFirst(6).prefix(3)
-                
-            default:
-                // Attach functionality for other headerText values
-                // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-                let buttonTextValues = preferenceStore.collectBoolProperties().suffix(5)
-
-            }
-        }
     }
 }
 
 struct PreferenceView_Previews: PreviewProvider {
     static var previews: some View {
         PreferenceView()
+            .preferredColorScheme(.dark)
     }
 }
