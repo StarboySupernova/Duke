@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PreferenceView: View {
-    @StateObject var preferenceStore: UserPreference = UserPreference(headerText: ["Cultural Preferences", "Vegetarian Preferences", "Seating Preferences", "Authentic Cuisine Preferences"], buttonText: ["Halaal", "Haram", "Pork", "Vegan", "Vegetarian", "Containing-Lactose", "Outdoor seating", "Recommend Wine Farms?","Wine-Tasting"], imageName: ["person.and.background.dotted","leaf.circle.fill", "wineglass", "fork.knife"]) //default values
+    @EnvironmentObject var preferenceStore: UserPreference
     @State var animate: Bool = false
     
     var body: some View {
@@ -34,7 +34,6 @@ struct PreferenceView: View {
             ForEach(preferenceStore.headerText.indices, id: \.self) { index in
                 ParallaxView(preference: preferenceStore, headerText: preferenceStore.headerText[index], buttonText: buttonTextValues(index), imageName: preferenceStore.imageName[index])
             }
-
         }
         .background(
             LinearGradient(gradient: Gradient(colors: [Color("backgroundColor"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)

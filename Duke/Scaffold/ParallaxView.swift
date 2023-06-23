@@ -232,6 +232,7 @@ struct ParallaxView: View {
                         withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.32, blendDuration: 0.32)) {
                             parallaxOffset = .zero
                         }
+                        
                         let index = preference.headerText.firstIndex(of: headerText)
                         let width = UIScreen.main.bounds.width
                         let swipedLeft = -offset > (width / 2)
