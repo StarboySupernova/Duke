@@ -10,29 +10,31 @@ import SwiftUI
 
 @dynamicMemberLookup
 class UserPreference: ObservableObject {
-    ///Parallax properties
-    var headerText: [String] //should look into making this an attributed string
-    var buttonText: [String] //should look into making each element of this array an attributed string
-    //no need for button number, as buttons will be generated for each button text
-    var imageName: [String]
-    
-    ///preferences
-    @Published var isHalaal: Bool = false
-    @Published var haram: Bool = false
-    @Published var pork: Bool = false
-    @Published var vegan: Bool = false
-    @Published var vegetarian: Bool = false
-    @Published var lactose: Bool = false
-    @Published var outdoor: Bool = false
-    @Published var wineTasting: Bool = false
-    @Published var wineFarms: Bool = false
+    //should use MVVM here
+    //this class should be the model, with instances of this broadcasting (publishing) user selected data
+    //view model will handle storage to Firebase/or Keychain
+    //headerText will be changed into String values
+    //use of Dictionary values looking likely, but this will be determined later
+    //some properties to be moved to UserPreferenceModel https://paulallies.medium.com/swiftui-mvvm-a1e7a18f4f03
+    var id: String = UUID().uuidString //should be set to same as authid from Firebase
+    var isHalaal: Bool = false
+    var haram: Bool = false
+    var pork: Bool = false
+    var vegan: Bool = false
+    var vegetarian: Bool = false
+    var lactose: Bool = false
+    var outdoor: Bool = false
+    var wineTasting: Bool = false
+    var wineFarms: Bool = false
     
     ///authentic experiences preferences
-    @Published var african: Bool = true
-    @Published var italian: Bool = true
-    @Published var greek: Bool = true
-    @Published var chinese: Bool = true
-    @Published var thai: Bool = true
+    var african: Bool = true
+    var italian: Bool = true
+    var greek: Bool = true
+    var chinese: Bool = true
+    var thai: Bool = true
+    
+    
     
     init(headerText: [String], buttonText: [String], imageName: [String]) {
         self.headerText = headerText

@@ -32,7 +32,7 @@ class UserViewModel : ObservableObject {
                 try await Auth.auth().createUser(withEmail: email, password: password)
                 //Step -2 - Creating a User Firestore object
                 guard let userID = Auth.auth().currentUser?.uid else {
-                    showErrorAlertView("Error", "Unable to detect user key ID", handler: {})
+                    showErrorAlertView("Error", "Unable to detect user key ID", handler: {}) //should determine global retry method to run in scenarios such as this
                     return
                 }
                 let user = User(userName: userName, userBio: userBio, userBioLink: userBioLink, userUID: userID, userEmail: email)
