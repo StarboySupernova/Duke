@@ -6,9 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-
-
 
 struct ParallaxProperties: Identifiable {
     var id = UUID().uuidString

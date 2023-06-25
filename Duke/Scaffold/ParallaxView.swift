@@ -13,7 +13,6 @@ struct ParallaxView: View {
     @State var offset: CGFloat = .zero
     @State var height: CGFloat = 0
     @GestureState var isDragging: Bool = false
-    @ObservedObject var preference: UserPreference
     var headerText: String
     var buttonText: [String]
     var imageName: String
@@ -48,8 +47,8 @@ struct ParallaxView: View {
                     
                     //for each buttontext array element create new button
                     HStack(alignment: .top, spacing: 20.0) {
-                        ForEach(buttonText.indices, id: \.self) { textIndex in
-                            SelectionButton(buttonText: buttonText[textIndex], isSelected: preference[dynamicMember: buttonText[textIndex]])
+                        ForEach(buttonText, id: \.self) { text in
+                            SelectionButton(buttonText: text, isSelected: true)
                         }
                     }
                     

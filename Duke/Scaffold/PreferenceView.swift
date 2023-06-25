@@ -10,7 +10,7 @@ import SwiftUI
 struct PreferenceView: View {
     @State var animate: Bool = false
         
-    @State var parallaxProperties: [ParallaxProperties]! = [
+    @State var parallaxProperties: [ParallaxProperties] = [
         ParallaxProperties(headerText: "Cultural Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().prefix(3)), imageName: "person.and.background.dotted"),
         ParallaxProperties(headerText: "Vegetarian Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(3).prefix(3)), imageName: "leaf.circle.fill"),
         ParallaxProperties(headerText: "Seating Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(6).prefix(3)), imageName: "wineglass"),
@@ -37,8 +37,8 @@ struct PreferenceView: View {
                     }
                 }
             
-            ForEach(UserPreference.shared.headerText.indices, id: \.self) { index in
-                ParallaxView(preference: UserPreference.shared, headerText: UserPreference.shared.headerText[index], buttonText: buttonTextValues(index), imageName: UserPreference.shared.imageName[index])
+            ForEach(parallaxProperties) { prop in
+                ParallaxView(headerText: prop.headerText, buttonText: prop.buttonText, imageName: prop.imageName)
             }
         }
         .background(
