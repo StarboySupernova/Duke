@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct PreferenceView: View {
-    @EnvironmentObject var preferenceStore: UserPreference
     @State var animate: Bool = false
+        
+    @State var parallaxProperties: [ParallaxProperties]! = [
+        ParallaxProperties(headerText: "Cultural Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().prefix(3)), imageName: "person.and.background.dotted"),
+        ParallaxProperties(headerText: "Vegetarian Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(3).prefix(3)), imageName: "leaf.circle.fill"),
+        ParallaxProperties(headerText: "Seating Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(6).prefix(3)), imageName: "wineglass"),
+        ParallaxProperties(headerText: "Authentic Cuisine Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().suffix(5)), imageName: "fork.knife"),
+    ]
     
     var body: some View {
         ZStack {
@@ -31,8 +37,8 @@ struct PreferenceView: View {
                     }
                 }
             
-            ForEach(preferenceStore.headerText.indices, id: \.self) { index in
-                ParallaxView(preference: preferenceStore, headerText: preferenceStore.headerText[index], buttonText: buttonTextValues(index), imageName: preferenceStore.imageName[index])
+            ForEach(UserPreference.shared.headerText.indices, id: \.self) { index in
+                ParallaxView(preference: UserPreference.shared, headerText: UserPreference.shared.headerText[index], buttonText: buttonTextValues(index), imageName: UserPreference.shared.imageName[index])
             }
         }
         .background(
@@ -46,19 +52,19 @@ struct PreferenceView: View {
         if index == 0 {
             // Attach functionality for the first headerText value
             // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-            buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().prefix(3))
+            buttonTextValues = Array<String>(UserPreference.shared.collectBoolProperties().prefix(3))
         } else if index == 1 {
             // Attach functionality for the second headerText value
             // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-            buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().dropFirst(3).prefix(3))
+            buttonTextValues = Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(3).prefix(3))
         } else if index == 2 {
             // Attach functionality for the third headerText value
             // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-            buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().dropFirst(6).prefix(3))
+            buttonTextValues = Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(6).prefix(3))
         } else if index == 3{
             // Attach functionality for other headerText values
             // You can access `headerText` and `buttonTextValues` here and implement the desired functionality
-            buttonTextValues = Array<String>(preferenceStore.collectBoolProperties().suffix(5))
+            buttonTextValues = Array<String>(UserPreference.shared.collectBoolProperties().suffix(5))
         }
         
         return buttonTextValues

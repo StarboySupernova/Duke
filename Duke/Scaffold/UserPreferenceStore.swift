@@ -34,7 +34,9 @@ class UserPreference: ObservableObject {
     @Published var chinese: Bool = true
     @Published var thai: Bool = true
     
-    //Binding to buttons maybe
+    //Binding to buttons maybe. Use collectBoolProperties for button texts
+    //Add attributed description texts
+    //View model will handle saving to keychain
     
     init(isHalaal: Bool = false, haram: Bool = false, pork: Bool = false, vegan: Bool = false,
              vegetarian: Bool = false, lactose: Bool = false, outdoor: Bool = false,
@@ -56,6 +58,13 @@ class UserPreference: ObservableObject {
             self.chinese = chinese
             self.thai = thai
         }
+    
+    static let shared = UserPreference()
+    
+    ///The private initializer private init() ensures that the UserPreference class cannot be instantiated from outside the class. It prevents accidental creation of multiple instances and enforces the use of the shared singleton instance.
+    private init() {
+
+    }
     
     /*
     ///subscript may not have been needed to be done in this way. Instead of creating our own Binding retunred from the subscript, we were supposed to pass in a UserPreference object as is to ParallaxView, then hook into the bindings provided by the StateObject on its @Published properties

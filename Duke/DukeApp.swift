@@ -27,10 +27,7 @@ struct DukeApp: App {
         WindowGroup {
             HomeView()
                 //.modifier(DarkModeViewModifier())
-                .environmentObject(HomeViewModel())
-            //using environmentobject for now because we do not have a clear view tree for preferenceview yet, so it is unclear where to set the stateobject, which is the preferred method of initialization
-                .environmentObject(UserPreference(headerText: ["Cultural Preferences", "Vegetarian Preferences", "Seating Preferences", "Authentic Cuisine Preferences"], buttonText: ["Halaal", "Haram", "Pork", "Vegan", "Vegetarian", "Containing-Lactose", "Outdoor seating", "Recommend Wine Farms?","Wine-Tasting"], imageName: ["person.and.background.dotted","leaf.circle.fill", "wineglass", "fork.knife"])) //DEFAULT VALUES
-            
+                .environmentObject(HomeViewModel())            
         }
     }
 }

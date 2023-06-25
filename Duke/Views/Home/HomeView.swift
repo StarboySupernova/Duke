@@ -12,6 +12,7 @@ struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
     @StateObject var userViewModel: UserViewModel = UserViewModel()
+    @StateObject var preferenceStore: UserPreference = UserPreference()
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
