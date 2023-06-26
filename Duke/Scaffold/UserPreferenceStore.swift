@@ -116,6 +116,38 @@ extension UserPreference {
         
         return boolProperties
     }
+    
+    func assignBoolBinding(for propertyToFind: String) throws -> Binding<Bool> {
+        
+        let mirror = Mirror(reflecting: self)
+        let propertyNames = self.collectBoolProperties()
+        
+        guard var target = mirror.children.first(where: {($0.label ?? "") == propertyToFind})?.value as? Published<Bool> else {
+            throw "failed to find selected property on this class"
+        }
+        let keyPathString = "\\UserPreference." + propertyToFind
+        let keypath = (mirror.descendant(keyPathString) as? WritableKeyPath<UserPreference, Bool>)
+        
+        return Binding<Bool>(
+            get: {
+                self[keyPath: keypath!] },
+            set: { newValue in target = Published<Bool>(wrappedValue: newValue) }
+        )
+        
+        
+        for child in mirror.children {
+            if propertyToFind == child.label, let value = child.value as? Bool {
+                let name = propertyNames.filter {$0 == propertyToFind}
+                let keyPathString = "\\UserPreference." + propertyToFind
+                let keypath = (mirror.descendant(keyPathString) as? WritableKeyPath<UserPreference, Bool>)
+                return Binding<Bool>(
+                    get: {
+                        self[keyPath: keypath!] },
+                    set: { newValue in self[keyPath: keypath!] = newValue }
+                )
+            }
+        }
+    }
 }
 
 
