@@ -14,3 +14,8 @@ extension String: Identifiable {
         return hash
     }
 }
+
+//to be able to throw strings as errors
+extension String: LocalizedError {
+    public var errorDescription: String? { return self }
+}
