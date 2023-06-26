@@ -133,20 +133,6 @@ extension UserPreference {
                 self[keyPath: keypath!] },
             set: { newValue in target = Published<Bool>(wrappedValue: newValue) }
         )
-        
-        
-        for child in mirror.children {
-            if propertyToFind == child.label, let value = child.value as? Bool {
-                let name = propertyNames.filter {$0 == propertyToFind}
-                let keyPathString = "\\UserPreference." + propertyToFind
-                let keypath = (mirror.descendant(keyPathString) as? WritableKeyPath<UserPreference, Bool>)
-                return Binding<Bool>(
-                    get: {
-                        self[keyPath: keypath!] },
-                    set: { newValue in self[keyPath: keypath!] = newValue }
-                )
-            }
-        }
     }
 }
 
