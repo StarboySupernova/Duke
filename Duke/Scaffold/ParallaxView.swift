@@ -92,93 +92,6 @@ struct ParallaxView: View {
                         .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
                     }
                     .padding(.top, 16)
-                    
-                    
-                    
-                    //MARK: iOS 16 code
-                    /*if #available(iOS 16.0, *) {
-                     Text("Duke")
-                     .font(.callout)
-                     .fontWeight(.semibold)
-                     .fontWidth(.compressed)
-                     
-                     HStack {
-                     BlendedText("Discover your ambience")
-                     
-                     Spacer()
-                     
-                     BlendedText("New on iOS")
-                     }
-                     
-                     HStack{
-                     BlendedText("Create your favourites")
-                     
-                     Spacer()
-                     
-                     Button {
-                     
-                     } label: {
-                     Text("Join")
-                     .fontWeight(.bold)
-                     .foregroundColor(Color("rw-dark"))
-                     .padding(.vertical, 12)
-                     .padding(.horizontal, .large)
-                     .background(
-                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                     .fill(Color.yellow)
-                     .brightness(-0.1)
-                     )
-                     }
-                     }
-                     .padding(.top, .large)
-                     
-                     Image("star")
-                     .resizedToFit(width: 35, height: 35)
-                     .frame(maxWidth: .infinity)
-                     .padding(.bottom, 10)
-                     } else {
-                     // Fallback on earlier versions
-                     Text("Duke")
-                     .font(.callout)
-                     .fontWeight(.semibold)
-                     .kerning(2)
-                     
-                     HStack {
-                     BlendedText("Discover your ambience")
-                     
-                     Spacer()
-                     
-                     BlendedText("New on iOS")
-                     }
-                     
-                     HStack{
-                     BlendedText("Create your favourites")
-                     
-                     Spacer()
-                     
-                     Button {
-                     
-                     } label: {
-                     Text("Join")
-                     .fontWeight(.bold)
-                     .foregroundColor(Color("rw-dark"))
-                     .padding(.vertical, 12)
-                     .padding(.horizontal, .large)
-                     .background(
-                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                     .fill(Color.yellow)
-                     .brightness(-0.1)
-                     )
-                     
-                     }
-                     }
-                     .padding(.top, .large)
-                     
-                     Image("star")
-                     .resizedToFit(width: 35, height: 35)
-                     .frame(maxWidth: .infinity)
-                     .padding(.bottom, 10)
-                     }*/
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -210,7 +123,7 @@ struct ParallaxView: View {
             //MARK: potential issue source here, should check if we need to attach the following logic here on we need to next another View around this then attach there
             .frame(height: 460)
             .font(.footnote)
-            .shadow(radius: 10) //MARK: definitely need another view to nest around this. Will do visual testing in Convas on this
+            .shadow(radius: 10) //MARK: definitely need another view to nest around this. Will do visual testing in Canvas on this
             ///// to determine which card shows up on top of the others based on getindex
             ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
             .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
