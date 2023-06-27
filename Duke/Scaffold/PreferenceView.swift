@@ -29,8 +29,10 @@ struct PreferenceView: View {
                         animate.toggle()
                     }
                 }
+            
+            SelectionView()
         }
-        .background(
+        .background (
             LinearGradient(gradient: Gradient(colors: [Color("backgroundColor"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)
         )
     }
