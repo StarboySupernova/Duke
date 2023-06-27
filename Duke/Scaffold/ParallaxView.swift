@@ -13,6 +13,7 @@ struct ParallaxView: View {
     @GestureState var isDragging: Bool = false
     @State var offset: CGFloat = .zero
     @State var height: CGFloat = 0 //should pass this to View corresponding to Ticket as a Binding
+    @EnvironmentObject var preferenceStore: UserPreference
     @Binding var parallaxProperties: [ParallaxProperties]
     var headerText: String
     var buttonText: [String]
@@ -45,7 +46,7 @@ struct ParallaxView: View {
                     .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    /*
+                    
                     //for each buttontext array element create new button
                     //
                     //require storage to make use of ObservedObject
@@ -54,7 +55,7 @@ struct ParallaxView: View {
                             SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text))
                         }
                     }
-                    */
+                    
                     
                     Text("Duke")
                         .font(.callout)
@@ -127,7 +128,7 @@ struct ParallaxView: View {
             ///// to determine which card shows up on top of the others based on getindex
             ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
             .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
-            //.rotationEffect(.init(degrees: getRotation(angle: 10))) - problematic line commented out.animation is not smooth when swiping out without this line
+            .rotationEffect(.init(degrees: getRotation(angle: 10))) //- problematic line commented out.animation is not smooth when swiping out without this line
             .rotationEffect(getIndex() == 1 ? .degrees(-6) : .degrees(0))
             .rotationEffect(getIndex() == 2 ? .degrees(6) : .degrees(0))
             .scaleEffect(getIndex() == 0 ? 1 : 0.9)
@@ -219,19 +220,12 @@ struct ParallaxView: View {
             .kerning(2)
             .blendMode(.difference)
     }
-    
-    func createNewArrayStack(from string: String, in array: [String]) -> [String] {
-        let index = array.firstIndex(of: string)!
-        
-        let arrayStack = Array(array[index...])
-        return arrayStack
-    }
-    
 }
 
 struct ParallaxView_Previews: PreviewProvider {
     static var previews: some View {
         SelectionView()
+            .environmentObject(UserPreference())
             .preferredColorScheme(.dark)
     }
 }

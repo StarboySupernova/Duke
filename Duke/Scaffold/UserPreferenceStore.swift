@@ -16,23 +16,23 @@ class UserPreference: ObservableObject {
     //headerText will be changed into String values
     //use of Dictionary values looking likely, but this will be determined later
     //some properties to be moved to UserPreferenceModel https://paulallies.medium.com/swiftui-mvvm-a1e7a18f4f03
-    @Published var id: String = UUID().uuidString //should be set to same as authid from Firebase
-    @Published var halaal: Bool = false
-    @Published var haram: Bool = false
-    @Published var pork: Bool = false
-    @Published var vegan: Bool = false
-    @Published var vegetarian: Bool = false
-    @Published var lactose: Bool = false
-    @Published var outdoor: Bool = false
-    @Published var wineTasting: Bool = false
-    @Published var wineFarms: Bool = false
+    var id: String = UUID().uuidString //should be set to same as authid from Firebase
+    var halaal: Bool = false
+    var haram: Bool = false
+    var pork: Bool = false
+    var vegan: Bool = false
+    var vegetarian: Bool = false
+    var lactose: Bool = false
+    var outdoor: Bool = false
+    var wineTasting: Bool = false
+    var wineFarms: Bool = false
     
     ///authentic experiences preferences
-    @Published var african: Bool = true
-    @Published var italian: Bool = true
-    @Published var greek: Bool = true
-    @Published var chinese: Bool = true
-    @Published var thai: Bool = true
+    var african: Bool = true
+    var italian: Bool = true
+    var greek: Bool = true
+    var chinese: Bool = true
+    var thai: Bool = true
     
     //Binding to buttons maybe. Use collectBoolProperties for button texts
     //Add attributed description texts
@@ -109,7 +109,7 @@ extension UserPreference {
         
         Mirror(reflecting: self).children.forEach { child in
             if let propertyName = child.label,
-               let _ = child.value as? Published<Bool> {
+               let _ = child.value as? Bool {
                 boolProperties.append(propertyName)
             }
         }
@@ -117,21 +117,19 @@ extension UserPreference {
         return boolProperties
     }
     
-    func assignBoolBinding(for propertyToFind: String) throws -> Binding<Bool> {
+    func assignBoolBinding(for propertyToFind: String) -> Binding<Bool> {
         
         let mirror = Mirror(reflecting: self)
-        let propertyNames = self.collectBoolProperties()
         
-        guard var target = mirror.children.first(where: {($0.label ?? "") == propertyToFind})?.value as? Published<Bool> else {
-            throw "failed to find selected property on this class"
+        guard var target = mirror.children.first(where: {($0.label ?? "") == propertyToFind})?.value as? Bool else {
+            fatalError("failed to find specified property on this class") 
         }
-        let keyPathString = "\\UserPreference." + propertyToFind
-        let keypath = (mirror.descendant(keyPathString) as? WritableKeyPath<UserPreference, Bool>)
         
         return Binding<Bool>(
             get: {
-                self[keyPath: keypath!] },
-            set: { newValue in target = Published<Bool>(wrappedValue: newValue) }
+                target
+            },
+            set: { newValue in target = newValue }
         )
     }
 }

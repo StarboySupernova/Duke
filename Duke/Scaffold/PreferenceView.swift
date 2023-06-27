@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PreferenceView: View {
+    @StateObject private var preferenceStore: UserPreference = UserPreference()
     @State var animate: Bool = false
     
     var body: some View {
@@ -31,6 +32,7 @@ struct PreferenceView: View {
                 }
             
             SelectionView()
+                .environmentObject(preferenceStore)
         }
         .background (
             LinearGradient(gradient: Gradient(colors: [Color("backgroundColor"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)
