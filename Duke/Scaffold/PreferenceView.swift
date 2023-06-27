@@ -9,7 +9,9 @@ import SwiftUI
 
 struct PreferenceView: View {
     @State var animate: Bool = false
+    @ObservedObject var preferenceStore: UserPreference //environmentObject may work better here instead of ObservedObject
         
+    //here singleton pattern on UserPreference is used only inside initialization of @State property
     @State var parallaxProperties: [ParallaxProperties] = [
         ParallaxProperties(headerText: "Cultural Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().prefix(3)), imageName: "person.and.background.dotted"),
         ParallaxProperties(headerText: "Vegetarian Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(3).prefix(3)), imageName: "leaf.circle.fill"),
