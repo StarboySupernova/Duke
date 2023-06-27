@@ -10,9 +10,10 @@ import SwiftUI
 struct ParallaxView: View {
     //Gesture properties
     @State private var parallaxOffset: CGSize = .zero
-    @State var offset: CGFloat = .zero
-    @State var height: CGFloat = 0
     @GestureState var isDragging: Bool = false
+    @State var offset: CGFloat = .zero
+    @State var height: CGFloat = 0 //should pass this to View corresponding to Ticket as a Binding
+    @Binding var parallaxProperties: [ParallaxProperties]
     var headerText: String
     var buttonText: [String]
     var imageName: String
@@ -44,15 +45,16 @@ struct ParallaxView: View {
                     .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    
+                    /*
                     //for each buttontext array element create new button
+                    //
+                    //require storage to make use of ObservedObject
                     HStack(alignment: .top, spacing: 20.0) {
                         ForEach(buttonText, id: \.self) { text in
-                            SelectionButton(buttonText: text, isSelected: true)
+                            SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text))
                         }
                     }
-                    
-                    
+                    */
                     
                     Text("Duke")
                         .font(.callout)
@@ -205,9 +207,22 @@ struct ParallaxView: View {
             .scaleEffect(0.9)
             .frame(maxWidth: .infinity, maxHeight: getRect().height)
             .contentShape(Rectangle())
+            //MARK: potential issue source here, should check if we need to attach the following logic here on we need to next another View around this then attach there
+            .frame(height: 460)
+            .font(.footnote)
+            .shadow(radius: 10) //MARK: definitely need another view to nest around this. Will do visual testing in Convas on this
             ///// to determine which card shows up on top of the others based on getindex
             ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
-            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(preference.headerText.count) - getIndex()) - 1 : Double(CGFloat(preference.headerText.count) - getIndex()))
+            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
+            //.rotationEffect(.init(degrees: getRotation(angle: 10))) - problematic line commented out.animation is not smooth when swiping out without this line
+            .rotationEffect(getIndex() == 1 ? .degrees(-6) : .degrees(0))
+            .rotationEffect(getIndex() == 2 ? .degrees(6) : .degrees(0))
+            .scaleEffect(getIndex() == 0 ? 1 : 0.9)
+            ///// to make cards shift right or left of centerpiece card
+            .offset(x: getIndex() == 1 ? -40 : 0)
+            .offset(x: getIndex() == 2 ? 40 : 0)
+            .offset(x: offset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .gesture (
                 DragGesture()
                     .updating($isDragging, body: { _, out, _ in
@@ -215,11 +230,10 @@ struct ParallaxView: View {
                     })
                     .onChanged({ value in
                         var translation = value.translation.width
-                        let index = preference.headerText.firstIndex(of: headerText)
-                        var arrayStack = Array(preference.headerText[index!...])
-                        translation = arrayStack.first?.id == headerText.id ? translation : 0 //create a function here to create a mutable array based on headertexts, and check whether the id is of the first element in that array. swipes should mutate this array such that swipes are only available on the top card
+                        let index = parallaxProperties.first(where: {$0.headerText == headerText})
+                        translation = parallaxProperties.first?.headerText == headerText ? translation : 0
                         translation = isDragging ? translation : 0
-
+                        
                         parallaxOffset = value.translation
                         
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -232,19 +246,13 @@ struct ParallaxView: View {
                             parallaxOffset = .zero
                         }
                         
-                        let index = preference.headerText.firstIndex(of: headerText)
+                        let index = parallaxProperties.first(where: {$0.headerText == headerText})
                         let width = UIScreen.main.bounds.width
                         let swipedLeft = -offset > (width / 2)
                         withAnimation(.easeInOut(duration: 0.5)) {
                             if swipedLeft {
                                 offset = -width
-                                //code block here for testing purposes
-                                withAnimation(.spring()) {
-                                    let index = preference.headerText.firstIndex(of: headerText)
-                                    var arrayStack = Array(preference.headerText[index!...])
-                                    arrayStack.removeFirst()
-                                }
-                            } else {
+                            } else { //add else if swipedRight
                                 offset = .zero
                                 height = .zero
                             }
@@ -260,14 +268,21 @@ struct ParallaxView: View {
         return .init(degrees: progress * 10)
     }
     
-    ///getIndex here should target headerText on UserPreference
     func getIndex() -> CGFloat {
-        let index = preference.headerText.firstIndex { text in
-            return self.headerText == text
+        let index = parallaxProperties.firstIndex { parallax in
+            return self.headerText == parallax.headerText
         } ?? 0
         
         return CGFloat(index)
     }
+    
+    func getRotation(angle: Double) -> Double {
+        let width = UIScreen.main.bounds.width - 50
+        let progress = offset / width
+        
+        return Double(progress * angle)
+    }
+    
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
         //MARK: iOS 16 code
@@ -303,7 +318,7 @@ struct ParallaxView: View {
 
 struct ParallaxView_Previews: PreviewProvider {
     static var previews: some View {
-        ParallaxView(preference: UserPreference(headerText: [], buttonText: [], imageName: []), headerText: "", buttonText: [], imageName: "")
+        SelectionView()
             .preferredColorScheme(.dark)
     }
 }

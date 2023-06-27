@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct SelectionView: View {
+    //here singleton pattern on UserPreference is used only inside initialization of @State property
+    @State var parallaxProperties: [ParallaxProperties] = [
+        ParallaxProperties(headerText: "Cultural Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().prefix(3)), imageName: "person.and.background.dotted"),
+        ParallaxProperties(headerText: "Vegetarian Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(3).prefix(3)), imageName: "leaf.circle.fill"),
+        ParallaxProperties(headerText: "Seating Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().dropFirst(6).prefix(3)), imageName: "wineglass"),
+        ParallaxProperties(headerText: "Authentic Cuisine Preferences", buttonText: Array<String>(UserPreference.shared.collectBoolProperties().suffix(5)), imageName: "fork.knife"),
+    ]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            ForEach(parallaxProperties) { prop in
+                ParallaxView(parallaxProperties: $parallaxProperties, headerText: prop.headerText, buttonText: prop.buttonText, imageName: prop.imageName)
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 
