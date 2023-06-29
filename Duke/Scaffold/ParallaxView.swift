@@ -71,7 +71,7 @@ struct ParallaxView: View {
                             Spacer()
                             
                             Button {
-                                
+                                removeProperty()
                             } label: {
                                 Text("Next") //animation to move to next card should show parallax features
                                     .fontWeight(.bold)
@@ -160,6 +160,7 @@ struct ParallaxView: View {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             if swipedLeft {
                                 offset = -width
+                                removeProperty()
                             } else { //add else if swipedRight
                                 offset = .zero
                                 height = .zero
@@ -192,6 +193,11 @@ struct ParallaxView: View {
         return Double(progress * angle)
     }
     
+    func removeProperty() {
+        withAnimation(.spring()) {
+            parallaxProperties.removeFirst()
+        }
+    }
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
         //MARK: iOS 16 code
