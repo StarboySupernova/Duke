@@ -203,7 +203,7 @@ struct RoundButton: View {
 
 struct RoundButton_Previews: PreviewProvider {
     static var previews: some View {
-        RoundButton()
+        SelectionButton(buttonText: "Test Button", isSelected: .constant(false))
     }
 }
 

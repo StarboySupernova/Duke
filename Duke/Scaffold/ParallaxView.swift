@@ -21,110 +21,104 @@ struct ParallaxView: View {
     //attach to each headertext & image-name to display each one
     //require button array to be passed in as is, and create each button in-view
     
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+    ]
+    
     var body: some View {
         GeometryReader {
             let size = $0.size
-            let imageSize = size.width * 0.7
+            let imageSize = size.width * 0.75
             
-            VStack(alignment: .leading) {
-                //label & icon here, and additional icon array parameter
-                Text(headerText)
-                    .font(.system(size: 30))
-                    .fontWeight(.bold)
-                    .padding(.top, -70)
-                    .padding(.bottom, 55)
-                    .zIndex(0)
-                
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(25)
-                    .frame(width: imageSize)
-                    .rotationEffect(.init(degrees: 0))
-                    .zIndex(1)
-                    .offset(x: -20)
-                    .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                
-                VStack(alignment: .leading, spacing: 10) {
+            VStack {
+                VStack(alignment: .leading) {
+                    //label & icon here, and additional icon array parameter
+                    Text(headerText)
+                        .font(.system(size: 30))
+                        .fontWeight(.bold)
+                        .padding(.top, -60)
+                        .padding(.bottom, 55)
+                        .padding(.horizontal, .small)
+                        .zIndex(0)
                     
-                    //for each buttontext array element create new button
-                    //
-                    //require storage to make use of ObservedObject
-                    HStack(alignment: .top, spacing: 20.0) {
-                        ForEach(buttonText, id: \.self) { text in
-                            SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text))
-                        }
-                    }
-                    
-                    
-                    Text("Duke")
-                        .font(.callout)
-                        .fontWeight(.semibold)
-                        .kerning(2)
-                    
-                    HStack {
-                        BlendedText("Discover your ambience")
-                        
-                        Spacer()
-                        
-                        BlendedText("New on iOS")
-                    }
-                    
-                    HStack{
-                        BlendedText("Create your favourites")
-                        
-                        Spacer()
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("Next") //animation to move to next card should show parallax features
-                                .fontWeight(.bold)
-                                .foregroundColor(Color("rw-dark"))
-                                .padding(.vertical, 12)
-                                .padding(.horizontal, 16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(Color.yellow)
-                                        .brightness(-0.1)
-                                )
-                            
-                        }
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(25)
+                        .frame(width: imageSize)
+                        .rotationEffect(.init(degrees: 0))
+                        .zIndex(1)
+                        .offset(x: -20)
                         .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                    }
-                    .padding(.top, 16)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
-            }
-            .foregroundColor(.white)
-            .padding(.horizontal, 16)
-            .padding(.top, 65)
-            .frame(width: imageSize)
-            .background (
-                ZStack(alignment: .topTrailing) {
-                    Rectangle()
-                        .fill(Color("rw-dark"))
                     
-                    Circle()
-                        .fill(.yellow)
-                        .scaleEffect(1.2, anchor: .leading)
-                        .offset(x: imageSize * 0.3, y: -imageSize * 0.1)
-                        .frame(width: imageSize, height: imageSize)
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        //for each buttontext array element create new button
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
+                                ForEach(buttonText, id: \.self) { text in
+                                    SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedTxet parameter here
+                                }
+                            }
+                        }
+                        
+                        HStack {
+                            BlendedText("Create your favourites")
+                                .padding(.horizontal, .medium)
+                            
+                            Spacer()
+                            
+                            Button {
+                                
+                            } label: {
+                                Text("Next") //animation to move to next card should show parallax features
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("rw-dark"))
+                                    .padding(.vertical, 12)
+                                    .padding(.horizontal, 16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .fill(Color.yellow)
+                                            .brightness(-0.1)
+                                    )
+                                
+                            }
+                            .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                        }
+                        .padding(.top, .small)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer()
                 }
-                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-            )
-            .rotation3DEffect(offsetToAngle(true), axis: (x: -1, y: 0, z: 0))
-            .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
-            .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
-            .scaleEffect(0.9)
-            .frame(maxWidth: .infinity, maxHeight: getRect().height)
-            .contentShape(Rectangle())
-            //MARK: potential issue source here, should check if we need to attach the following logic here on we need to next another View around this then attach there
-            .frame(height: 460)
-            .font(.footnote)
-            .shadow(radius: 10) //MARK: definitely need another view to nest around this. Will do visual testing in Canvas on this
+                .foregroundColor(.white)
+                .padding(.horizontal, 16)
+                .padding(.top, 65)
+                .frame(width: imageSize)
+                .background (
+                    ZStack(alignment: .topTrailing) {
+                        Rectangle()
+                            .fill(Color("rw-dark"))
+                        
+                        Circle()
+                            .fill(.yellow)
+                            .scaleEffect(1.2, anchor: .leading)
+                            .offset(x: imageSize * 0.3, y: -imageSize * 0.1)
+                            .frame(width: imageSize, height: imageSize)
+                    }
+                        .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                )
+                .rotation3DEffect(offsetToAngle(true), axis: (x: -1, y: 0, z: 0))
+                .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
+                .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
+                .scaleEffect(0.9)
+                .frame(maxWidth: .infinity, maxHeight: getRect().height)
+                //.contentShape(Rectangle())
+            }
+            .clipped()
+            .shadow(color: Color.red, radius: 10, x: 0, y: 0) //set this to work only for first card
             ///// to determine which card shows up on top of the others based on getindex
             ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
             .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
@@ -173,6 +167,7 @@ struct ParallaxView: View {
                         }
                     })
             )
+            
         }
     }
     
