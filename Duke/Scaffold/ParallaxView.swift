@@ -178,13 +178,13 @@ struct ParallaxView: View {
         return .init(degrees: progress * 10)
     }
     
-    func getIndex() -> CGFloat {
-        let index = parallaxProperties.firstIndex { parallax in
-            return self.headerText == parallax.headerText
-        } ?? 0
-        
-        return CGFloat(index)
+    func getIndex() -> Int {
+        guard let index = parallaxProperties.firstIndex(where: { $0.headerText == headerText }) else {
+            return 0
+        }
+        return index
     }
+
     
     func getRotation(angle: Double) -> Double {
         let width = UIScreen.main.bounds.width - 50
@@ -201,25 +201,20 @@ struct ParallaxView: View {
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
         //MARK: iOS 16 code
-        /*if #available(iOS 16.0, *) {
-         Text(stringValue)
-         .font(.title3)
-         .fontWeight(.semibold)
-         .fontWidth(.compressed)
-         .blendMode(.difference)
-         } else {
-         // Fallback on earlier versions
-         Text(stringValue)
-         .font(.title3)
-         .fontWeight(.semibold)
-         .kerning(2)
-         .blendMode(.difference)
-         }*/
-        Text(stringValue)
-            .font(.title3)
-            .fontWeight(.semibold)
-            .kerning(2)
-            .blendMode(.difference)
+        if #available(iOS 16.0, *) {
+            Text(stringValue)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .fontWidth(.compressed)
+                .blendMode(.difference)
+        } else {
+            // Fallback on earlier versions
+            Text(stringValue)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .kerning(2)
+                .blendMode(.difference)
+        }
     }
 }
 
