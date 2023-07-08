@@ -32,15 +32,6 @@ struct ParallaxView: View {
             let size = $0.size
             let imageSize = size.width * 0.75
             
-            
-//            let contentView = VStack {
-//                // Content of the VStack
-//            }
-//                .clipped()
-//
-//            let shadowModifier = contentView
-//                .shadow(color: Color.red, radius: 10, x: 0, y: 0)
-            
             VStack(alignment: .leading) {
                 //label & icon here, and additional icon array parameter
                 Text(headerText)
@@ -67,7 +58,7 @@ struct ParallaxView: View {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
                             ForEach(buttonText, id: \.self) { text in
-                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedTxet parameter here
+                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
                             }
                         }
                     }
@@ -197,7 +188,6 @@ struct ParallaxView: View {
     
     func getIndex() -> Int {
         guard let index = parallaxProperties.firstIndex(where: { $0.headerText == self.headerText }) else {
-            showErrorAlertView("Error", "Index not found", handler: {})
             return 0
         }
         return index

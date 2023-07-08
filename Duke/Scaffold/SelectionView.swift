@@ -18,7 +18,7 @@ struct SelectionView: View {
     
     var body: some View {
         ZStack {
-            ForEach(parallaxProperties) { prop in
+            ForEach(parallaxProperties.reversed()) { prop in
                 ParallaxView(parallaxProperties: $parallaxProperties, headerText: prop.headerText, buttonText: prop.buttonText, imageName: prop.imageName)
             }
         }
