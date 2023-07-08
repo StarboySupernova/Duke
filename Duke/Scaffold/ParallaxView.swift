@@ -118,15 +118,7 @@ struct ParallaxView: View {
             .clipped()
             .shadow(color: Color.red, radius: 10, x: 0, y: 0) //set this to work only for first card
             
-            
-            
-//            let zIndexModifier = shadowModifier
-//                .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))
-            
-//            VStack {
-//
-//            }
-
+           
 //            /// to determine which card shows up on top of the others based on getindex
 //            /// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
 //            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
@@ -139,22 +131,24 @@ struct ParallaxView: View {
             .offset(x: getIndex() == 2 ? 40 : 0)
             .offset(x: offset)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .gesture (
+            .gesture(
                 DragGesture()
                     .updating($isDragging, body: { _, out, _ in
                         out = true
                     })
                     .onChanged({ value in
                         var translation = value.translation.width
-                        let index = parallaxProperties.first(where: {$0.headerText == headerText})
+                        let index = parallaxProperties.first(where: { $0.headerText == headerText })
                         translation = parallaxProperties.first?.headerText == headerText ? translation : 0
                         translation = isDragging ? translation : 0
 
                         parallaxOffset = value.translation
 
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            offset = translation
-                            height = -offset / 5
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                offset = translation
+                                height = -offset / 5
+                            }
                         }
                     })
                     .onEnded({ _ in
@@ -162,21 +156,21 @@ struct ParallaxView: View {
                             parallaxOffset = .zero
                         }
 
-                        let index = parallaxProperties.first(where: {$0.headerText == self.headerText})
+                        let index = parallaxProperties.first(where: { $0.headerText == self.headerText })
                         let width = UIScreen.main.bounds.width
-                        let swipedLeft = -offset > (width / 2)
+                        let swipedLeft = -offset > (width / 2.5)
                         withAnimation(.easeInOut(duration: 0.5)) {
                             if swipedLeft {
                                 offset = -width
                                 removeProperty()
-                            } else { //add else if swipedRight
+                            } else { // add else if swipedRight
                                 offset = .zero
                                 height = .zero
                             }
                         }
                     })
             )
-            
+
         }
     }
     
