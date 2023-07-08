@@ -138,7 +138,6 @@ struct ParallaxView: View {
                     })
                     .onChanged({ value in
                         var translation = value.translation.width
-                        let index = parallaxProperties.first(where: { $0.headerText == headerText })
                         translation = parallaxProperties.first?.headerText == headerText ? translation : 0
                         translation = isDragging ? translation : 0
 
@@ -156,9 +155,8 @@ struct ParallaxView: View {
                             parallaxOffset = .zero
                         }
 
-                        let index = parallaxProperties.first(where: { $0.headerText == self.headerText })
                         let width = UIScreen.main.bounds.width
-                        let swipedLeft = -offset > (width / 2.5)
+                        let swipedLeft = -offset > (width / 3.5)
                         withAnimation(.easeInOut(duration: 0.5)) {
                             if swipedLeft {
                                 offset = -width
