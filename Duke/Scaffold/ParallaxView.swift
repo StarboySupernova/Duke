@@ -32,96 +32,113 @@ struct ParallaxView: View {
             let size = $0.size
             let imageSize = size.width * 0.75
             
-            VStack {
-                VStack(alignment: .leading) {
-                    //label & icon here, and additional icon array parameter
-                    Text(headerText)
-                        .font(.system(size: 30))
-                        .fontWeight(.bold)
-                        .padding(.top, -60)
-                        .padding(.bottom, 55)
-                        .padding(.horizontal, .small)
-                        .zIndex(0)
+            
+//            let contentView = VStack {
+//                // Content of the VStack
+//            }
+//                .clipped()
+//
+//            let shadowModifier = contentView
+//                .shadow(color: Color.red, radius: 10, x: 0, y: 0)
+            
+            VStack(alignment: .leading) {
+                //label & icon here, and additional icon array parameter
+                Text(headerText)
+                    .font(.system(size: 30))
+                    .fontWeight(.bold)
+                    .padding(.top, -60)
+                    .padding(.bottom, 55)
+                    .padding(.horizontal, .small)
+                    .zIndex(0)
+                
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(25)
+                    .frame(width: imageSize)
+                    .rotationEffect(.init(degrees: 0))
+                    .zIndex(1)
+                    .offset(x: -20)
+                    .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                
+                VStack(alignment: .leading, spacing: 10) {
                     
-                    Image(imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(25)
-                        .frame(width: imageSize)
-                        .rotationEffect(.init(degrees: 0))
-                        .zIndex(1)
-                        .offset(x: -20)
+                    //for each buttontext array element create new button
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
+                            ForEach(buttonText, id: \.self) { text in
+                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedTxet parameter here
+                            }
+                        }
+                    }
+                    
+                    HStack {
+                        BlendedText("Create your favourites")
+                            .padding(.horizontal, .medium)
+                        
+                        Spacer()
+                        
+                        Button {
+                            removeProperty()
+                        } label: {
+                            Text("Next") //animation to move to next card should show parallax features
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("rw-dark"))
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.yellow)
+                                        .brightness(-0.1)
+                                )
+                            
+                        }
                         .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        
-                        //for each buttontext array element create new button
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
-                                ForEach(buttonText, id: \.self) { text in
-                                    SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedTxet parameter here
-                                }
-                            }
-                        }
-                        
-                        HStack {
-                            BlendedText("Create your favourites")
-                                .padding(.horizontal, .medium)
-                            
-                            Spacer()
-                            
-                            Button {
-                                removeProperty()
-                            } label: {
-                                Text("Next") //animation to move to next card should show parallax features
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("rw-dark"))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 16)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .fill(Color.yellow)
-                                            .brightness(-0.1)
-                                    )
-                                
-                            }
-                            .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                        }
-                        .padding(.top, .small)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Spacer()
+                    .padding(.top, .small)
                 }
-                .foregroundColor(.white)
-                .padding(.horizontal, 16)
-                .padding(.top, 65)
-                .frame(width: imageSize)
-                .background (
-                    ZStack(alignment: .topTrailing) {
-                        Rectangle()
-                            .fill(Color("rw-dark"))
-                        
-                        Circle()
-                            .fill(.yellow)
-                            .scaleEffect(1.2, anchor: .leading)
-                            .offset(x: imageSize * 0.3, y: -imageSize * 0.1)
-                            .frame(width: imageSize, height: imageSize)
-                    }
-                        .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                )
-                .rotation3DEffect(offsetToAngle(true), axis: (x: -1, y: 0, z: 0))
-                .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
-                .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
-                .scaleEffect(0.9)
-                .frame(maxWidth: .infinity, maxHeight: getRect().height)
-                //.contentShape(Rectangle())
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
             }
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.top, 65)
+            .frame(width: imageSize)
+            .background (
+                ZStack(alignment: .topTrailing) {
+                    Rectangle()
+                        .fill(Color("rw-dark"))
+                    
+                    Circle()
+                        .fill(.yellow)
+                        .scaleEffect(1.2, anchor: .leading)
+                        .offset(x: imageSize * 0.3, y: -imageSize * 0.1)
+                        .frame(width: imageSize, height: imageSize)
+                }
+                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+            )
+            .rotation3DEffect(offsetToAngle(true), axis: (x: -1, y: 0, z: 0))
+            .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
+            .scaleEffect(0.9)
+            .frame(maxWidth: .infinity, maxHeight: getRect().height)
+            //.contentShape(Rectangle())
             .clipped()
             .shadow(color: Color.red, radius: 10, x: 0, y: 0) //set this to work only for first card
-            ///// to determine which card shows up on top of the others based on getindex
-            ///// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
-            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
+            
+            
+            
+//            let zIndexModifier = shadowModifier
+//                .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))
+            
+//            VStack {
+//
+//            }
+
+//            /// to determine which card shows up on top of the others based on getindex
+//            /// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
+//            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
             .rotationEffect(.init(degrees: getRotation(angle: 10))) //- problematic line commented out.animation is not smooth when swiping out without this line
             .rotationEffect(getIndex() == 1 ? .degrees(-6) : .degrees(0))
             .rotationEffect(getIndex() == 2 ? .degrees(6) : .degrees(0))
@@ -141,9 +158,9 @@ struct ParallaxView: View {
                         let index = parallaxProperties.first(where: {$0.headerText == headerText})
                         translation = parallaxProperties.first?.headerText == headerText ? translation : 0
                         translation = isDragging ? translation : 0
-                        
+
                         parallaxOffset = value.translation
-                        
+
                         withAnimation(.easeInOut(duration: 0.3)) {
                             offset = translation
                             height = -offset / 5
@@ -153,8 +170,8 @@ struct ParallaxView: View {
                         withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.32, blendDuration: 0.32)) {
                             parallaxOffset = .zero
                         }
-                        
-                        let index = parallaxProperties.first(where: {$0.headerText == headerText})
+
+                        let index = parallaxProperties.first(where: {$0.headerText == self.headerText})
                         let width = UIScreen.main.bounds.width
                         let swipedLeft = -offset > (width / 2)
                         withAnimation(.easeInOut(duration: 0.5)) {
@@ -179,7 +196,8 @@ struct ParallaxView: View {
     }
     
     func getIndex() -> Int {
-        guard let index = parallaxProperties.firstIndex(where: { $0.headerText == headerText }) else {
+        guard let index = parallaxProperties.firstIndex(where: { $0.headerText == self.headerText }) else {
+            showErrorAlertView("Error", "Index not found", handler: {})
             return 0
         }
         return index
@@ -194,10 +212,98 @@ struct ParallaxView: View {
     }
     
     func removeProperty() {
+        let index = getIndex()
         withAnimation(.spring()) {
             parallaxProperties.removeFirst()
         }
     }
+    
+    @ViewBuilder
+    func GridStackView(_ preferenceStore: UserPreference, _ imageSize: Double) -> some View {
+        VStack(alignment: .leading) {
+            //label & icon here, and additional icon array parameter
+            Text(headerText)
+                .font(.system(size: 30))
+                .fontWeight(.bold)
+                .padding(.top, -60)
+                .padding(.bottom, 55)
+                .padding(.horizontal, .small)
+                .zIndex(0)
+            
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(25)
+                .frame(width: imageSize)
+                .rotationEffect(.init(degrees: 0))
+                .zIndex(1)
+                .offset(x: -20)
+                .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
+                        ForEach(buttonText, id: \.self) { text in
+                            SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text))
+                        }
+                    }
+                }
+                
+                HStack {
+                    BlendedText("Create your favourites")
+                        .padding(.horizontal, .medium)
+                    
+                    Spacer()
+                    
+                    Button {
+                        removeProperty()
+                    } label: {
+                        Text("Next")
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("rw-dark"))
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(Color.yellow)
+                                    .brightness(-0.1)
+                            )
+                        
+                    }
+                    .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                }
+                .padding(.top, .small)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal, 16)
+        .padding(.top, 65)
+        .frame(width: imageSize)
+        .background (
+            ZStack(alignment: .topTrailing) {
+                Rectangle()
+                    .fill(Color("rw-dark"))
+                
+                Circle()
+                    .fill(.yellow)
+                    .scaleEffect(1.2, anchor: .leading)
+                    .offset(x: imageSize * 0.3, y: -imageSize * 0.1)
+                    .frame(width: imageSize, height: imageSize)
+            }
+                .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+        )
+        .rotation3DEffect(offsetToAngle(true), axis: (x: -1, y: 0, z: 0))
+        .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
+        .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
+        .scaleEffect(0.9)
+        .frame(maxWidth: .infinity, maxHeight: getRect().height)
+        .contentShape(Rectangle())
+    }
+
     
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
         //MARK: iOS 16 code
