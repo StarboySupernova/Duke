@@ -35,7 +35,7 @@ struct PreferenceView: View {
                 .environmentObject(preferenceStore)
         }
         .background (
-            LinearGradient(gradient: Gradient(colors: [Color("backgroundColor"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color("backgroundColor-1"), Color("backgroundColor2")]), startPoint: .top, endPoint: .bottom)
         )
     }
 }

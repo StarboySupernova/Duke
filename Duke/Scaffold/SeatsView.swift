@@ -125,7 +125,7 @@ struct SeatsView: View {
             .offset(y: showButton ? 0 : 250)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color("backgroundColor"))
+        .background(Color("backgroundColor-1"))
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
     }

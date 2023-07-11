@@ -52,10 +52,10 @@ struct SelectionButton: View {
     @State var action: () -> Void = {}
     
     var currentBorderColors: [Color] = [Color("cyan"), Color("cyan").opacity(0), Color("cyan").opacity(0)]
-    var currentGradient: [Color] = [Color("backgroundColor"), Color("grey")]
+    var currentGradient: [Color] = [Color("backgroundColor-1"), Color("grey")]
     
     var selectedBorderColors: [Color] = [Color("pink"), Color("pink").opacity(0), Color("pink").opacity(0)]
-    var selectedGradient: [Color] = [Color("majenta"), Color("backgroundColor")]
+    var selectedGradient: [Color] = [Color("majenta"), Color("backgroundColor-1")]
     
     var body: some View {
         Button {
@@ -90,10 +90,10 @@ struct TimeButton: View {
     @State var action: () -> Void = {}
     
     var currentBorderColors: [Color] = [Color("cyan"), Color("cyan").opacity(0), Color("cyan").opacity(0)]
-    var currentGradient: [Color] = [Color("backgroundColor"), Color("grey")]
+    var currentGradient: [Color] = [Color("backgroundColor-1"), Color("grey")]
     
     var selectedBorderColors: [Color] = [Color("pink"), Color("pink").opacity(0), Color("pink").opacity(0)]
-    var selectedGradient: [Color] = [Color("majenta"), Color("backgroundColor")]
+    var selectedGradient: [Color] = [Color("majenta"), Color("backgroundColor-1")]
     
     var body: some View {
         Button {
