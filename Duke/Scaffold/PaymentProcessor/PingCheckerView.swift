@@ -36,15 +36,14 @@ struct PingCheckerView: View {
     }
     
     private func performPing() {
-        guard let url = URL(string: "https://api.payfast.co.za/ping") else {
-            return
-        }
-        
-        let request = URLRequest(url: url)
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let responseString = String(data: data, encoding: .utf8) {
-                    if responseString == "OK" {
+            guard let url = URL(string: "https://api.payfast.co.za/ping") else {
+                return
+            }
+            
+            let request = URLRequest(url: url)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let httpResponse = response as? HTTPURLResponse {
+                    if 200...299 ~= httpResponse.statusCode {
                         isPingSuccessful = true
                     } else {
                         isPingSuccessful = false
@@ -52,11 +51,9 @@ struct PingCheckerView: View {
                 } else {
                     isPingSuccessful = false
                 }
-            } else {
-                isPingSuccessful = false
-            }
-        }.resume()
-    }
+            }.resume()
+        }
+    
 }
 
 struct PingCheckerView_Previews: PreviewProvider {
