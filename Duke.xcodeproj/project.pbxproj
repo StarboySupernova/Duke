@@ -25,6 +25,7 @@
 		C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FB2962222B00B36856 /* LoginContainerView.swift */; };
 		C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FD296223A400B36856 /* UserViewModel.swift */; };
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
+		C93B2E672A605625008BB251 /* PingCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2E662A605625008BB251 /* PingCheckerView.swift */; };
 		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
 		C95B136829F86B0600A07CE7 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136729F86B0600A07CE7 /* TabBar.swift */; };
@@ -114,6 +115,7 @@
 		C937A1FB2962222B00B36856 /* LoginContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContainerView.swift; sourceTree = "<group>"; };
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C93B2E662A605625008BB251 /* PingCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingCheckerView.swift; sourceTree = "<group>"; };
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C95B136729F86B0600A07CE7 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		C957ED1829D0EDA6007EA86D /* PaymentProcessor */ = {
 			isa = PBXGroup;
 			children = (
+				C93B2E662A605625008BB251 /* PingCheckerView.swift */,
 			);
 			path = PaymentProcessor;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */,
 				C9C39AF02947EDD10036874D /* ExtensionOnString.swift in Sources */,
 				C9C39AD72947EB490036874D /* LabelledDivider.swift in Sources */,
+				C93B2E672A605625008BB251 /* PingCheckerView.swift in Sources */,
 				C919888429F3C7DB007EDECF /* SegmentedControl.swift in Sources */,
 				C9C39ACC2947EB200036874D /* AnimatableGradientModifier.swift in Sources */,
 				C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */,
