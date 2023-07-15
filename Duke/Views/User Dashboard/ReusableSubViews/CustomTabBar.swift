@@ -84,7 +84,7 @@ struct CustomTabBar: View {
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBar(action: {})
-            //.preferredColorScheme(.dark)
+            .preferredColorScheme(.dark)
     }
 }
 
