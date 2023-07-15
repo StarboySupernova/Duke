@@ -31,7 +31,7 @@ struct CustomTabBar: View {
                 // MARK: Arc Shape
 #warning("give frame getRect * 0.1, then set .bottom to be getRect * 0.1")
                 Arc()
-                    .fill(Color.tabBarBackground)
+                    .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
                     .frame(height: getRect().height * 0.1)
                     .overlay {
                         // MARK: Arc Border
@@ -74,9 +74,9 @@ struct CustomTabBar: View {
                     ), alignment: .center)
             }
             
+            
         }
         .frame(height: getRect().height * 0.1)
-        .background(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
@@ -84,7 +84,7 @@ struct CustomTabBar: View {
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBar(action: {})
-            .preferredColorScheme(.dark)
+            //.preferredColorScheme(.dark)
     }
 }
 
