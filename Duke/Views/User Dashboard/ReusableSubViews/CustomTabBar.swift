@@ -16,6 +16,7 @@ struct CustomTabBar: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
+    @State var press: Bool = false
     @Environment(\.colorScheme) var colorScheme
     
     var bottomSheetTranslationProrated: CGFloat {
@@ -45,39 +46,53 @@ struct CustomTabBar: View {
                     }
                     .zIndex(-1)
                 
-                HStack(spacing: 0.0) {
-                    Button {
-                        withAnimation(.easeInOut) {
-                            action()
-                        }
-                    } label: {
-                        Image(systemName: "square.3.layers.3d.bottom.filled")
-                            .renderingMode(.original)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .offset(y: -17)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .background(Circle()
-                    .fill(.ultraThinMaterial)
-                    .frame(width: 80, height: 80)
-                    .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
-                    .offset(y: -17)
-                    .overlay(
-                        Circle()
-                            .trim(from: 0, to: CGFloat(0.5))
-                            .stroke(LinearGradient(colors: gradientCircle, startPoint: .top, endPoint: .bottom), style: StrokeStyle(lineWidth: 2))
-                            .rotationEffect(.degrees(135))
-                            .frame(width: 78, height: 78)
-                            .offset(y: -17)
-                    ), alignment: .center)
+                circleTabButton
             }
             
             
         }
         .frame(height: getRect().height * 0.1)
         .frame(maxHeight: .infinity, alignment: .bottom)
+    }
+    
+    var circleTabButton: some View {
+        HStack(spacing: 0.0) {
+            Button {
+                withAnimation(.easeInOut) {
+                    action()
+                }
+                
+                withAnimation(.spring()) {
+                    press = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        press = false
+                    }
+                }
+                
+            } label: {
+                Image(systemName: "square.3.layers.3d.bottom.filled")
+                    .renderingMode(.original)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .offset(y: -17)
+            }
+            .scaleEffect(press ? 1.2 : 1)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Circle()
+            .fill(.ultraThinMaterial)
+            .frame(width: 80, height: 80)
+            .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
+            .offset(y: -17)
+            .overlay(
+                Circle()
+                    .trim(from: 0, to: CGFloat(0.5))
+                    .stroke(LinearGradient(colors: gradientCircle, startPoint: press ? .bottom : .top, endPoint: press ? .top : .bottom), style: StrokeStyle(lineWidth: 2))
+                    .rotationEffect(.degrees(135))
+                    .frame(width: 78, height: 78)
+                    .offset(y: -17)
+                    .scaleEffect(press ? 1.2 : 1)
+            ), alignment: .center)
     }
 }
 
