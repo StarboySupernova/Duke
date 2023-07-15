@@ -42,11 +42,11 @@ struct PingCheckerView: View {
     }
     
     func sendPingRequest() {
-        let url = URL(string: "https://api.payfast.co.za/ping")!
+        let url = URL(string: "https://api.payfast.co.za/ping?testing=true")!
         
         // Set header parameters
-        var headers = [
-            "merchant-id": "6p4d8gqkymobf",
+        let headers = [
+            "merchant-id": "22307768",
             "version": "v1",
             "timestamp": getCurrentTimestamp(),
             "signature": generateApiSignature(dataArray: pfData, passPhrase: passPhrase)
@@ -78,15 +78,10 @@ struct PingCheckerView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         let timestamp = formatter.string(from: Date())
+        print(timestamp)
         return timestamp
     }
     
-    func generateSignature() -> String {
-        // Implement your signature generation logic here
-        // Include the necessary header and body variables in the signature generation process
-        // Convert the resulting signature to lowercase and return it
-        return ""
-    }
 }
 
 struct PingCheckerView_Previews: PreviewProvider {

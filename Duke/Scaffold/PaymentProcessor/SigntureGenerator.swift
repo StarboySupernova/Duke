@@ -21,7 +21,7 @@ let pfData: [String: String] = [
 func generateApiSignature(dataArray: [String: String], passPhrase: String = "") -> String {
     var payload = ""
     
-    var sortedData = Array(dataArray.keys).sorted()
+    let sortedData = Array(dataArray.keys).sorted()
     for key in sortedData {
         // Get all the data from Payfast and prepare the parameter string
         if let value = dataArray[key]?.replacingOccurrences(of: "+", with: " ") {
@@ -37,6 +37,7 @@ func generateApiSignature(dataArray: [String: String], passPhrase: String = "") 
     
     let signature = Insecure.MD5.hash(data: Data(payload.utf8)).map { String(format: "%02hhx", $0) }.joined()
     
+    print(signature)
     return signature
 }
 
