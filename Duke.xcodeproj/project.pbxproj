@@ -91,6 +91,8 @@
 		C9E2AB63294232450001270B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB62294232450001270B /* HomeViewModel.swift */; };
 		C9E2AB65294238050001270B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E2AB64294238050001270B /* CategoryView.swift */; };
 		C9E648732A62DFE800E93B18 /* SideMenuTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E648722A62DFE800E93B18 /* SideMenuTab.swift */; };
+		C9E648762A63071D00E93B18 /* ResponsiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E648752A63071D00E93B18 /* ResponsiveView.swift */; };
+		C9E648782A6307AB00E93B18 /* ScreenProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E648772A6307AB00E93B18 /* ScreenProperties.swift */; };
 		C9EE106629473F7600103492 /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE106529473F7600103492 /* ShadowModifier.swift */; };
 		C9EE10682947541800103492 /* Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE10672947541800103492 /* Completions.swift */; };
 		C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F88BFA2972712700CE4524 /* ParallaxView.swift */; };
@@ -177,6 +179,8 @@
 		C9E2AB62294232450001270B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C9E2AB64294238050001270B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		C9E648722A62DFE800E93B18 /* SideMenuTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTab.swift; sourceTree = "<group>"; };
+		C9E648752A63071D00E93B18 /* ResponsiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsiveView.swift; sourceTree = "<group>"; };
+		C9E648772A6307AB00E93B18 /* ScreenProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProperties.swift; sourceTree = "<group>"; };
 		C9EE106529473F7600103492 /* ShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifier.swift; sourceTree = "<group>"; };
 		C9EE10672947541800103492 /* Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completions.swift; sourceTree = "<group>"; };
 		C9F88BFA2972712700CE4524 /* ParallaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxView.swift; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
+				C9E648742A6306F500E93B18 /* ResponsiveView */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
 				C9C4E5F029EC7C5900131E97 /* Info.plist */,
@@ -462,6 +467,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C9E648742A6306F500E93B18 /* ResponsiveView */ = {
+			isa = PBXGroup;
+			children = (
+				C9E648752A63071D00E93B18 /* ResponsiveView.swift */,
+				C9E648772A6307AB00E93B18 /* ScreenProperties.swift */,
+			);
+			path = ResponsiveView;
+			sourceTree = "<group>";
+		};
 		C9EE106429473F5600103492 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +603,7 @@
 				C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
 				C919888029F3C718007EDECF /* Arc.swift in Sources */,
+				C9E648762A63071D00E93B18 /* ResponsiveView.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
 				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,
 				C97817752A1114E30028CE08 /* PreferenceView.swift in Sources */,
@@ -654,6 +669,7 @@
 				C9090211293AB2320050E808 /* DukeApp.swift in Sources */,
 				C9090232293AC9580050E808 /* FoodCategories.swift in Sources */,
 				C96B70742962C1AD009B3444 /* User.swift in Sources */,
+				C9E648782A6307AB00E93B18 /* ScreenProperties.swift in Sources */,
 				C90089452A4ACDEB0048F377 /* SelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
