@@ -30,6 +30,7 @@ struct HomeView: View {
     }
     
     var body: some View {
+        //MARK: Insert functionality to show sidebar on horizontal position / iPad
         GeometryReader{ geometry in
             let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
             let imageOffset = screenHeight + 36
@@ -57,8 +58,8 @@ struct HomeView: View {
                             .opacity(showLogin ? 0 : 1)
                             .listStyle(.plain)
                             .navigationTitle(homeViewModel.cityName)
-                            .if(!showLogin, transform: { view in
-                                view
+                            .if(!showLogin, transform: { thisView in
+                                thisView
                                     .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
                                         ForEach(homeViewModel.completions, id : \.self) { completion in
                                             Text(completion).searchCompletion(completion)
@@ -67,11 +68,12 @@ struct HomeView: View {
                                         //.modifier(ConcaveGlassView())
                                     }
                             })
-                            .toolbar {
+                            /*.toolbar {
+                                //display profile image here
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     accountButton
                                 }
-                            }
+                            }*/
                             .safeAreaInset(edge: .bottom) {
                                 Rectangle()
                                     .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
@@ -102,11 +104,11 @@ struct HomeView: View {
                         }
                         
                         
-                        // MARK: Tab Barq
+                        // MARK: Tab Bar
                         CustomTabBar {
                             bottomSheetPosition = .top
                         }
-                        .offset(y: bottomSheetTranslationProrated * 115)
+                        .offset(y: bottomSheetTranslationProrated * 115) //- commneting this out made tab bar stop disappearing offscreen
                     }
                 }
                 /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {

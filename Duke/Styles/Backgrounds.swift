@@ -148,8 +148,8 @@ extension View {
  ///////////////////////////////////////////////////////
 
 enum BottomSheetPosition: CGFloat, CaseIterable {
-    case top = 0.83 // 702/844
-    case middle = 0.385 // 325/844
+    case top = 0.99 // 0.83 - 702/844
+    case middle = 0.01 //0.385 - 325/844
     case bottom = 0.0
 }
 
