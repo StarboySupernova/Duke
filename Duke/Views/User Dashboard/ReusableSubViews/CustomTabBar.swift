@@ -14,13 +14,13 @@ struct CustomTabBar: View {
     var gradientCircle: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
     
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
-    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
+    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue //changes deviating from original implementation have had no effect on the behaviour when inside HomeView
     @State var hasDragged: Bool = false
     @State var press: Bool = false
     @Environment(\.colorScheme) var colorScheme
     
     var bottomSheetTranslationProrated: CGFloat {
-        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
+        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue) //changes deviating from original implementation have had no effect on the behaviour when inside HomeView
     }
     
     var body: some View {
@@ -34,6 +34,7 @@ struct CustomTabBar: View {
                 Arc()
                     .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
                     .frame(height: getRect().height * 0.1)
+                    .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
                     .overlay {
                         // MARK: Arc Border
                         Arc()
@@ -48,7 +49,7 @@ struct CustomTabBar: View {
                 
                 circleTabButton
             }
-            
+            .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
             
         }
         .frame(height: getRect().height * 0.1)
