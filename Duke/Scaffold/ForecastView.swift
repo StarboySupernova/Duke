@@ -2,7 +2,7 @@
 //  ForecastView.swift
 //  Duke
 //
-//  Created by user226714 on 4/25/23.
+//  Created by Simbarashe Dombodzvuku on 4/25/23.
 //
 
 import SwiftUI
@@ -62,8 +62,8 @@ struct ForecastView: View {
 struct ForecastView_Previews: PreviewProvider {
     static var previews: some View {
         ForecastView()
-            .background(Color.background)
-            .preferredColorScheme(.dark)
+            //.background(Color.background)
+            //.preferredColorScheme(.dark)
             .environmentObject(UserViewModel())
     }
 }

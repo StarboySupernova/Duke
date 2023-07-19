@@ -58,7 +58,7 @@ struct HomeView: View {
                             .opacity(showLogin ? 0 : 1)
                             .listStyle(.plain)
                             .navigationTitle(homeViewModel.cityName)
-                            .if(!showLogin, transform: { thisView in
+                            .if(!showLogin, transform: { thisView in //conditional check should be done on variable toggled anytime tab button is pressed
                                 thisView
                                     .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
                                         ForEach(homeViewModel.completions, id : \.self) { completion in
@@ -84,10 +84,10 @@ struct HomeView: View {
                         .padding(.top, 51)
                         .offset(y: -bottomSheetTranslationProrated * 46)
                         
-                        // MARK: Bottom Sheet - disabled and opacity zero until user clicks on account
                         BottomSheetView(position: $bottomSheetPosition) {
-                            //                        possibly heading here when sheet is activated
+                            //                        possibly a heading here when sheet is activated
                         } content: {
+                            //control which view is shown here, depending on the tab button pressed
                             ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
                                 .environmentObject(userViewModel)
                         }
@@ -104,8 +104,9 @@ struct HomeView: View {
                         }
                         
                         
-                        // MARK: Tab Bar
-                        CustomTabBar {
+                        // MARK: Tab Bar - this will be removed from here, ContentView is now handling this
+                        CustomTabBar(currentTab: <#Binding<SideMenuTab>#>) {
+                            showLogin = true
                             bottomSheetPosition = .top
                         }
                         .offset(y: bottomSheetTranslationProrated * 115) //- commneting this out made tab bar stop disappearing offscreen
@@ -127,10 +128,11 @@ struct HomeView: View {
                         }
                 }
                 
-                if showLogin {
+                //should control which tab toggles showLogin
+                /*if showLogin {
                     LoginContainerView()
                         .environmentObject(userViewModel)
-                }
+                }*/
             }
         }
     }
