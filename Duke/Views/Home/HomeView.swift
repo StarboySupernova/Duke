@@ -11,12 +11,12 @@ import BottomSheet
 struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
-    @StateObject var userViewModel: UserViewModel = UserViewModel()
+//    @StateObject var userViewModel: UserViewModel = UserViewModel() //gone to ContentView
     @StateObject var preferenceStore: UserPreference = UserPreference()
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
-    @State var press = false
+    @State var press = false //might change this to a Binding passed down from ContentView
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
@@ -84,7 +84,9 @@ struct HomeView: View {
                         .padding(.top, 51)
                         .offset(y: -bottomSheetTranslationProrated * 46)
                         
-                        BottomSheetView(position: $bottomSheetPosition) {
+                        //MARK: Was thinking of complete removal, however this may be useful in displaying other auxilliary views
+                        #warning("BottomSheetView may still be useful in this context")
+                        /*BottomSheetView(position: $bottomSheetPosition) {
                             //                        possibly a heading here when sheet is activated
                         } content: {
                             //control which view is shown here, depending on the tab button pressed
@@ -101,15 +103,7 @@ struct HomeView: View {
                                     hasDragged = false
                                 }
                             }
-                        }
-                        
-                        
-                        // MARK: Tab Bar - this will be removed from here, ContentView is now handling this
-                        CustomTabBar(currentTab: <#Binding<SideMenuTab>#>) {
-                            showLogin = true
-                            bottomSheetPosition = .top
-                        }
-                        .offset(y: bottomSheetTranslationProrated * 115) //- commneting this out made tab bar stop disappearing offscreen
+                        }*/
                     }
                 }
                 /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
