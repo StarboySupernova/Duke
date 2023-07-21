@@ -33,7 +33,7 @@ struct HomeView: View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
         GeometryReader{ geometry in
             let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-            let imageOffset = screenHeight + 36
+            //let imageOffset = screenHeight + 36
             
             ZStack {
                 NavigationView {
@@ -68,12 +68,13 @@ struct HomeView: View {
                                         //.modifier(ConcaveGlassView())
                                     }
                             })
-                            /*.toolbar {
-                                //display profile image here
+                            .toolbar {
+                                //MARK: display profile image here
+                                #warning("display profile image here")
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     accountButton
                                 }
-                            }*/
+                            }
                             .safeAreaInset(edge: .bottom) {
                                 Rectangle()
                                     .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
@@ -85,7 +86,7 @@ struct HomeView: View {
                         .offset(y: -bottomSheetTranslationProrated * 46)
                         
                         BottomSheetView(position: $bottomSheetPosition) {
-                            //                        possibly a heading here when sheet is activated
+                            #warning("display a heading here when sheet is activated")
                         } content: {
                             //control which view is shown here, depending on the tab button pressed
                             ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
@@ -133,6 +134,7 @@ struct HomeView: View {
         Button {
             withAnimation {
                 showLogin.toggle()
+                bottomSheetPosition = .top //should bring up ForecastView (to be renamed)
             }
             withAnimation(.spring()) {
                 press = true

@@ -26,12 +26,12 @@ struct CustomTabBar: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let width = geometry.size.width
-            let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
+            //let width = geometry.size.width
+            //let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
             
             ZStack {
                 // MARK: Arc Shape
-#warning("give frame getRect * 0.1, then set .bottom to be getRect * 0.1")
+                #warning("give frame getRect * 0.1, then set .bottom to be getRect * 0.1")
                 Arc()
                     .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
                     .frame(height: getRect().height * 0.1)

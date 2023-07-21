@@ -25,7 +25,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-            let imageOffset = screenHeight + 36
+            //let imageOffset = screenHeight + 36
             
             // NavigationView { //include Navigation when we implement popToRoot functionality
             ZStack {
@@ -48,22 +48,14 @@ struct ContentView: View {
                     }
                     
                     CustomTabBar(currentTab: $currentTab) {} //trailing closure execution will depend on which Tab is selected
-                    
-                    // MARK: Tab Bar - this will be removed from here, ContentView is now handling this
-                    CustomTabBar(currentTab: $currentTab) {
-                        showLogin = true //BottomSheet in HomeView will bring up ForecastView (to be renamed)
-                        bottomSheetPosition = .top
-                    }
                     .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
                 }
                 .ignoresSafeArea(.keyboard)
                 
                 BottomSheetView(position: $bottomSheetPosition) {
-                    //                        possibly a heading here when sheet is activated
+                    #warning("display a heading here when sheet is activated")
                 } content: {
-                    //control which view is shown here, depending on the tab button pressed
-                    ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
-                        .environmentObject(userViewModel)
+                    //control which view is shown here, depending on the tab button pressed. E.G., if location access is not given or login is incomplete, a View will be shown here
                 }
                 .onBottomSheetDrag { translation in
                     bottomSheetTranslation = translation / screenHeight
