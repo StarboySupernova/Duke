@@ -11,7 +11,7 @@ import BottomSheet
 struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
-//    @StateObject var userViewModel: UserViewModel = UserViewModel() //gone to ContentView
+    @StateObject var userViewModel: UserViewModel = UserViewModel() 
     @StateObject var preferenceStore: UserPreference = UserPreference()
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
@@ -84,9 +84,7 @@ struct HomeView: View {
                         .padding(.top, 51)
                         .offset(y: -bottomSheetTranslationProrated * 46)
                         
-                        //MARK: Was thinking of complete removal, however this may be useful in displaying other auxilliary views
-                        #warning("BottomSheetView may still be useful in this context")
-                        /*BottomSheetView(position: $bottomSheetPosition) {
+                        BottomSheetView(position: $bottomSheetPosition) {
                             //                        possibly a heading here when sheet is activated
                         } content: {
                             //control which view is shown here, depending on the tab button pressed
@@ -103,7 +101,7 @@ struct HomeView: View {
                                     hasDragged = false
                                 }
                             }
-                        }*/
+                        }
                     }
                 }
                 /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {

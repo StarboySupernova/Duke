@@ -53,6 +53,7 @@ struct CustomTabBar: View {
                         HStack(spacing: 0.0) {
                             Button {
                                 withAnimation(.easeInOut) {
+                                    currentTab = tab
                                     action()
                                 }
                                 

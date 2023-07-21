@@ -9,7 +9,6 @@ import SwiftUI
 import BottomSheet
 
 struct ContentView: View {
-    @StateObject var userViewModel: UserViewModel = UserViewModel()
     @State var currentTab: SideMenuTab = .home
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
@@ -51,8 +50,8 @@ struct ContentView: View {
                     CustomTabBar(currentTab: $currentTab) {} //trailing closure execution will depend on which Tab is selected
                     
                     // MARK: Tab Bar - this will be removed from here, ContentView is now handling this
-                    CustomTabBar(currentTab: <#Binding<SideMenuTab>#>) {
-                        showLogin = true
+                    CustomTabBar(currentTab: $currentTab) {
+                        showLogin = true //BottomSheet in HomeView will bring up ForecastView (to be renamed)
                         bottomSheetPosition = .top
                     }
                     .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
