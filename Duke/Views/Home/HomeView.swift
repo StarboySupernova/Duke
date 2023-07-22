@@ -60,7 +60,7 @@ struct HomeView: View {
                             .navigationTitle(homeViewModel.cityName)
                             .if(!showLogin, transform: { thisView in //conditional check should be done on variable toggled anytime tab button is pressed
                                 thisView
-                                    .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.searchFood)) {
+                                    .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
                                         ForEach(homeViewModel.completions, id : \.self) { completion in
                                             Text(completion).searchCompletion(completion)
                                                 .foregroundColor(Color.white)
