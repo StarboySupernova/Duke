@@ -89,7 +89,7 @@ struct HomeView: View {
                             #warning("display a heading here when sheet is activated")
                         } content: {
                             //control which view is shown here, depending on the tab button pressed
-                            ForecastView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                            SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
                                 .environmentObject(userViewModel)
                         }
                         .onBottomSheetDrag { translation in
@@ -131,7 +131,7 @@ struct HomeView: View {
                 if bottomSheetPosition == .bottom {
                     bottomSheetPosition = .top
                 } else {
-                    bottomSheetPosition = .bottom //should bring up ForecastView (to be renamed)
+                    bottomSheetPosition = .bottom //should bring up SignInControllerView 
                 }
             }
             withAnimation(.spring()) {

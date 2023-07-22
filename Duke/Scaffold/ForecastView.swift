@@ -1,5 +1,5 @@
 //
-//  ForecastView.swift
+//  SignInControllerView.swift
 //  Duke
 //
 //  Created by Simbarashe Dombodzvuku on 4/25/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ForecastView: View {
+struct SignInControllerView: View {
     @EnvironmentObject var userLoginVM: UserViewModel
     var bottomSheetTranslationProrated: CGFloat = 1
     @State private var selection = 0
@@ -59,9 +59,9 @@ struct ForecastView: View {
     }
 }
 
-struct ForecastView_Previews: PreviewProvider {
+struct SignInControllerView_Previews: PreviewProvider {
     static var previews: some View {
-        ForecastView()
+        SignInControllerView()
             //.background(Color.background)
             .preferredColorScheme(.dark)
             .environmentObject(UserViewModel())
