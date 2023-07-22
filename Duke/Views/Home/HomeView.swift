@@ -120,12 +120,6 @@ struct HomeView: View {
                             showLogin = false
                         }
                 }
-                
-                //should control which tab toggles showLogin
-                /*if showLogin {
-                    LoginContainerView()
-                        .environmentObject(userViewModel)
-                }*/
             }
         }
     }
