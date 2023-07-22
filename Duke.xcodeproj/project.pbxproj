@@ -22,6 +22,7 @@
 		C919888429F3C7DB007EDECF /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888329F3C7DB007EDECF /* SegmentedControl.swift */; };
 		C919888629F3C851007EDECF /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888529F3C851007EDECF /* WeatherWidget.swift */; };
 		C924782B29F9A6C400A64A8C /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924782A29F9A6C400A64A8C /* LandingView.swift */; };
+		C925BD3E2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C925BD3D2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift */; };
 		C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FB2962222B00B36856 /* LoginContainerView.swift */; };
 		C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FD296223A400B36856 /* UserViewModel.swift */; };
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
@@ -118,6 +119,7 @@
 		C919888329F3C7DB007EDECF /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		C919888529F3C851007EDECF /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		C924782A29F9A6C400A64A8C /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		C925BD3D2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenEdgeButtonModifier.swift; sourceTree = "<group>"; };
 		C937A1FB2962222B00B36856 /* LoginContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContainerView.swift; sourceTree = "<group>"; };
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				C9C39AD22947EB490036874D /* Backgrounds.swift */,
 				C9C39AD32947EB490036874D /* ButtonStyles & Buttons.swift */,
 				C9C39AD42947EB490036874D /* LabelledDivider.swift */,
+				C925BD3D2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 			files = (
 				C9EE106629473F7600103492 /* ShadowModifier.swift in Sources */,
 				C9A4AC8E29AA0D480038EB5D /* CustomTabBar.swift in Sources */,
+				C925BD3E2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift in Sources */,
 				C909022E293AC8440050E808 /* CGFloat.swift in Sources */,
 				C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */,
 				C9C39AF42947EDD10036874D /* ExtensionOnLinearGradient.swift in Sources */,

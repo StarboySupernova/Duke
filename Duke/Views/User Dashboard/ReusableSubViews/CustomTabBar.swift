@@ -26,76 +26,99 @@ struct CustomTabBar: View {
     
     var body: some View {
         GeometryReader { geometry in
-            //let width = geometry.size.width
+            let width = geometry.size.width
             //let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
             
-            ZStack {
+//            ZStack {
                 // MARK: Arc Shape
                 #warning("give frame getRect * 0.1, then set .bottom to be getRect * 0.1")
-                Arc()
-                    .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
-                    .frame(height: getRect().height * 0.1)
-                    .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
-                    .overlay {
-                        // MARK: Arc Border
-                        Arc()
-                            .stroke(Color.tabBarBorder, lineWidth: 0.9)
-                    }
-                    .overlay {
-                        // MARK: Arc Border
-                        Arc()
-                            .stroke(colorScheme == .dark ? Color.tabBarBorder : Color.black, lineWidth: 0.5)
-                    }
-                    .zIndex(-1)
                 
-                HStack(spacing: 0.0) {
-                    ForEach(SideMenuTab.allCases, id: \.rawValue) { tab in
-                        HStack(spacing: 0.0) {
-                            Button {
-                                withAnimation(.easeInOut) {
-                                    currentTab = tab
-                                    action()
-                                }
-                                
-                                withAnimation(.spring()) {
-                                    press = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        press = false
-                                    }
-                                }
-                            } label: {
-                                Image(systemName: tab.rawValue)
-                                    .renderingMode(.original)
-                                    .frame(maxWidth: .infinity)
-                                    .foregroundColor(.white)
-                                    .offset(y: -17)
-                            }
-                            .scaleEffect(press ? 1.2 : 1)
+                
+            HStack(spacing: 0.0) {
+                ForEach(SideMenuTab.allCases, id: \.rawValue) { tab in
+                    Button {
+                        withAnimation(.easeInOut) {
+                            currentTab = tab
+                            action()
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Circle()
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 80, height: 80)
-                            .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
-                            .offset(y: -17)
-                            .overlay(
-                                Circle()
-                                    .trim(from: 0, to: CGFloat(0.5))
-                                    .stroke(LinearGradient(colors: gradientCircle, startPoint: press ? .bottom : .top, endPoint: press ? .top : .bottom), style: StrokeStyle(lineWidth: 2))
-                                    .rotationEffect(.degrees(135))
-                                    .frame(width: 78, height: 78)
-                                    .offset(y: -17)
-                                    .scaleEffect(press ? 1.2 : 1)
-                            ), alignment: .center)
+                        
+                        withAnimation(.spring()) {
+                            press = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                press = false
+                            }
+                        }
+                    } label: {
+                        Image(tab.rawValue)
+                            .renderingMode(.template)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .offset(y: currentTab == tab ? -17 : 0)
                     }
-                    
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Circle()
+                .fill(.ultraThinMaterial)
+                .frame(width: 80, height: 80)
+                .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
+                .offset(x: indicatorOffset(width: width), y: -17)
+                .overlay(
+                    Circle()
+                        .trim(from: 0, to: CGFloat(0.5))
+                        .stroke(LinearGradient(colors: gradientCircle, startPoint: press ? .bottom : .top, endPoint: press ? .top : .bottom), style: StrokeStyle(lineWidth: 2))
+                        .rotationEffect(.degrees(135))
+                        .frame(width: 78, height: 78)
+                        .offset(x: indicatorOffset(width: width), y: -17)
+                ), alignment: .leading)
+//            }
+//            .frame(height: getRect().height * 0.1)
+//            .frame(maxHeight: .infinity, alignment: .bottom)
+        }
+        .frame(height: getRect().height * 0.1)
+        .padding(.top, 30)
+        .background(
+            Arc()
+                .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
+                .frame(height: getRect().height * 0.1)
+                .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
+                .overlay {
+                    // MARK: Arc Border
+                    Arc()
+                        .stroke(Color.tabBarBorder, lineWidth: 0.9)
+                }
+                .overlay {
+                    // MARK: Arc Border
+                    Arc()
+                        .stroke(colorScheme == .dark ? Color.tabBarBorder : Color.black, lineWidth: 0.5)
                 }
                 .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
-                
-            }
-            .frame(height: getRect().height * 0.1)
-            .frame(maxHeight: .infinity, alignment: .bottom)
+        )
+//        .background(.ultraThinMaterial)
+    }
+    
+    func getIndex() -> Int {
+        switch currentTab {
+        case .home:
+            return 0
+        case .store:
+            return 1
+        case .notifications:
+            return 2
+        case .profile:
+            return 3
+        case .settings:
+            return 4
         }
+    }
+    
+    func indicatorOffset(width: CGFloat) -> CGFloat {
+        let index = CGFloat(getIndex())
+        if index == 0 { return 0 }
+        
+        let buttonWidth = width / CGFloat(SideMenuTab.allCases.count)
+        
+        return index * buttonWidth
     }
 }
 

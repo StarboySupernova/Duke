@@ -29,28 +29,34 @@ struct ContentView: View {
             
             // NavigationView { //include Navigation when we implement popToRoot functionality
             ZStack {
+                TabView(selection: $currentTab) {
+                    HomeView()
+                        .environmentObject(HomeViewModel())
+                        .tag(SideMenuTab.home)
+                    
+                    Text("Location")
+                        .tag(SideMenuTab.store)
+                    
+                    Text("Category")
+                        .tag(SideMenuTab.notifications)
+                    
+                    SeatsView()
+                        .tag(SideMenuTab.profile)
+                    
+                    Text("Profile")
+                        .tag(SideMenuTab.settings)
+                }
+                .ignoresSafeArea(.keyboard)
+                
                 VStack(spacing: 0) {
-                    TabView(selection: $currentTab) {
-                        HomeView()
-                            .tag(SideMenuTab.home)
-                        
-                        Text("Location")
-                            .tag(SideMenuTab.task)
-                        
-                        SeatsView()
-                            .tag(SideMenuTab.documents)
-                        
-                        Text("Category")
-                            .tag(SideMenuTab.store)
-                        
-                        Text("Profile")
-                            .tag(SideMenuTab.settings)
-                    }
+                    Spacer()
                     
                     CustomTabBar(currentTab: $currentTab) {} //trailing closure execution will depend on which Tab is selected
                     .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
                 }
-                .ignoresSafeArea(.keyboard)
+                .frame(width: geometry.size.width, height: screenHeight) // This ensures the VStack takes the whole screen height
+                //.offset(y: bottomSheetTranslationProrated * 115) //offset may need to be placed here, decision inconclusive at this time
+
                 
                 BottomSheetView(position: $bottomSheetPosition) {
                     #warning("display a heading here when sheet is activated")
@@ -77,5 +83,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

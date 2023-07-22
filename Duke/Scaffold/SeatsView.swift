@@ -38,8 +38,14 @@ struct SeatsView: View {
             Image("frontSeat")
                 .padding(.top, 55)
                 .glow(color: Color("pink"), radius: 20)
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        showButton = true
+                    }
+                }
+
             
-            Image("seats")
+            Image("seats") //seats image not found in this project
                 .frame(height: 240)
                 .padding(.top, 60)
                 .padding(.horizontal, 20)

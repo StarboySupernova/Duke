@@ -134,7 +134,11 @@ struct HomeView: View {
         Button {
             withAnimation {
                 showLogin.toggle()
-                bottomSheetPosition = .top //should bring up ForecastView (to be renamed)
+                if bottomSheetPosition == .bottom {
+                    bottomSheetPosition = .top
+                } else {
+                    bottomSheetPosition = .bottom //should bring up ForecastView (to be renamed)
+                }
             }
             withAnimation(.spring()) {
                 press = true
