@@ -84,6 +84,54 @@ extension View {
     }
 }
 
+//MARK: UI View Extensions
+extension View {
+    /// Closes all active keyboards
+    func closeKeyboard () {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    func disableWithOpacity(_ condition : Bool) -> some View {
+        self
+            .disabled(condition)
+            .opacity(condition ? 0.4 : 1)
+    }
+    
+    
+    func horizontalAlign(_ alignment : Alignment) -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: alignment)
+    }
+    
+    func verticalAlign(_ alignment : Alignment) -> some View {
+        self
+            .frame(maxHeight: .infinity, alignment: alignment)
+    }
+    
+    //MARK: Custom Border
+    func paddedBorder(_ color: Color, _ linewidth : CGFloat) -> some View {
+        self
+            .padding(.horizontal, .large)
+            .padding(.vertical, .medium)
+            .background (
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(color, lineWidth: linewidth)
+            )
+    }
+    
+    //MARK: Custom Filling View
+    func fillView(_ color: Color) -> some View {
+        self
+            .padding(.horizontal, .large)
+            .padding(.vertical, .medium)
+            .background (
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .fill(color)
+            )
+    }
+    
+}
+
 struct SectionHeader: View {
     let text: String
     var body: some View {
