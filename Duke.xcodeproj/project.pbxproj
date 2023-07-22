@@ -29,7 +29,6 @@
 		C93B2E672A605625008BB251 /* PingCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2E662A605625008BB251 /* PingCheckerView.swift */; };
 		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
-		C95B136829F86B0600A07CE7 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136729F86B0600A07CE7 /* TabBar.swift */; };
 		C95B136A29F8706800A07CE7 /* SignInControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136929F8706800A07CE7 /* SignInControllerView.swift */; };
 		C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */; };
 		C96094BF2A0F6D5D00AB602E /* TicketScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BE2A0F6D5D00AB602E /* TicketScaffold.swift */; };
@@ -125,7 +124,6 @@
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C93B2E662A605625008BB251 /* PingCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingCheckerView.swift; sourceTree = "<group>"; };
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
-		C95B136729F86B0600A07CE7 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* SignInControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerView.swift; sourceTree = "<group>"; };
 		C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceStore.swift; sourceTree = "<group>"; };
 		C96094BE2A0F6D5D00AB602E /* TicketScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketScaffold.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
 				C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */,
 				C9B91C3A297F13C8002E6764 /* ScaffoldModel */,
-				C95B136729F86B0600A07CE7 /* TabBar.swift */,
 				C95B136929F8706800A07CE7 /* SignInControllerView.swift */,
 				C9AC810D2A06322B00B9FBC8 /* BookingView.swift */,
 				C9AC810F2A06326A00B9FBC8 /* SeatsView.swift */,
@@ -643,7 +640,6 @@
 				C9B01C5629789ECB00689998 /* FavouritesHome.swift in Sources */,
 				C96094BF2A0F6D5D00AB602E /* TicketScaffold.swift in Sources */,
 				C9C39AF52947EDD10036874D /* ExtensionOnImage.swift in Sources */,
-				C95B136829F86B0600A07CE7 /* TabBar.swift in Sources */,
 				C9E6487A2A6308FD00E93B18 /* SideBar.swift in Sources */,
 				C96B70762962C238009B3444 /* Post.swift in Sources */,
 				C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */,
