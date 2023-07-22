@@ -19,7 +19,7 @@ struct SegmentedControl: View {
                         selection = 0
                     }
                 } label: {
-                    Text("Hourly Forecast")
+                    Text("Sign In")
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
                 
@@ -28,7 +28,7 @@ struct SegmentedControl: View {
                         selection = 1
                     }
                 } label: {
-                    Text("Weekly Forecast")
+                    Text("Sign Up")
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
             }
@@ -60,5 +60,6 @@ struct SegmentedControl: View {
 struct SegmentedControl_Previews: PreviewProvider {
     static var previews: some View {
         SegmentedControl(selection: .constant(0))
+            .preferredColorScheme(.dark)
     }
 }

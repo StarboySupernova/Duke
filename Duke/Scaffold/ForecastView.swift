@@ -63,7 +63,7 @@ struct ForecastView_Previews: PreviewProvider {
     static var previews: some View {
         ForecastView()
             //.background(Color.background)
-            //.preferredColorScheme(.dark)
+            .preferredColorScheme(.dark)
             .environmentObject(UserViewModel())
     }
 }

@@ -17,7 +17,7 @@ struct RegistrationView: View {
     var body: some View {
         VStack(spacing: 10) {
             Text("Let's Register a new account for you")
-                .font(.largeTitle.bold())
+                .font(.headline.bold())
                 .horizontalAlign(.leading)
             
             Text("Onboarding")
@@ -62,12 +62,6 @@ struct RegistrationView: View {
                         .scaledToFill()
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
-                        .background(
-                            Color("unicorn")
-                                .opacity(0.1)
-                                .customCornerRadius(20, corners: [.topLeft, .bottomRight])
-                                .glow(color: .green.opacity(0.02), radius: 1)
-                        )
                         .padding()
                         .onTapGesture {
                             isShowingPhotoPicker = true
@@ -85,7 +79,9 @@ struct RegistrationView: View {
                                 .opacity(0.5)
                                 .customCornerRadius(15, corners: [.topLeft, .bottomRight])
                         )
+                        .background(Image("Background").opacity(0.5))
                         .modifier(CompactConcaveGlassView())
+                        .glow(color: Color("pink"), radius: 3)
                         .onTapGesture {
                             isShowingPhotoPicker = true
                         }
@@ -117,22 +113,9 @@ struct RegistrationView: View {
                 .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            TextField("A little about Yourself (Optional)", text: $userVM.userBio)
+            TextField("Bio (Optional)", text: $userVM.userBio)
                 .textContentType(.jobTitle)
                 .paddedBorder(.gray.opacity(0.5), 1)
-
-            //MARK: iOS 16 code
-            /*if #available(iOS 16.0, *) {
-                TextField("A little about Yourself (Optional)", text: $userVM.userBio, axis: .vertical)
-                    .frame(minHeight: 100, alignment: .top)
-                    .textContentType(.emailAddress)
-                    .paddedBorder(.gray.opacity(0.5), 1)
-            } else {
-                // Fallback on earlier versions
-                TextField("A little about Yourself (Optional)", text: $userVM.userBio)
-                    .textContentType(.jobTitle)
-                    .paddedBorder(.gray.opacity(0.5), 1)
-            }*/
             
             TextField("Link to Socials (Optional)", text: $userVM.userBioLink)
                 .textContentType(.URL)
