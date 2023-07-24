@@ -16,7 +16,7 @@ struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
-    @State var press = false //might change this to a Binding passed down from ContentView
+    //@State var press = false //might change this to a Binding passed down from ContentView
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
@@ -68,22 +68,6 @@ struct HomeView: View {
                                         //.modifier(ConcaveGlassView())
                                     }
                             })
-                            .toolbar {
-                                //MARK: display profile image here
-                                #warning("display profile image here")
-                                ToolbarItem(placement: .navigationBarTrailing) {
-                                    CircleButton(image: "person.fill") {
-                                        withAnimation {
-                                            showLogin.toggle()
-                                            if bottomSheetPosition == .bottom {
-                                                bottomSheetPosition = .top //should bring up SignInControllerView
-                                            } else {
-                                                bottomSheetPosition = .bottom
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                             .safeAreaInset(edge: .bottom) {
                                 Rectangle()
                                     .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
@@ -111,6 +95,11 @@ struct HomeView: View {
                                 }
                             }
                         }
+                        
+                        CustomPopUpSheetBar {
+                            bottomSheetPosition = .top
+                        }
+                        .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
                     }
                 }
                 /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
@@ -132,49 +121,6 @@ struct HomeView: View {
         }
     }
     
-    var accountButton: some View {
-        Button {
-            withAnimation {
-                showLogin.toggle()
-                if bottomSheetPosition == .bottom {
-                    bottomSheetPosition = .top
-                } else {
-                    bottomSheetPosition = .bottom //should bring up SignInControllerView 
-                }
-            }
-            withAnimation(.spring()) {
-                press = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    press = false
-                }
-            }
-        } label: {
-            if #available(iOS 16.0, *) {
-                RoundedRectangle(cornerRadius: 30)
-                    .frame(width: 64, height: 44)
-                    .foregroundStyle(
-                        .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
-                        .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
-                        .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
-                    )
-                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
-                    .overlay(Image(systemName: "person.fill").foregroundStyle(.white))
-                    .padding(.small)
-            } else {
-                // Fallback on earlier versions
-                RoundedRectangle(cornerRadius: 30)
-                    .frame(width: 64, height: 44)
-                    .foregroundStyle(
-                        .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
-                    .overlay(Image(systemName: "arrowshape.turn.up.backward.fill").foregroundStyle(.white))
-                    .padding(.small)
-            }
-        }
-        .scaleEffect(press ? 1.2 : 1)
-    }
 }
 
 
