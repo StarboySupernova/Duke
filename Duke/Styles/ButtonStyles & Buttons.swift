@@ -117,8 +117,8 @@ struct TimeButton: View {
 }
 
 struct CircleButton: View {
-    @State var action: () ->Void
     @State var image: String = "arrow.left"
+    @State var action: () ->Void
     
     var gradient: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
     

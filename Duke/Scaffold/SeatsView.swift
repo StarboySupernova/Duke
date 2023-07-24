@@ -17,9 +17,9 @@ struct SeatsView: View {
     var body: some View {
         VStack(spacing: 0.0) {
             HStack {
-                CircleButton(action: {
+                CircleButton(image: "arrow.left", action: {
                     dismiss()
-                }, image: "arrow.left")
+                })
                 
                 Spacer()
                 
@@ -30,7 +30,7 @@ struct SeatsView: View {
                 
                 Spacer()
                 
-                CircleButton(action: {}, image: "calendar")
+                CircleButton(image: "calendar", action: {})
             }
             .padding(.top, 46)
             .padding(.horizontal, 20)

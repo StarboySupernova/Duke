@@ -72,7 +72,16 @@ struct HomeView: View {
                                 //MARK: display profile image here
                                 #warning("display profile image here")
                                 ToolbarItem(placement: .navigationBarTrailing) {
-                                    accountButton
+                                    CircleButton(image: "person.fill") {
+                                        withAnimation {
+                                            showLogin.toggle()
+                                            if bottomSheetPosition == .bottom {
+                                                bottomSheetPosition = .top //should bring up SignInControllerView
+                                            } else {
+                                                bottomSheetPosition = .bottom
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             .safeAreaInset(edge: .bottom) {
@@ -88,7 +97,6 @@ struct HomeView: View {
                         BottomSheetView(position: $bottomSheetPosition) {
                             #warning("display a heading here when sheet is activated")
                         } content: {
-                            //control which view is shown here, depending on the tab button pressed
                             SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
                                 .environmentObject(userViewModel)
                         }
@@ -167,7 +175,6 @@ struct HomeView: View {
         }
         .scaleEffect(press ? 1.2 : 1)
     }
-    
 }
 
 

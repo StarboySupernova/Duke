@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CustomTabBar: View {
     @Binding var currentTab: SideMenuTab
-    var action: () -> Void
+    @State var symbolName: String = "person.fill"
+    @State var action: () -> Void
     
     var backgroundColors: [Color] = [Color("purple"),Color("lightBlue"), Color("pink")]
     var gradientCircle: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
@@ -35,26 +36,23 @@ struct CustomTabBar: View {
                 
                 
             HStack(spacing: 0.0) {
-                ForEach(SideMenuTab.allCases, id: \.rawValue) { tab in
-                    Button {
-                        withAnimation(.easeInOut) {
-                            currentTab = tab
-                            action()
-                        }
-                        
-                        withAnimation(.spring()) {
-                            press = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                press = false
-                            }
-                        }
-                    } label: {
-                        Image(tab.rawValue)
-                            .renderingMode(.template)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .offset(y: currentTab == tab ? -17 : 0)
+                Button {
+                    withAnimation(.easeInOut) {
+                        action()
                     }
+                    
+                    withAnimation(.spring()) {
+                        press = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            press = false
+                        }
+                    }
+                } label: {
+                    Image(systemName: symbolName)
+                        .renderingMode(.template)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.white)
+                        .offset(y: -17)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -62,15 +60,15 @@ struct CustomTabBar: View {
                 .fill(.ultraThinMaterial)
                 .frame(width: 80, height: 80)
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
-                .offset(x: indicatorOffset(width: width), y: -17)
+                .offset(y: -17)
                 .overlay(
                     Circle()
                         .trim(from: 0, to: CGFloat(0.5))
                         .stroke(LinearGradient(colors: gradientCircle, startPoint: press ? .bottom : .top, endPoint: press ? .top : .bottom), style: StrokeStyle(lineWidth: 2))
                         .rotationEffect(.degrees(135))
                         .frame(width: 78, height: 78)
-                        .offset(x: indicatorOffset(width: width), y: -17)
-                ), alignment: .leading)
+                        .offset(y: -17)
+                ), alignment: .center)
 //            }
 //            .frame(height: getRect().height * 0.1)
 //            .frame(maxHeight: .infinity, alignment: .bottom)
@@ -95,30 +93,6 @@ struct CustomTabBar: View {
                 .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
         )
 //        .background(.ultraThinMaterial)
-    }
-    
-    func getIndex() -> Int {
-        switch currentTab {
-        case .home:
-            return 0
-        case .store:
-            return 1
-        case .notifications:
-            return 2
-        case .profile:
-            return 3
-        case .settings:
-            return 4
-        }
-    }
-    
-    func indicatorOffset(width: CGFloat) -> CGFloat {
-        let index = CGFloat(getIndex())
-        if index == 0 { return 0 }
-        
-        let buttonWidth = width / CGFloat(SideMenuTab.allCases.count)
-        
-        return index * buttonWidth
     }
 }
 

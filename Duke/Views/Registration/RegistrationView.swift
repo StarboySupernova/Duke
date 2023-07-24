@@ -25,6 +25,7 @@ struct RegistrationView: View {
                 .horizontalAlign(.leading)
             
             ScrollView(getRect().height < 750 ? .vertical : .init(), showsIndicators: true) {
+                Spacer()
                 HelperView()
             }
             
@@ -75,7 +76,7 @@ struct RegistrationView: View {
                         .frame(width: 150, height: 150)
                         .clipShape(Rectangle())
                         .background(
-                            LinearGradient(mycolors: .green, .clear, .clear, .black)
+                            LinearGradient(mycolors: .black, .clear, .clear, .black)
                                 .opacity(0.5)
                                 .customCornerRadius(15, corners: [.topLeft, .bottomRight])
                         )

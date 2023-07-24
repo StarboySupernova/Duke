@@ -32,13 +32,13 @@ struct BookingView: View {
                 
                 VStack(spacing: 0.0) {
                     HStack {
-                        CircleButton(action: {
+                        CircleButton(image: "arrow.left", action: {
                             dismiss()
-                        }, image: "arrow.left")
+                        })
                         
                         Spacer()
                         
-                        CircleButton(action: {}, image: "ellipsis")
+                        CircleButton(image: "ellipsis", action: {})
                     }
                     .padding(EdgeInsets(top: 46, leading: 20, bottom: 0, trailing: 20))
                     
