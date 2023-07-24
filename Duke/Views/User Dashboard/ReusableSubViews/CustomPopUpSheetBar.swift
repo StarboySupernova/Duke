@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct CustomTabBar: View {
-    @Binding var currentTab: SideMenuTab
+struct CustomPopUpSheetBar: View {
     @State var symbolName: String = "person.fill"
     @State var action: () -> Void
     
@@ -96,9 +95,9 @@ struct CustomTabBar: View {
     }
 }
 
-struct CustomTabBar_Previews: PreviewProvider {
+struct CustomPopUpSheetBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTabBar(currentTab: .constant(.home), action: {})
+        CustomPopUpSheetBar(action: {})
             .preferredColorScheme(.dark)
     }
 }
