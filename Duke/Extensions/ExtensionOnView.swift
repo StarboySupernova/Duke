@@ -91,6 +91,7 @@ extension View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
+    ///combines the functionality of disabled and opacity methods to depend on a single Boolean condition
     func disableWithOpacity(_ condition : Bool) -> some View {
         self
             .disabled(condition)

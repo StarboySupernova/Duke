@@ -51,7 +51,7 @@ struct ContentView: View {
                 VStack(spacing: 0) {
                     Spacer()
                     
-                    CustomPopUpSheetBar{} //trailing closure execution will depend on which Tab is selected
+                    CustomPopUpSheetBar {} //trailing closure execution will depend on which Tab is selected
                     .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
                 }
                 .frame(width: geometry.size.width, height: screenHeight) // This ensures the VStack takes the whole screen height

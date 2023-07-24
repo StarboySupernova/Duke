@@ -25,8 +25,7 @@ struct DukeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PingCheckerView()
-            //HomeView()
+            HomeView()
                 //.modifier(DarkModeViewModifier())
                 .environmentObject(HomeViewModel())            
         }

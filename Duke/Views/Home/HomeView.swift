@@ -16,7 +16,7 @@ struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
-    //@State var press = false //might change this to a Binding passed down from ContentView
+    @State var overlaid = false
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
@@ -58,7 +58,7 @@ struct HomeView: View {
                             .opacity(showLogin ? 0 : 1)
                             .listStyle(.plain)
                             .navigationTitle(homeViewModel.cityName)
-                            .if(!showLogin, transform: { thisView in //conditional check should be done on variable toggled anytime tab button is pressed
+                            .if(!showLogin && !overlaid, transform: { thisView in
                                 thisView
                                     .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
                                         ForEach(homeViewModel.completions, id : \.self) { completion in
@@ -77,6 +77,7 @@ struct HomeView: View {
                         }
                         .padding(.top, 51)
                         .offset(y: -bottomSheetTranslationProrated * 46)
+                        .opacity(overlaid ? 0.1 : 1)
                         
                         BottomSheetView(position: $bottomSheetPosition) {
                             #warning("display a heading here when sheet is activated")
@@ -92,12 +93,16 @@ struct HomeView: View {
                                     hasDragged = true
                                 } else {
                                     hasDragged = false
+                                    withAnimation(.spring()) {
+                                        overlaid = false
+                                    }
                                 }
                             }
                         }
                         
                         CustomPopUpSheetBar {
                             bottomSheetPosition = .top
+                            overlaid = true
                         }
                         .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
                     }
