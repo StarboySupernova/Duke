@@ -14,6 +14,8 @@ struct RegistrationView: View {
     @State private var avatar: UIImage? = nil
     @State private var isLoading : Bool = false
     @Environment(\.dismiss) var dismiss
+    @Binding var selection: Int
+    
     var body: some View {
         VStack(spacing: 10) {
             Text("Let's Register a new account for you")
@@ -34,7 +36,9 @@ struct RegistrationView: View {
                     .foregroundColor(.white)
                 
                 Button {
-                    dismiss()
+                    withAnimation(.spring()) {
+                        selection = 0
+                    }
                 } label: {
                     Text("Login Now")
                         .fontWeight(.bold)
@@ -142,7 +146,7 @@ struct RegistrationView: View {
 
 struct InternalRegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView()
+        RegistrationView(selection: .constant(1))
             .environmentObject(UserViewModel())
             .preferredColorScheme(.dark)
     }

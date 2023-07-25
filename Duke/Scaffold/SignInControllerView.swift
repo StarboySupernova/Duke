@@ -22,10 +22,10 @@ struct SignInControllerView: View {
             HStack(spacing: 12) {
                 if selection == 0 {
                     //pass selection as a binding into these views
-                    LoginView()
+                    LoginView(selection: $selection)
                         .transition(.offset(x: -430))
                 } else {
-                    RegistrationView()
+                    RegistrationView(selection: $selection)
                         .transition(.offset(x: 430))
                 }
             }

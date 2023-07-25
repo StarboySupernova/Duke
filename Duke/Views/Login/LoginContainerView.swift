@@ -27,7 +27,7 @@ struct LoginContainerView: View {
             }
             .tint(.pink)
         } else {
-            LoginView()
+            LoginView(selection: .constant(0))
         }
     }
 }
