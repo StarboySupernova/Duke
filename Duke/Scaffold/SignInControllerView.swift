@@ -17,24 +17,19 @@ struct SignInControllerView: View {
             // MARK: Segmented Control
             SegmentedControl(selection: $selection) //should use this also inside tabview
             
-            // MARK: Forecast Cards
-            
+            // MARK: Nested Views
             HStack(spacing: 12) {
                 if selection == 0 {
                     //pass selection as a binding into these views
                     LoginView(selection: $selection)
-                        .transition(.offset(x: -430))
+                        .transition(.offset(x: -getRect().width))
                 } else {
                     RegistrationView(selection: $selection)
-                        .transition(.offset(x: 430))
+                        .transition(.offset(x: getRect().width))
                 }
             }
             .padding(.vertical, 20)
-            
-            // MARK: Forecast Widgets
-            //place something here
-            //Image("Forecast Widgets")
-            //  .opacity(bottomSheetTranslationProrated)
+        
         }
         .backgroundBlur(radius: 25, opaque: true)
         .background(Color.bottomSheetBackground)
