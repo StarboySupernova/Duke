@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "tumblr_0480d58611180142515b64c8c9bbe6c4_65ff3123_2048.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
