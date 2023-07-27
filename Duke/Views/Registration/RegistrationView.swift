@@ -77,7 +77,7 @@ struct RegistrationView: View {
                         .resizable()
                         .foregroundColor(Color.white)
                         .scaledToFill()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 120, height: 120)
                         .clipShape(Rectangle())
                         .background(
                             LinearGradient(mycolors: .black, .clear, .clear, .black)
@@ -86,7 +86,7 @@ struct RegistrationView: View {
                         )
                         .background(Image("Background").opacity(0.5))
                         .modifier(CompactConcaveGlassView())
-                        .glow(color: Color("pink"), radius: 3)
+                        .glow(color: Color("pink"), radius: 3) //gradient here
                         .onTapGesture {
                             isShowingPhotoPicker = true
                         }
@@ -101,28 +101,44 @@ struct RegistrationView: View {
                 PhotoPicker(avatar: $avatar)
             }
             
-            TextField("Username", text: $userVM.userName)
+            TextField("", text: $userVM.userName)
+                .placeholder(when: userVM.userName.isEmpty, systemImageName: "person.crop.circle.fill.badge.plus", placeholder: {
+                    Text("Username").foregroundColor(.offWhite)
+                })
                 .disableAutocorrection(true)
                 .textContentType(.username)
                 //.autocorrectionDisabled(true) ? not entirely sure why this is throwing an error
                 .paddedBorder(.gray.opacity(0.5), 1)
                 .padding(.top, .xLarge)
 
-            TextField("Email", text: $userVM.email)
+            TextField("", text: $userVM.email)
+                .placeholder(when: userVM.email.isEmpty, systemImageName: "envelope.circle.fill", placeholder: {
+                    Text("Email").foregroundColor(.offWhite)
+                })
                 .textContentType(.emailAddress)
                 .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            SecureField("Password", text: $userVM.password)
+            SecureField("", text: $userVM.password)
+                .placeholder(when: userVM.password.isEmpty, systemImageName: "key.fill", placeholder: {
+                    Text("Password").foregroundColor(.offWhite)
+                })
                 .textContentType(.newPassword)
                 .textInputAutocapitalization(.never)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            TextField("Bio (Optional)", text: $userVM.userBio)
+            TextField("", text: $userVM.userBio)
+                .placeholder(when: userVM.userBio.isEmpty, placeholder: {
+                    Text("Bio (Optional)").foregroundColor(.offWhite)
+                })
                 .textContentType(.jobTitle)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            TextField("Link to Socials (Optional)", text: $userVM.userBioLink)
+            #warning("should completely remove link to socilas option, as we have our own implementation")
+            TextField("", text: $userVM.userBioLink)
+                .placeholder(when: userVM.userBioLink.isEmpty, placeholder: {
+                    Text("Link to Socials (Optional)").foregroundColor(.offWhite)
+                })
                 .textContentType(.URL)
                 .paddedBorder(.gray.opacity(0.5), 1)
                             

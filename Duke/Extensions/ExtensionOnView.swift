@@ -109,18 +109,19 @@ extension View {
             .frame(maxHeight: .infinity, alignment: alignment)
     }
     
-    //MARK: Custom Border
+    ///Custom Border
     func paddedBorder(_ color: Color, _ linewidth : CGFloat) -> some View {
         self
             .padding(.horizontal, .large)
             .padding(.vertical, .medium)
             .background (
-                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                RoundedRectangle(cornerRadius: 5, style: .continuous) 
                     .stroke(color, lineWidth: linewidth)
             )
     }
     
-    //MARK: Custom Filling View
+    #warning("use chatgpt to create descriptors for all methods here")
+    ///Custom Filling View. Will apply standard padding to view and fill with selected colo
     func fillView(_ color: Color) -> some View {
         self
             .padding(.horizontal, .large)
@@ -129,6 +130,19 @@ extension View {
                 RoundedRectangle(cornerRadius: 5, style: .continuous)
                     .fill(color)
             )
+    }
+    
+    ///Textfield color and style changer API
+    ///Use a custom placeholder modifier to show any view as the holder of any other view!
+    func placeholder<Content: View>( when shouldShow: Bool, systemImageName: String = "", alignment: Alignment = .leading, @ViewBuilder placeholder: () -> Content) -> some View {
+        ZStack(alignment: alignment) {
+            HStack {
+                placeholder().opacity(shouldShow ? 1 : 0)
+                Spacer()
+                Image(systemName: systemImageName).renderingMode(.original).opacity(shouldShow ? 1 : 0)
+            }
+            self
+        }
     }
     
 }
