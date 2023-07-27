@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#warning("Test the following with Firebase logins")
 struct SignInControllerView: View {
     @EnvironmentObject var userLoginVM: UserViewModel
     var bottomSheetTranslationProrated: CGFloat = 1

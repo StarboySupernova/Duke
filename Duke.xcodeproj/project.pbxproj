@@ -31,7 +31,6 @@
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
 		C95B136A29F8706800A07CE7 /* SignInControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136929F8706800A07CE7 /* SignInControllerView.swift */; };
 		C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */; };
-		C96094BF2A0F6D5D00AB602E /* TicketScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BE2A0F6D5D00AB602E /* TicketScaffold.swift */; };
 		C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C96B70692962B4AE009B3444 /* FirebaseAuth */; };
 		C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706B2962B4AE009B3444 /* FirebaseFirestore */; };
 		C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */; };
@@ -126,7 +125,6 @@
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* SignInControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerView.swift; sourceTree = "<group>"; };
 		C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceStore.swift; sourceTree = "<group>"; };
-		C96094BE2A0F6D5D00AB602E /* TicketScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketScaffold.swift; sourceTree = "<group>"; };
 		C96B70732962C1AD009B3444 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C96B70752962C238009B3444 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C96B70782962C97B009B3444 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
@@ -387,7 +385,6 @@
 				C9AC810D2A06322B00B9FBC8 /* BookingView.swift */,
 				C9AC810F2A06326A00B9FBC8 /* SeatsView.swift */,
 				C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */,
-				C96094BE2A0F6D5D00AB602E /* TicketScaffold.swift */,
 				C97817742A1114E30028CE08 /* PreferenceView.swift */,
 				C90089442A4ACDEB0048F377 /* SelectionView.swift */,
 			);
@@ -638,7 +635,6 @@
 				C9090213293AB2320050E808 /* PermissionView.swift in Sources */,
 				C9C39AF82947EDD10036874D /* ExtensionOnColor.swift in Sources */,
 				C9B01C5629789ECB00689998 /* FavouritesHome.swift in Sources */,
-				C96094BF2A0F6D5D00AB602E /* TicketScaffold.swift in Sources */,
 				C9C39AF52947EDD10036874D /* ExtensionOnImage.swift in Sources */,
 				C9E6487A2A6308FD00E93B18 /* SideBar.swift in Sources */,
 				C96B70762962C238009B3444 /* Post.swift in Sources */,
