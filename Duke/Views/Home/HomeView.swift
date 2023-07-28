@@ -20,111 +20,208 @@ struct HomeView: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
+    @State private var currentTab: SideMenuTab = .home
+    @State private var showSideBar: Bool = false
     
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
     }
-    
+        
     init() {
         UITabBar.appearance().isHidden = true
     }
     
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
-        GeometryReader{ geometry in
-            let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-            //let imageOffset = screenHeight + 36
-            
-            ZStack {
-                NavigationView {
-                    ZStack {
-                        if colorScheme == .dark {
-                            mainBackground
-                                .zIndex(-1)
-                        } else {
-                            lightBackground
-                                .zIndex(-1)
-                        }
-                        
-                        VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                            //List
-                            List(homeViewModel.businesses, id: \.id){ business in
-                                BusinessCell(business: business)
-                                    .listRowSeparator(.hidden)
-                                    .onTapGesture {
-                                        selectedBusiness = business
-                                    }
-                            }
-                            .opacity(showLogin ? 0 : 1)
-                            .listStyle(.plain)
-                            .navigationTitle(homeViewModel.cityName)
-                            .if(!showLogin && !overlaid, transform: { thisView in
-                                thisView
-                                    .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
-                                        ForEach(homeViewModel.completions, id : \.self) { completion in
-                                            Text(completion).searchCompletion(completion)
-                                                .foregroundColor(Color.white)
-                                        }
-                                        //.modifier(ConcaveGlassView())
-                                    }
-                            })
-                            .safeAreaInset(edge: .bottom) {
-                                Rectangle()
-                                    .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
-                                    .frame(height: 190)
-                            }
-                            .edgesIgnoringSafeArea(.bottom)
-                        }
-                        .padding(.top, 51)
-                        .offset(y: -bottomSheetTranslationProrated * 46)
-                        .opacity(overlaid ? 0.1 : 1)
-                        
-                        BottomSheetView(position: $bottomSheetPosition) {
-                            #warning("display a heading here when sheet is activated")
-                        } content: {
-                            SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
-                                .environmentObject(userViewModel)
-                        }
-                        .onBottomSheetDrag { translation in
-                            bottomSheetTranslation = translation / screenHeight
-                            
-                            withAnimation(.easeInOut) {
-                                if bottomSheetPosition == BottomSheetPosition.top {
-                                    hasDragged = true
-                                } else {
-                                    hasDragged = false
-                                    withAnimation(.spring()) {
-                                        overlaid = false
-                                    }
-                                }
-                            }
-                        }
-                        
-                        CustomPopUpSheetBar {
-                            bottomSheetPosition = .top
-                            overlaid = true
-                        }
-                        .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
-                    }
-                }
-                /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-                 PermissionView() { homeViewModel.requestPermission() }
-                 }*/
-                .onChange(of: homeViewModel.showModal) { newValue in
-                    homeViewModel.request()
+        ResponsiveView { prop in
+            HStack(spacing: 0) {
+                //displaying only on iPad and not on split mode
+                if prop.isiPad && !prop.isSplit {
+                    SideBar(prop: prop, currentTab: $currentTab)
                 }
                 
-                if selectedBusiness != nil {
-                    DetailView(id: selectedBusiness!.id!, selectedBusiness: $selectedBusiness)
-                        .edgesIgnoringSafeArea(.all)
-                        .transition(.move(edge: .trailing))
-                        .onAppear {
-                            showLogin = false
+                
+                //will not turn into separate view, for it introduces additional complexity
+                GeometryReader{ geometry in
+                    /*
+                     let showAdditionalDetails = prop.isiPad && !prop.isSplit && prop.isLandscape //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
+                     */
+                    let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
+                    //let imageOffset = screenHeight + 36
+                    
+                    ZStack {
+                        NavigationView {
+                            ZStack {
+                                if colorScheme == .dark {
+                                    mainBackground
+                                        .zIndex(-1)
+                                } else {
+                                    lightBackground
+                                        .zIndex(-1)
+                                }
+                                
+                                VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                                    //MARK: TopNavBar
+                                    HStack(spacing: 15) {
+                                        if prop.isiPad && !prop.isSplit {
+                                            Text("Dashboard")
+                                                .font(.title3)
+                                                .bold()
+                                        } else {
+                                            //menu button for sidebar
+                                            Button {
+                                                withAnimation(.easeInOut) {
+                                                    showSideBar = true
+                                                }
+                                            } label: {
+                                                Image(systemName: "line.3.horizontal")
+                                                    .font(.title2)
+                                                    .foregroundColor(.white)
+                                                
+                                            }
+                                        }
+                                        
+                                        HStack {
+                                            TextField("Search", text: .constant(""))
+                                                .padding(.leading, 10)
+                                            
+                                            Button {
+                                                
+                                            } label: {
+                                                Image(systemName: "magnifyingglass")
+                                                    .foregroundColor(.white)
+                                                    .padding(12)
+                                                    .background (
+                                                        RoundedRectangle(cornerRadius:8, style: .continuous)
+                                                            .fill(Color.teal)
+                                                    )
+                                            }
+                                        }
+                                        .background (
+                                            RoundedRectangle(cornerRadius:8, style: .continuous)
+                                                .fill(.thinMaterial)
+                                        )
+                                        .frame(maxWidth: 250)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        
+                                        Button {
+                                            
+                                        } label: {
+                                            Image("profile")
+                                                .resizedToFill(width: 45, height: 45)
+                                                .clipShape(Circle())
+                                        }
+                                        
+                                    }
+                                    
+                                    //List
+                                    List(homeViewModel.businesses, id: \.id){ business in
+                                        BusinessCell(business: business)
+                                            .listRowSeparator(.hidden)
+                                            .onTapGesture {
+                                                selectedBusiness = business
+                                            }
+                                    }
+                                    .opacity(showLogin ? 0 : 1)
+                                    .listStyle(.plain)
+                                    .navigationTitle(homeViewModel.cityName)
+                                    .if(!showLogin && !overlaid, transform: { thisView in
+                                        thisView
+                                            .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
+                                                ForEach(homeViewModel.completions, id : \.self) { completion in
+                                                    Text(completion).searchCompletion(completion)
+                                                        .foregroundColor(Color.white)
+                                                }
+                                                //.modifier(ConcaveGlassView())
+                                            }
+                                    })
+                                        .safeAreaInset(edge: .bottom) {
+                                        Rectangle()
+                                            .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
+                                            .frame(height: 190)
+                                    }
+                                    .edgesIgnoringSafeArea(.bottom)
+                                }
+                                .padding(.top, 51)
+                                .offset(y: -bottomSheetTranslationProrated * 46)
+                                .opacity(overlaid ? 0.1 : 1)
+                                
+                                BottomSheetView(position: $bottomSheetPosition) {
+#warning("display a heading here when sheet is activated")
+                                } content: {
+                                    SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                                        .environmentObject(userViewModel)
+                                }
+                                .onBottomSheetDrag { translation in
+                                    bottomSheetTranslation = translation / screenHeight
+                                    
+                                    withAnimation(.easeInOut) {
+                                        if bottomSheetPosition == BottomSheetPosition.top {
+                                            hasDragged = true
+                                        } else {
+                                            hasDragged = false
+                                            withAnimation(.spring()) {
+                                                overlaid = false
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                CustomPopUpSheetBar {
+                                    bottomSheetPosition = .top
+                                    overlaid = true
+                                }
+                                .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
+                            }
                         }
+                        /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+                         PermissionView() { homeViewModel.requestPermission() }
+                         }*/
+                        .onChange(of: homeViewModel.showModal) { newValue in
+                            homeViewModel.request()
+                        }
+                        
+                        if selectedBusiness != nil {
+                            DetailView(id: selectedBusiness!.id!, selectedBusiness: $selectedBusiness)
+                                .edgesIgnoringSafeArea(.all)
+                                .transition(.move(edge: .trailing))
+                                .onAppear {
+                                    showLogin = false
+                                }
+                        }
+                    }
+                    /* //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
+                     .overlay(alignment: .topTrailing) {
+                     if showStorageDetails {
+                     StorageDetailsView()
+                     .frame(width: prop.size.width / 4)
+                     }
+                     }
+                     */
                 }
             }
+            .overlay {
+                ZStack(alignment: .leading) {
+                    Color.black
+                        .opacity(showSideBar ? 0.35 : 0)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation(.easeInOut) {
+                                showSideBar = false //tapping outside SideBar will dismiss the SideBar
+                            }
+                        }
+                    
+                    if showSideBar {
+                        SideBar(prop: prop, currentTab: $currentTab)
+                            .transition(.move(edge: .leading))
+                    }
+                }
+            }
+            
         }
     }
+    
+    
     
 }
 

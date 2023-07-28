@@ -141,7 +141,7 @@ struct ProfileView: View {
                             .foregroundColor(.white)
                     }
                     
-                    Button(role: .destructive) {
+                    Button(role: .destructive) { //show a warning before executing this
                         isLoading = true
                         loginVM.deleteInternalUser()
                         UserDefaults.standard.set(false, forKey: "sign_in_status")
