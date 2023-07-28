@@ -31,6 +31,7 @@
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
 		C95B136A29F8706800A07CE7 /* SignInControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136929F8706800A07CE7 /* SignInControllerView.swift */; };
 		C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */; };
+		C968FF952A741101003AD997 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968FF942A741101003AD997 /* Dashboard.swift */; };
 		C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C96B70692962B4AE009B3444 /* FirebaseAuth */; };
 		C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706B2962B4AE009B3444 /* FirebaseFirestore */; };
 		C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C96B706D2962B4AE009B3444 /* FirebaseFirestoreSwift */; };
@@ -125,6 +126,7 @@
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* SignInControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerView.swift; sourceTree = "<group>"; };
 		C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceStore.swift; sourceTree = "<group>"; };
+		C968FF942A741101003AD997 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		C96B70732962C1AD009B3444 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C96B70752962C238009B3444 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C96B70782962C97B009B3444 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 				C9E648752A63071D00E93B18 /* ResponsiveView.swift */,
 				C9E648772A6307AB00E93B18 /* ScreenProperties.swift */,
 				C9E648792A6308FD00E93B18 /* SideBar.swift */,
+				C968FF942A741101003AD997 /* Dashboard.swift */,
 			);
 			path = ResponsiveView;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				C96B70882962D933009B3444 /* ReusableProfileContent.swift in Sources */,
 				C9E648732A62DFE800E93B18 /* SideMenuTab.swift in Sources */,
 				C909022C293AC76B0050E808 /* HomeView.swift in Sources */,
+				C968FF952A741101003AD997 /* Dashboard.swift in Sources */,
 				C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */,
 				C9C39AD02947EB200036874D /* ConcaveGlassModifier.swift in Sources */,
 				C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */,

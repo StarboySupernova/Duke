@@ -54,66 +54,13 @@ struct HomeView: View {
                             ZStack {
                                 if colorScheme == .dark {
                                     mainBackground
-                                        .zIndex(-1)
+                                        .zIndex(-10)
                                 } else {
                                     lightBackground
-                                        .zIndex(-1)
+                                        .zIndex(-10)
                                 }
                                 
                                 VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                                    //MARK: TopNavBar
-                                    HStack(spacing: 15) {
-                                        if prop.isiPad && !prop.isSplit {
-                                            Text("Dashboard")
-                                                .font(.title3)
-                                                .bold()
-                                        } else {
-                                            //menu button for sidebar
-                                            Button {
-                                                withAnimation(.easeInOut) {
-                                                    showSideBar = true
-                                                }
-                                            } label: {
-                                                Image(systemName: "line.3.horizontal")
-                                                    .font(.title2)
-                                                    .foregroundColor(.white)
-                                                
-                                            }
-                                        }
-                                        
-                                        HStack {
-                                            TextField("Search", text: .constant(""))
-                                                .padding(.leading, 10)
-                                            
-                                            Button {
-                                                
-                                            } label: {
-                                                Image(systemName: "magnifyingglass")
-                                                    .foregroundColor(.white)
-                                                    .padding(12)
-                                                    .background (
-                                                        RoundedRectangle(cornerRadius:8, style: .continuous)
-                                                            .fill(Color.teal)
-                                                    )
-                                            }
-                                        }
-                                        .background (
-                                            RoundedRectangle(cornerRadius:8, style: .continuous)
-                                                .fill(.thinMaterial)
-                                        )
-                                        .frame(maxWidth: 250)
-                                        .frame(maxWidth: .infinity, alignment: .trailing)
-                                        
-                                        Button {
-                                            
-                                        } label: {
-                                            Image("profile")
-                                                .resizedToFill(width: 45, height: 45)
-                                                .clipShape(Circle())
-                                        }
-                                        
-                                    }
-                                    
                                     //List
                                     List(homeViewModel.businesses, id: \.id){ business in
                                         BusinessCell(business: business)
@@ -135,7 +82,30 @@ struct HomeView: View {
                                                 //.modifier(ConcaveGlassView())
                                             }
                                     })
-                                        .safeAreaInset(edge: .bottom) {
+                                    .toolbar(content: {
+                                        ToolbarItem(placement: .navigationBarLeading) {
+                                            if prop.isiPad && !prop.isSplit {
+                                                Text("Dashboard")
+                                                    .font(.title3)
+                                                    .bold()
+                                            } else {
+                                                //menu button for sidebar
+                                                Button {
+                                                    withAnimation(.easeInOut) {
+                                                        showSideBar = true
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "line.3.horizontal")
+                                                        .font(.title2)
+                                                        .foregroundColor(.white)
+                                                    
+                                                }
+                                                .frame(maxWidth: 250)
+                                            }
+                                            
+                                        }
+                                    })
+                                    .safeAreaInset(edge: .bottom) {
                                         Rectangle()
                                             .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))
                                             .frame(height: 190)
