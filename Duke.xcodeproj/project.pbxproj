@@ -305,6 +305,7 @@
 		C937A1FA2962211500B36856 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C95B136929F8706800A07CE7 /* SignInControllerView.swift */,
 				C937A1FB2962222B00B36856 /* LoginContainerView.swift */,
 				C96B707C2962CB61009B3444 /* LoginView.swift */,
 			);
@@ -381,7 +382,6 @@
 				C9B01C5529789ECB00689998 /* FavouritesHome.swift */,
 				C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */,
 				C9B91C3A297F13C8002E6764 /* ScaffoldModel */,
-				C95B136929F8706800A07CE7 /* SignInControllerView.swift */,
 				C9AC810D2A06322B00B9FBC8 /* BookingView.swift */,
 				C9AC810F2A06326A00B9FBC8 /* SeatsView.swift */,
 				C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */,
