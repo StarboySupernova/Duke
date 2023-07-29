@@ -18,7 +18,8 @@ struct SideBar: View {
                         .fontWeight(.semibold)
                 } icon: {
                     Image("sampleprofileimage")
-                        .resizedToFit(width: 15, height: 15)
+                        .resizedToFill(width: 50, height: 50)
+                        .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomLeft]))
                 }
                 .padding(.vertical, 20)
                 .padding(.bottom, 15)
@@ -35,16 +36,11 @@ struct SideBar: View {
                         }
                     } label: {
                         HStack(spacing: 15) {
-                            Image(tab.rawValue)
-                                .renderingMode(.template)
-                                .resizedToFit(width: 25, height: 25)
-                            
                             Text(tab.rawValue)
                                 .fontWeight(.semibold)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(currentTab == tab ? .green : .white)
-                        
+                        .foregroundColor(currentTab == tab ? Color("pink") : .white)
                     }
                     .padding(.top)
                 }
@@ -57,14 +53,6 @@ struct SideBar: View {
         .background(Color.bottomSheetBackground)
         .background(.ultraThinMaterial)
         .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomRight]))
-        .overlay {
-            // MARK: Bottom Sheet Separator
-            Divider()
-                .blendMode(.overlay)
-                .background(Color.bottomSheetBorderTop)
-                .frame(maxHeight: .infinity, alignment: .top)
-                .clipShape(RoundedRectangle(cornerRadius: 44))
-        }
         .overlay {
             // MARK: Drag Indicator
             RoundedRectangle(cornerRadius: 10)
