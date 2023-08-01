@@ -214,11 +214,86 @@ struct RoundButton_Previews: PreviewProvider {
     }
 }
 
+@ViewBuilder
+func iOS16Buttons(_ press: Binding<Bool>, action: @escaping () -> ()) -> some View {
+    HStack(spacing: 30) {
+        Button {
+            withAnimation {
+                action()
+                //show.toggle()
+            }
+            withAnimation(.spring()) {
+                press.wrappedValue = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    press.wrappedValue = false
+                }
+            }
+        } label: {
+            if #available(iOS 16.0, *) {
+                RoundedRectangle(cornerRadius: 30)
+                    .frame(width: 64, height: 44)
+                    .foregroundStyle(
+                        .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                        .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                        .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                    )
+                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
+                    .overlay(Image(systemName: "list.bullet").foregroundStyle(.white))
+            }
+        }
+        .scaleEffect(press.wrappedValue ? 1.2 : 1)
+        
+        if #available(iOS 16.0, *) {
+            RoundedRectangle(cornerRadius: 30)
+                .frame(width: 52, height: 52)
+                .foregroundStyle(
+                    .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                    .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                    .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                )
+                .overlay(
+                    Circle()
+                        .fill(.linearGradient(colors: [Color(#colorLiteral(red: 1, green: 0.7176470588, blue: 0.6980392157, alpha: 1)), Color(#colorLiteral(red: 0.7764705882, green: 0.3411764706, blue: 0.3098039216, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: 32, height: 32)
+                )
+                .overlay(
+                    Circle()
+                        .stroke(.white, style: StrokeStyle(lineWidth: 1, dash: [1, 1]))
+                        .frame(width: 22, height: 22)
+                )
+                .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
+                .overlay(Image(systemName: "plus").foregroundStyle(.white))
+        }
+        
+        if #available(iOS 16.0, *) {
+            RoundedRectangle(cornerRadius: 30)
+                .frame(width: 64, height: 44)
+                .foregroundStyle(
+                    .linearGradient(colors: [Color(#colorLiteral(red: 0.3408924341, green: 0.3429200053, blue: 0.3997989893, alpha: 1)), Color(#colorLiteral(red: 0.02498620935, green: 0.04610963911, blue: 0.08353561908, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                    .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                    .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                )
+                .overlay(RoundedRectangle(cornerRadius: 30).stroke(.black, lineWidth: 1))
+                .overlay(Image(systemName: "location.north.circle.fill").foregroundStyle(.white))
+        }
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+    .offset(y: -100)
+}
+
 struct SelectionButton_Previews: PreviewProvider {
     static var previews: some View {
         SelectionButton(buttonText: "Test Button", isSelected: .constant(false))
+            .preferredColorScheme(.dark)
+        iOS16Buttons(.constant(false), action: {})
+            .preferredColorScheme(.dark)
     }
 }
+
+
 
 
 

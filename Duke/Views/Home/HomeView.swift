@@ -53,7 +53,7 @@ struct HomeView: View {
                         NavigationView {
                             ZStack {
                                 if colorScheme == .dark {
-                                    mainBackground
+                                    OldContentView()
                                         .zIndex(-10)
                                 } else {
                                     lightBackground
