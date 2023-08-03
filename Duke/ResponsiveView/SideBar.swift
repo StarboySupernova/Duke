@@ -35,22 +35,18 @@ struct SideBar: View {
                             currentTab = tab
                         }
                     } label: {
-                        HStack(spacing: 15) {
-                            Text(tab.rawValue)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(currentTab == tab ? Color("pink") : .white)
+                        TitleCard(isActive: tab == currentTab, headingText: tab.rawValue, imageName: "")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.top)
+                    .padding(.top, .medium)
                 }
             }
             .padding(15)
         }
         .frame(width: 220)
         .backgroundBlur(radius: 25, opaque: true)
-        .background(Image("Background"))
-        .background(Color.bottomSheetBackground)
+        .background(Color.background)
         .background(.ultraThinMaterial)
         .clipShape(RoundedCorner(radius: 20, corners: [.topRight, .bottomRight]))
         .overlay {

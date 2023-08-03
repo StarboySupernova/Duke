@@ -54,6 +54,7 @@
 		C97817752A1114E30028CE08 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97817742A1114E30028CE08 /* PreferenceView.swift */; };
 		C97D4EF62A46B1FA006190FD /* ParallaxProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4EF52A46B1FA006190FD /* ParallaxProperties.swift */; };
 		C9886CC72A66B9B700622561 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9886CC62A66B9B700622561 /* ContentView.swift */; };
+		C9937D272A7B9BA60019E7C7 /* TitleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9937D262A7B9BA60019E7C7 /* TitleCard.swift */; };
 		C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9B2943BC2600F0F8FD /* DetailView.swift */; };
 		C99B7B9E2943DDBD00F0F8FD /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */; };
 		C9A4AC8E29AA0D480038EB5D /* CustomPopUpSheetBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4AC8D29AA0D480038EB5D /* CustomPopUpSheetBar.swift */; };
@@ -144,6 +145,7 @@
 		C97817742A1114E30028CE08 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 		C97D4EF52A46B1FA006190FD /* ParallaxProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxProperties.swift; sourceTree = "<group>"; };
 		C9886CC62A66B9B700622561 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C9937D262A7B9BA60019E7C7 /* TitleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCard.swift; sourceTree = "<group>"; };
 		C99B7B9B2943BC2600F0F8FD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		C99B7B9D2943DDBD00F0F8FD /* DetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCard.swift; sourceTree = "<group>"; };
 		C9A4AC8D29AA0D480038EB5D /* CustomPopUpSheetBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpSheetBar.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				C96B70832962D0F3009B3444 /* NewPost.swift */,
 				C96B70912962E785009B3444 /* UserPostCardView.swift */,
 				C9A4AC8D29AA0D480038EB5D /* CustomPopUpSheetBar.swift */,
+				C9937D262A7B9BA60019E7C7 /* TitleCard.swift */,
 			);
 			path = ReusableSubViews;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				C9F88BFB2972712700CE4524 /* ParallaxView.swift in Sources */,
 				C9C39ACD2947EB200036874D /* FlatGlassModifier.swift in Sources */,
 				C919888029F3C718007EDECF /* Arc.swift in Sources */,
+				C9937D272A7B9BA60019E7C7 /* TitleCard.swift in Sources */,
 				C9E648762A63071D00E93B18 /* ResponsiveView.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
 				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,

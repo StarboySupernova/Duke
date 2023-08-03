@@ -52,11 +52,11 @@ struct HomeView: View {
                     ZStack {
                         NavigationView {
                             ZStack {
-                                if colorScheme == .dark {
-                                    OldContentView()
+                                if #available(iOS 16, *), colorScheme == .light {
+                                    GrayBackground()
                                         .zIndex(-10)
                                 } else {
-                                    lightBackground
+                                    DarkBackground(show: $hasDragged)
                                         .zIndex(-10)
                                 }
                                 
@@ -79,7 +79,6 @@ struct HomeView: View {
                                                     Text(completion).searchCompletion(completion)
                                                         .foregroundColor(Color.white)
                                                 }
-                                                //.modifier(ConcaveGlassView())
                                             }
                                     })
                                     .toolbar(content: {
