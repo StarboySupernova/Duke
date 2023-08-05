@@ -111,7 +111,7 @@
 		C9FB296D2A7D481A00662A00 /* AnimatedHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB296C2A7D481A00662A00 /* AnimatedHome.swift */; };
 		C9FB296F2A7D492C00662A00 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB296E2A7D492C00662A00 /* Card.swift */; };
 		C9FB29712A7D4CC000662A00 /* HouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB29702A7D4CC000662A00 /* HouseView.swift */; };
-		C9FB29732A7D4E2400662A00 /* NewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB29722A7D4E2400662A00 /* NewTabBar.swift */; };
+		C9FB29732A7D4E2400662A00 /* VerticalTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB29722A7D4E2400662A00 /* VerticalTabBar.swift */; };
 		C9FB29752A7D4F5800662A00 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB29742A7D4F5800662A00 /* SideMenu.swift */; };
 		C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FFE4FE2942887E00DE106F /* BusinessCell.swift */; };
 /* End PBXBuildFile section */
@@ -215,7 +215,7 @@
 		C9FB296C2A7D481A00662A00 /* AnimatedHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedHome.swift; sourceTree = "<group>"; };
 		C9FB296E2A7D492C00662A00 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C9FB29702A7D4CC000662A00 /* HouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseView.swift; sourceTree = "<group>"; };
-		C9FB29722A7D4E2400662A00 /* NewTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTabBar.swift; sourceTree = "<group>"; };
+		C9FB29722A7D4E2400662A00 /* VerticalTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTabBar.swift; sourceTree = "<group>"; };
 		C9FB29742A7D4F5800662A00 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		C9FFE4FE2942887E00DE106F /* BusinessCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -439,7 +439,7 @@
 				C9FB296C2A7D481A00662A00 /* AnimatedHome.swift */,
 				C9FB296E2A7D492C00662A00 /* Card.swift */,
 				C9FB29702A7D4CC000662A00 /* HouseView.swift */,
-				C9FB29722A7D4E2400662A00 /* NewTabBar.swift */,
+				C9FB29722A7D4E2400662A00 /* VerticalTabBar.swift */,
 				C9FB29742A7D4F5800662A00 /* SideMenu.swift */,
 			);
 			path = Scaffold;
@@ -691,7 +691,7 @@
 				C9FB296F2A7D492C00662A00 /* Card.swift in Sources */,
 				C9C39AE22947EBDC0036874D /* RaisedButton.swift in Sources */,
 				C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */,
-				C9FB29732A7D4E2400662A00 /* NewTabBar.swift in Sources */,
+				C9FB29732A7D4E2400662A00 /* VerticalTabBar.swift in Sources */,
 				C9C39AF12947EDD10036874D /* ExtensionOnEncodable.swift in Sources */,
 				C9FB29712A7D4CC000662A00 /* HouseView.swift in Sources */,
 				C9C39AD52947EB490036874D /* ButtonStyles & Buttons.swift in Sources */,

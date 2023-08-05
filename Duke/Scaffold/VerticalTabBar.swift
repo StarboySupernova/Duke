@@ -8,7 +8,7 @@
 import SwiftUI
 import RiveRuntime
 
-struct TabBar: View {
+struct VerticalTabBar: View {
     @AppStorage("selectedTab") var selectedTab: Tab = .chat
     
     var body: some View {
@@ -34,24 +34,6 @@ struct TabBar: View {
             
             Spacer()
         }
-        
-//        VStack {
-//            Spacer()
-//            HStack {
-//                content
-//            }
-//            .frame(maxWidth: .infinity)
-//            .padding(12)
-//            .background(Color("Background 2").opacity(0.8))
-//            .background(.ultraThinMaterial)
-//            .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
-//            .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 26, style: .continuous)
-//                    .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
-//            )
-//            .padding(.horizontal, 24)
-//        }
     }
     
     var content: some View {
@@ -84,9 +66,9 @@ struct TabBar: View {
     }
 }
 
-struct TabBar_Previews: PreviewProvider {
+struct VerticalTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        TabBar()
+        VerticalTabBar()
     }
 }
 
