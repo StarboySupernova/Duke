@@ -27,7 +27,8 @@ struct VerticalTabBar: View {
                     RoundedRectangle(cornerRadius: 26, style: .continuous)
                         .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
                 )
-                .padding(.horizontal, 24)
+                .padding(.horizontal, .large)
+                .offset(y: getRect().height * 0.065)
                 
                 Spacer()
             }

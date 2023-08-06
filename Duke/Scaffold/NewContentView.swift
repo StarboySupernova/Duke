@@ -38,15 +38,12 @@ struct NewContentView: View {
                 .scaleEffect(show ? 0.92 : 1)
                 .ignoresSafeArea()
             
-            TabBar()
-                .offset(y: -24)
+            VerticalTabBar()
                 .background(
                     LinearGradient(colors: [Color("Background").opacity(0), Color("Background")], startPoint: .top, endPoint: .bottom)
                         .frame(height: 150)
                         .frame(maxHeight: .infinity, alignment: .bottom)
-                        .allowsHitTesting(false)
                 )
-                .ignoresSafeArea()
                 .offset(y: isOpen ? 300 : 0)
                 .offset(y: show ? 200 : 0)
             
@@ -55,8 +52,9 @@ struct NewContentView: View {
                 .mask(Circle())
                 .shadow(color: Color("Shadow").opacity(0.2), radius: 5, x: 0, y: 5)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-                .offset(x: isOpen ? 216 : 0)
+                .padding(.horizontal, 12)
+                .offset(y: getRect().height * 0.015)
+                .offset(x: isOpen ? 216 : 0) //may cause positioning issues. 216 is an arbitrary number which will not work on all screens. Easiest solution is to implement functionality to dismiss on tap outside SideMenu
                 .onTapGesture {
                     try? button.setInput("isOpen", value: isOpen)
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
@@ -70,6 +68,7 @@ struct NewContentView: View {
                         UIApplication.shared.setStatusBarStyle(.darkContent, animated: true)
                     }
                 }
+                
             
             Image(systemName: "person")
                 .frame(width: 36, height: 36)
