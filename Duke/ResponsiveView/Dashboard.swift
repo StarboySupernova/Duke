@@ -433,16 +433,6 @@ struct InfoRow: View {
     }
 }
 
-//
-//  ContentView.swift
-//  CompassApp
-//
-//  Created by Meng To on 2022-11-25.
-//
-
-import SwiftUI
-
-
 
 //
 //  CompassSheet.swift
@@ -450,8 +440,6 @@ import SwiftUI
 //
 //  Created by Meng To on 2022-11-25.
 //
-
-import SwiftUI
 
 struct OldCompassSheet: View {
     @Binding var degrees: Double
@@ -500,12 +488,12 @@ struct OldCompassSheet: View {
     }
 }
 
-struct OldCompassSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        OldCompassSheet(degrees: .constant(0), show: .constant(true))
-            .ignoresSafeArea(edges: .bottom)
-    }
-}
+//struct OldCompassSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OldCompassSheet(degrees: .constant(0), show: .constant(true))
+//            .ignoresSafeArea(edges: .bottom)
+//    }
+//}
 
 struct CircleLabelView: View {
     var radius: Double
@@ -554,15 +542,15 @@ struct CircleLabelView: View {
     }
 }
 
-struct CircleLabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        CircleLabelView(
-            radius: 150,
-            text: "Latitude 35.08587 E • Longitude 21.43673 W • Elevation 64M • Incline 12 •".uppercased()
-        )
-        .font(.system(size: 13, design: .monospaced))
-    }
-}
+//struct CircleLabelView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CircleLabelView(
+//            radius: 150,
+//            text: "Latitude 35.08587 E • Longitude 21.43673 W • Elevation 64M • Incline 12 •".uppercased()
+//        )
+//        .font(.system(size: 13, design: .monospaced))
+//    }
+//}
 
 struct WidthPreferenceKey: PreferenceKey {
     static var defaultValue: Double = 0
@@ -658,11 +646,11 @@ struct GrayBackground: View {
 }
 
 @available(iOS 16.0, *)
-struct GrayBackground_Previews: PreviewProvider {
-    static var previews: some View {
-        GrayBackground()
-    }
-}
+//struct GrayBackground_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GrayBackground()
+//    }
+//}
 
 @available(iOS 16.0, *)
 struct RadialLayout: Layout {
@@ -684,282 +672,19 @@ struct RadialLayout: Layout {
 
 #warning("first milepost")
 
-struct ContentView: View {
-    @State var show = false
-    @State var isOpen = false
-    var button = RiveViewModel(fileName: "menu_button", stateMachineName: "State Machine", autoplay: false, animationName: "open")
-    
-    var body: some View {
-        ZStack {
-            Color(hex: "17203A").ignoresSafeArea()
-            
-            SideMenu()
-                .padding(.top, 50)
-                .opacity(isOpen ? 1 : 0)
-                .offset(x: isOpen ? 0 : -300)
-                .rotation3DEffect(.degrees(isOpen ? 0 : 30), axis: (x: 0, y: 1, z: 0))
-                .ignoresSafeArea(.all, edges: .top)
-            
-            HomeView()
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 80)
-                }
-                .safeAreaInset(edge: .top) {
-                    Color.clear.frame(height: 104)
-                }
-                .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                .rotation3DEffect(.degrees(isOpen ? 30 : 0), axis: (x: 0, y: -1, z: 0), perspective: 1)
-                .offset(x: isOpen ? 265 : 0)
-                .scaleEffect(isOpen ? 0.9 : 1)
-                .scaleEffect(show ? 0.92 : 1)
-                .ignoresSafeArea()
-            
-            TabBar()
-                .offset(y: -24)
-                .background(
-                    LinearGradient(colors: [Color("Background").opacity(0), Color("Background")], startPoint: .top, endPoint: .bottom)
-                        .frame(height: 150)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .allowsHitTesting(false)
-                )
-                .ignoresSafeArea()
-                .offset(y: isOpen ? 300 : 0)
-                .offset(y: show ? 200 : 0)
-            
-            button.view()
-                .frame(width: 44, height: 44)
-                .mask(Circle())
-                .shadow(color: Color("Shadow").opacity(0.2), radius: 5, x: 0, y: 5)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-                .offset(x: isOpen ? 216 : 0)
-                .onTapGesture {
-                    try? button.setInput("isOpen", value: isOpen)
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                        isOpen.toggle()
-                    }
-                }
-                .onChange(of: isOpen) { newValue in
-                    if newValue {
-                        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-                    } else {
-                        UIApplication.shared.setStatusBarStyle(.darkContent, animated: true)
-                    }
-                }
-            
-            Image(systemName: "person")
-                .frame(width: 36, height: 36)
-                .background(.white)
-                .mask(Circle())
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .shadow(color: Color("Shadow").opacity(0.2), radius: 5, x: 0, y: 5)
-                .padding()
-                .offset(y: 4)
-                .offset(x: isOpen ? 100 : 0)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        show.toggle()
-                    }
-                }
-            
-            if show {
-                OnboardingView(show: $show)
-                    .background(.white)
-                    .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(color: .black.opacity(0.5), radius: 40, x: 0, y: 40)
-                    .ignoresSafeArea(.all, edges: .top)
-                    .offset(y: show ? -10 : 0)
-                    .zIndex(1)
-                    .transition(.move(edge: .top))
-            }
-        }
-    }
-}
 
-extension UIViewController {
-    func setStatusBarStyle(_ style: UIStatusBarStyle) {
-        if let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusBar.backgroundColor = style == .lightContent ? UIColor.black : .white
-            statusBar.setValue(style == .lightContent ? UIColor.white : .black, forKey: "foregroundColor")
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
 
 #warning("second milepost")
 
-struct AnimatedHomeView: View {
-    var body: some View {
-        ZStack {
-            Color("Background").ignoresSafeArea()
-            
-            ScrollView {
-                content
-            }
-        }
-    }
-    
-    var content: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Courses")
-                    .customFont(.largeTitle)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.horizontal, 20)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(courses) { course in
-                        VCard(course: course)
-                    }
-                }
-                .padding(20)
-                .padding(.bottom, 10)
-            }
-            
-            VStack {
-                Text("Recent")
-                    .customFont(.title3)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack(spacing: 20) {
-                    ForEach(courseSections) { section in
-                        HCard(section: section)
-                    }
-                }
-            }
-            .padding(20)
-        }
-    }
-}
 
-struct AnimatedHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnimatedHomeView()
-    }
-}
 
 #warning("third milepost")
 
-struct HCard: View {
-    var section = courseSections[0]
-    
-    var body: some View {
-        HStack(spacing: 20) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(section.title)
-                    .customFont(.title2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text(section.caption)
-                    .customFont(.body)
-            }
-            Divider()
-            section.image
-        }
-        .padding(30)
-        .frame(maxWidth: .infinity, maxHeight: 110)
-        .foregroundColor(.white)
-        .background(section.color)
-        .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-    }
-}
 
-struct HCard_Previews: PreviewProvider {
-    static var previews: some View {
-        HCard()
-    }
-}
-
-#warning("fourth milepost")
-
-struct VCard: View {
-    var course: Course
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(course.title)
-                .customFont(.title2)
-                .frame(maxWidth: 170, alignment: .leading)
-                .layoutPriority(1)
-            Text(course.subtitle)
-                .opacity(0.7)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Text(course.caption.uppercased())
-                .customFont(.footnote2)
-                .opacity(0.7)
-            Spacer()
-            HStack {
-                ForEach(Array([4, 5, 6].shuffled().enumerated()), id: \.offset) { index, number in
-                    Image("Avatar \(number)")
-                        .resizable()
-                        .mask(Circle())
-                        .frame(width: 44, height: 44)
-                        .offset(x: CGFloat(index * -20))
-                }
-            }
-        }
-        .foregroundColor(.white)
-        .padding(30)
-        .frame(width: 260, height: 310)
-        .background(.linearGradient(colors: [course.color.opacity(1), course.color.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
-        .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-        .shadow(color: course.color.opacity(0.3), radius: 8, x: 0, y: 12)
-        .shadow(color: course.color.opacity(0.3), radius: 2, x: 0, y: 1)
-        .overlay(
-            course.image
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .padding(20)
-        )
-    }
-}
-
-struct VCard_Previews: PreviewProvider {
-    static var previews: some View {
-        VCard(course: courses[1])
-    }
-}
 
 #warning("fifth milepost")
 
-//MARK: Useful for making reservations to specify how many diners
 
-struct HouseView: View {
-    let animation = RiveViewModel(fileName: "house", stateMachineName: "State Machine 1")
-    @State var rooms: Float = 3
-    
-    var body: some View {
-        VStack {
-            Stepper(value: $rooms, in: 3...6) {
-                Text(String(format: "%.0f", rooms))
-            }
-            .padding(20)
-
-            animation.view()
-        }
-        .onChange(of: rooms) { newValue in
-            changeValue()
-        }
-        .onAppear {
-            changeValue()
-        }
-    }
-    
-    func changeValue() {
-            
-    }
-}
-
-struct HouseView_Previews: PreviewProvider {
-    static var previews: some View {
-        HouseView()
-    }
-}
 
 #warning("sixth milepost")
 
@@ -1067,7 +792,6 @@ var courses = [
     Course(title: "Build a SwiftUI app for iOS 15", subtitle: "Design and code a SwiftUI 3 app with custom layouts, animations and gestures using Xcode 13, SF Symbols 3, Canvas, Concurrency, Searchable and a whole lot more", caption: "21 sections - 4 hours", color: Color(hex: "005FE7"), image: Image("Topic 1"))
 ]
 
-#warning("tenth milepost")
 
 struct CourseSection: Identifiable {
     var id = UUID()
@@ -1084,279 +808,12 @@ var courseSections = [
     CourseSection(title: "Button", caption: "Watch video - 9 mins", color: Color(hex: "BBA6FF"), image: Image("Topic 1"))
 ]
 
-#warning("eleventh milepost")
 
-struct TabBar: View {
-    @AppStorage("selectedTab") var selectedTab: Tab = .chat
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                content
-            }
-            .frame(maxWidth: .infinity)
-            .padding(12)
-            .background(Color("Background 2").opacity(0.8))
-            .background(.ultraThinMaterial)
-            .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
-            .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 26, style: .continuous)
-                    .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
-            )
-            .padding(.horizontal, 24)
-        }
-    }
-    
-    var content: some View {
-        ForEach(tabItems) { item in
-            Button {
-                try? item.icon.setInput("active", value: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    try? item.icon.setInput("active", value: false)
-                }
-                withAnimation {
-                    selectedTab = item.tab
-                }
-            } label: {
-                item.icon.view()
-                    .frame(width: 36, height: 36)
-                    .frame(maxWidth: .infinity)
-                    .opacity(selectedTab == item.tab ? 1 : 0.5)
-                    .background(
-                        VStack {
-                            RoundedRectangle(cornerRadius: 2)
-                                .frame(width: selectedTab == item.tab ? 20 : 0, height: 4)
-                                .offset(y: -4)
-                                .opacity(selectedTab == item.tab ? 1 : 0)
-                            Spacer()
-                        }
-                    )
-            }
-        }
-    }
-}
 
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBar()
-    }
-}
 
-struct TabItem: Identifiable {
-    var id = UUID()
-    var icon: RiveViewModel
-    var tab: Tab
-}
 
-var tabItems = [
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), tab: .chat),
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "SEARCH_Interactivity", artboardName: "SEARCH"), tab: .search),
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "TIMER_Interactivity", artboardName: "TIMER"), tab: .timer),
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "BELL_Interactivity", artboardName: "BELL"), tab: .bell),
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "USER_Interactivity", artboardName: "USER"), tab: .user)
-]
 
-enum Tab: String {
-    case chat
-    case search
-    case timer
-    case bell
-    case user
-}
 
-#warning("twelfth milepost")
-
-struct SideMenu: View {
-    @State var isDarkMode = false
-    @AppStorage("selectedMenu") var selectedMenu: SelectedMenu = .home
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Image(systemName: "person.fill")
-                    .padding(12)
-                    .background(.white.opacity(0.2))
-                    .mask(Circle())
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Meng To")
-                    Text("UI Designer")
-                        .font(.subheadline)
-                        .opacity(0.7)
-                }
-                Spacer()
-            }
-            .padding()
-            
-            Text("BROWSE")
-                .font(.subheadline).bold()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
-                .padding(.top, 40)
-                .opacity(0.7)
-            
-            browse
-            
-            Text("HISTORY")
-                .font(.subheadline).bold()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
-                .padding(.top, 40)
-                .opacity(0.7)
-            
-            history
-            
-            Spacer()
-            
-            HStack(spacing: 14) {
-                menuItems3[0].icon.view()
-                    .frame(width: 32, height: 32)
-                    .opacity(0.6)
-                    .onChange(of: isDarkMode) { newValue in
-                        if newValue {
-                            try? menuItems3[0].icon.setInput("active", value: true)
-                        } else {
-                            try? menuItems3[0].icon.setInput("active", value: false)
-                        }
-                    }
-                Text(menuItems3[0].text)
-                
-                Toggle("", isOn: $isDarkMode)
-            }
-            .font(.headline)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(12)
-            .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .padding(8)
-        }
-        .foregroundColor(.white)
-        .frame(maxWidth: 288, maxHeight: .infinity)
-        .background(Color(hex: "17203A"))
-        .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-        .shadow(color: Color(hex: "17203A").opacity(0.3), radius: 40, x: 0, y: 20)
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    var browse: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(menuItems) { item in
-                Rectangle()
-                    .frame(height: 1)
-                    .opacity(0.1)
-                    .padding(.horizontal, 16)
-                
-                HStack(spacing: 14) {
-                    item.icon.view()
-                        .frame(width: 32, height: 32)
-                        .opacity(0.6)
-                    Text(item.text)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(12)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.blue)
-                        .frame(maxWidth: selectedMenu == item.menu ? .infinity : 0)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                )
-                .background(Color("Background 2"))
-                .onTapGesture {
-                    withAnimation(.timingCurve(0.2, 0.8, 0.2, 1)) {
-                        selectedMenu = item.menu
-                    }
-                    try? item.icon.setInput("active", value: true)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        try? item.icon.setInput("active", value: false)
-                    }
-                }
-            }
-        }
-        .font(.headline)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
-    }
-    
-    var history: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(menuItems2) { item in
-                Rectangle()
-                    .frame(height: 1)
-                    .opacity(0.1)
-                    .padding(.horizontal, 16)
-                
-                HStack(spacing: 14) {
-                    item.icon.view()
-                        .frame(width: 32, height: 32)
-                        .opacity(0.6)
-                    Text(item.text)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(12)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.blue)
-                        .frame(maxWidth: selectedMenu == item.menu ? .infinity : 0)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                )
-                .background(Color("Background 2"))
-                .onTapGesture {
-                    withAnimation(.timingCurve(0.2, 0.8, 0.2, 1)) {
-                        selectedMenu = item.menu
-                    }
-                    try? item.icon.setInput("active", value: true)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        try? item.icon.setInput("active", value: false)
-                    }
-                }
-            }
-        }
-        .font(.headline)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
-    }
-}
-
-struct SideMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenu()
-    }
-}
-
-struct MenuItem: Identifiable {
-    var id = UUID()
-    var text: String
-    var icon: RiveViewModel
-    var menu: SelectedMenu
-}
-
-var menuItems = [
-    MenuItem(text: "Home", icon: RiveViewModel(fileName: "icons", stateMachineName: "HOME_interactivity", artboardName: "HOME"), menu: .home),
-    MenuItem(text: "Search", icon: RiveViewModel(fileName: "icons", stateMachineName: "SEARCH_Interactivity", artboardName: "SEARCH"), menu: .search),
-    MenuItem(text: "Favorites", icon: RiveViewModel(fileName: "icons", stateMachineName: "STAR_Interactivity", artboardName: "LIKE/STAR"), menu: .favorites),
-    MenuItem(text: "Help", icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), menu: .help)
-]
-
-var menuItems2 = [
-    MenuItem(text: "History", icon: RiveViewModel(fileName: "icons", stateMachineName: "TIMER_Interactivity", artboardName: "TIMER"), menu: .history),
-    MenuItem(text: "Notifications", icon: RiveViewModel(fileName: "icons", stateMachineName: "BELL_Interactivity", artboardName: "BELL"), menu: .notifications)
-]
-
-var menuItems3 = [
-    MenuItem(text: "Dark Mode", icon: RiveViewModel(fileName: "icons", stateMachineName: "SETTINGS_Interactivity", artboardName: "SETTINGS"), menu: .darkmode)
-]
-
-enum SelectedMenu: String {
-    case home
-    case search
-    case favorites
-    case help
-    case history
-    case notifications
-    case darkmode
-}
-
-#warning("thirteenth milepost")
 
 
 
