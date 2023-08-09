@@ -26,9 +26,11 @@ struct ContentView: View {
     }
 
     var body: some View {
+        //MARK: Insert functionality to show sidebar on horizontal position / iPad
+
         ResponsiveView { prop in
             // NavigationView { //include Navigation when we implement popToRoot functionality
-            ZStack {
+            HStack(spacing: 0) {
                 TabView(selection: $currentTab) {
                     HomeView(showSideBar: $showSideBar)
                         .environmentObject(HomeViewModel())
@@ -48,12 +50,6 @@ struct ContentView: View {
                 }
                 .ignoresSafeArea(.keyboard)
 
-                VStack(spacing: 0) {
-                    Spacer()
-
-                    CustomPopUpSheetBar {} //trailing closure execution will depend on which Tab is selected
-                    .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
-                }
             }
             .overlay {
                 ZStack(alignment: .leading) {
