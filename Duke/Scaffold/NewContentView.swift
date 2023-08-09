@@ -20,7 +20,7 @@ struct NewContentView: View {
             SideMenu()
                 .padding(.top, 50)
                 .opacity(isOpen ? 1 : 0)
-                .offset(x: isOpen ? 0 : -300)
+                .offset(x: isOpen ? 0 : -3000)
                 .rotation3DEffect(.degrees(isOpen ? 0 : 30), axis: (x: 0, y: 1, z: 0))
                 .ignoresSafeArea(.all, edges: .top)
             

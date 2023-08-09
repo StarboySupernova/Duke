@@ -20,16 +20,18 @@ struct HomeView: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
-    @State private var currentTab: SideMenuTab = .home
-    @State private var showSideBar: Bool = false
+    @State private var currentTab: SideMenuTab = .home //should become a Binding
+    @Binding var showSideBar: Bool  
     
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
     }
         
+    /*
     init() {
         UITabBar.appearance().isHidden = true
     }
+     */
     
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
@@ -169,24 +171,6 @@ struct HomeView: View {
                      */
                 }
             }
-            .overlay {
-                ZStack(alignment: .leading) {
-                    Color.black
-                        .opacity(showSideBar ? 0.35 : 0)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            withAnimation(.easeInOut) {
-                                showSideBar = false //tapping outside SideBar will dismiss the SideBar
-                            }
-                        }
-                    
-                    if showSideBar {
-                        SideBar(prop: prop, currentTab: $currentTab)
-                            .transition(.move(edge: .leading))
-                    }
-                }
-            }
-            
         }
     }
     
@@ -197,7 +181,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(showSideBar: <#Bool#>)
             .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
     }
