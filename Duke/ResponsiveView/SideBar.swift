@@ -64,7 +64,7 @@ struct SideBar: View {
 struct SideBar_Previews: PreviewProvider {
     static var previews: some View {
         //BookingView()
-        HomeView()
+        HomeView(showSideBar: .constant(false))
             .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
     }

@@ -10,7 +10,7 @@ import BottomSheet
 
 
 struct ContentView: View {
-    @State var currentTab: SideMenuTab = .home
+    @State var currentTab: SideMenuTab = .home //this becomes the property passed into views which will allow me to programmatically change tabs
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
@@ -31,6 +31,11 @@ struct ContentView: View {
         ResponsiveView { prop in
             // NavigationView { //include Navigation when we implement popToRoot functionality
             HStack(spacing: 0) {
+                //displaying only on iPad and not on split mode
+                if prop.isiPad && !prop.isSplit {
+                    SideBar(prop: prop, currentTab: $currentTab)
+                }
+                
                 TabView(selection: $currentTab) {
                     HomeView(showSideBar: $showSideBar)
                         .environmentObject(HomeViewModel())
