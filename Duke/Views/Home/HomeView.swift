@@ -35,6 +35,7 @@ struct HomeView: View {
     
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
+        //MARK: Need to implement smooth functionality on landscape mode. This will need to be implemented in responsiveView, as I tried to wrap this inside a scrolview with unintended results. The scrollview blocks out the content
         ResponsiveView { prop in
             HStack(spacing: 0) {
                 //displaying only on iPad and not on split mode
@@ -83,29 +84,29 @@ struct HomeView: View {
                                                 }
                                             }
                                     })
-                                    .toolbar(content: {
-                                        ToolbarItem(placement: .navigationBarLeading) {
-                                            if prop.isiPad && !prop.isSplit {
-                                                Text("Dashboard")
-                                                    .font(.title3)
-                                                    .bold()
-                                            } else {
-                                                //menu button for sidebar
-                                                Button {
-                                                    withAnimation(.easeInOut) {
-                                                        showSideBar = true
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "line.3.horizontal")
-                                                        .font(.title2)
-                                                        .foregroundColor(.white)
-                                                    
-                                                }
-                                                .frame(maxWidth: 250)
-                                            }
-                                            
-                                        }
-                                    })
+//                                    .toolbar(content: {
+//                                        ToolbarItem(placement: .navigationBarLeading) {
+//                                            if prop.isiPad && !prop.isSplit {
+//                                                Text("Dashboard")
+//                                                    .font(.title3)
+//                                                    .bold()
+//                                            } else {
+//                                                //menu button for sidebar
+//                                                //dos not respond sometimes
+//                                                Button {
+//                                                    withAnimation(.easeInOut) {
+//                                                        showSideBar = true
+//                                                    }
+//                                                } label: {
+//                                                    Image(systemName: "line.3.horizontal")
+//                                                        .font(.title2)
+//                                                        .foregroundColor(.white)
+//                                                }
+//                                                .frame(maxWidth: 250)
+//                                            }
+//
+//                                        }
+//                                    })
                                     .safeAreaInset(edge: .bottom) {
                                         Rectangle()
                                             .fill(LinearGradient(colors: [Color.pink.opacity(0.3), .black.opacity(0)], startPoint: .bottom, endPoint: .top))

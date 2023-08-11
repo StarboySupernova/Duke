@@ -2,7 +2,7 @@
 //  SideMenu.swift
 //  Duke
 //
-//  Created by user226714 on 8/4/23.
+//  Created by Simbarashe Dombodzvuku on 8/4/23.
 //
 
 import SwiftUI
@@ -20,7 +20,7 @@ struct SideMenu: View {
                     .background(.white.opacity(0.2))
                     .mask(Circle())
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Meng To")
+                    Text("Simbarashe Dombodzvuku") //should come from saved name stored in db
                     Text("UI Designer")
                         .font(.subheadline)
                         .opacity(0.7)
@@ -38,14 +38,14 @@ struct SideMenu: View {
             
             browse
             
-            Text("HISTORY")
+            Text("Create")
                 .font(.subheadline).bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 24)
                 .padding(.top, 40)
                 .opacity(0.7)
             
-            history
+            create
             
             Spacer()
             
@@ -120,7 +120,7 @@ struct SideMenu: View {
         .padding(8)
     }
     
-    var history: some View {
+    var create: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(menuItems2) { item in
                 Rectangle()
@@ -176,13 +176,11 @@ struct MenuItem: Identifiable {
 
 var menuItems = [
     MenuItem(text: "Home", icon: RiveViewModel(fileName: "icons", stateMachineName: "HOME_interactivity", artboardName: "HOME"), menu: .home),
-    MenuItem(text: "Search", icon: RiveViewModel(fileName: "icons", stateMachineName: "SEARCH_Interactivity", artboardName: "SEARCH"), menu: .search),
-    MenuItem(text: "Favorites", icon: RiveViewModel(fileName: "icons", stateMachineName: "STAR_Interactivity", artboardName: "LIKE/STAR"), menu: .favorites),
-    MenuItem(text: "Help", icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), menu: .help)
+    MenuItem(text: "Profile", icon: RiveViewModel(fileName: "icons", stateMachineName: "USER_Interactivity", artboardName: "USER"), menu: .profile),
 ]
 
 var menuItems2 = [
-    MenuItem(text: "History", icon: RiveViewModel(fileName: "icons", stateMachineName: "TIMER_Interactivity", artboardName: "TIMER"), menu: .history),
+    MenuItem(text: "Create", icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), menu: .create),
     MenuItem(text: "Notifications", icon: RiveViewModel(fileName: "icons", stateMachineName: "BELL_Interactivity", artboardName: "BELL"), menu: .notifications)
 ]
 
@@ -192,10 +190,8 @@ var menuItems3 = [
 
 enum SelectedMenu: String {
     case home
-    case search
-    case favorites
-    case help
-    case history
-    case notifications
+    case profile //use user interactivity here. Bookings will be found inside account details
+    case create
+    case notifications //to set alarms for bookings and keep a record of authentications
     case darkmode
 }

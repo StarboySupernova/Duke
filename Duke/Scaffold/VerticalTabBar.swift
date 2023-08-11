@@ -2,7 +2,7 @@
 //  NewTabBar.swift
 //  Duke
 //
-//  Created by user226714 on 8/4/23.
+//  Created by Simbarashe Dombodzvuku on 8/4/23.
 //
 
 import SwiftUI
@@ -82,12 +82,14 @@ struct TabItem: Identifiable {
 var tabItems = [
     TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), tab: .chat),
     TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "SEARCH_Interactivity", artboardName: "SEARCH"), tab: .search),
-    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "USER_Interactivity", artboardName: "USER"), tab: .user)
+    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "STAR_Interactivity", artboardName: "LIKE/STAR"), tab: .favourites),
+    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "USER_Interactivity", artboardName: "USER"), tab: .user),
 ]
 
 enum Tab: String {
     case chat
     case search
+    case favourites
     case user
 }
 
