@@ -2,7 +2,7 @@
 //  SegmentedControl.swift
 //  Duke
 //
-//  Created by user226714 on 4/22/23.
+//  Created by Simbarashe Dombodzvuku on 4/22/23.
 //
 
 import SwiftUI

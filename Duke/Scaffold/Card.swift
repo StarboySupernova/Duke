@@ -2,7 +2,7 @@
 //  Card.swift
 //  Duke
 //
-//  Created by user226714 on 8/4/23.
+//  Created by Simbarashe Dombodzvuku on 8/4/23.
 //
 
 import SwiftUI

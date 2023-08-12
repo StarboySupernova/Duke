@@ -2,7 +2,7 @@
 //  BookingView.swift
 //  Duke
 //
-//  Created by user226714 on 5/6/23.
+//  Created by Simbarashe Dombodzvuku on 5/6/23.
 //
 
 import SwiftUI
