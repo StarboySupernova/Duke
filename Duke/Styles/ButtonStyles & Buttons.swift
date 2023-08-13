@@ -170,7 +170,7 @@ struct LargeButton_Previews: PreviewProvider {
 }
 
 ///Must not pass more than one String parameter to this implementation
-struct RoundButton: View {
+struct LargeSemiCircleButton: View {
     var text: String? = nil
     var sfImageName: String? = nil
     var imageName: String? = nil
@@ -208,9 +208,9 @@ struct RoundButton: View {
     }
 }
 
-struct RoundButton_Previews: PreviewProvider {
+struct LargeSemiCircleButton_Previews: PreviewProvider {
     static var previews: some View {
-        RoundButton(text: "Duke")
+        LargeSemiCircleButton(text: "Duke")
     }
 }
 

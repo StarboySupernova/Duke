@@ -117,7 +117,7 @@ struct SeatsView: View {
                 HStack {
                     Spacer()
                     
-                    RoundButton(action: {
+                    LargeSemiCircleButton(action: {
                         
                     })
                 }
