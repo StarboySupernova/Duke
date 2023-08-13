@@ -11,6 +11,7 @@ import BottomSheet
 struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @EnvironmentObject var straddleScreen: StraddleScreen //to handle verticalTab view's position onscreen to avoid having it block screen elements
     @StateObject var userViewModel: UserViewModel = UserViewModel() 
     @StateObject var preferenceStore: UserPreference = UserPreference()
     @Environment(\.colorScheme) var colorScheme
@@ -21,7 +22,8 @@ struct HomeView: View {
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
     @State private var currentTab: SideMenuTab = .home //should become a Binding
-    @Binding var showSideBar: Bool  
+    @Binding var showSideBar: Bool
+    @Binding var selectedMenu: SelectedMenu
     
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
@@ -40,7 +42,7 @@ struct HomeView: View {
             HStack(spacing: 0) {
                 //displaying only on iPad and not on split mode
                 if prop.isiPad && !prop.isSplit {
-                    SideBar(prop: prop, currentTab: $currentTab)
+                    SideBar(prop: prop, selectedMenu: $selectedMenu)
                 }
                 
                 
@@ -142,8 +144,10 @@ struct HomeView: View {
                                 CustomPopUpSheetBar {
                                     bottomSheetPosition = .top
                                     overlaid = true
+                                    straddleScreen.isStraddling = true
                                 }
                                 .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
+                                .edgesIgnoringSafeArea(.bottom) // Ignore safe area at the bottom
                             }
                         }
                         /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
@@ -174,15 +178,12 @@ struct HomeView: View {
             }
         }
     }
-    
-    
-    
 }
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(showSideBar: .constant(false))
+        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home))
             .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
     }
