@@ -13,17 +13,6 @@ struct VerticalTabBar: View {
     @EnvironmentObject var straddleScreen: StraddleScreen
     
     var body: some View {
-        let dragGesture = DragGesture()
-            .onChanged { value in
-                if value.translation.width > 0 {
-                    // Swiping from left to right
-                    straddleScreen.isStraddling = false
-                } else {
-                    // Swiping from right to left
-                    straddleScreen.isStraddling = true
-                }
-            }
-        
         HStack {
             VStack {
                 VStack(alignment: .leading) {
@@ -40,21 +29,14 @@ struct VerticalTabBar: View {
                         .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
                 )
                 .padding(.horizontal, .large)
-                .gesture(dragGesture)
 //                .offset(y: getRect().height * 0.065)
                 .if(straddleScreen.isStraddling, transform: { thisView in
                     thisView
                         .straddleScreen()
                         .opacity(0.5)
-//                        .disabled(straddleScreen.isStraddling)
+                        .disabled(straddleScreen.isStraddling)
                 })
-                
-                    CircleButton(image: "arrow.left.to.line.alt", action: {
-                    withAnimation(.spring(response: 0.2, dampingFraction: 1.5)) {
-                        straddleScreen.isStraddling = true
-                    }
-                }) //should edit the colors in this to work well in light mode
-                
+                    
                 Spacer()
             }
             
