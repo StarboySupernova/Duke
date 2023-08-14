@@ -11,12 +11,13 @@ import RiveRuntime
 
 struct ContentView: View {
     @AppStorage("selectedMenu") var selectedMenu: SelectedMenu = .home //this becomes the property passed into views which will allow me to programmatically change tabs
+    @AppStorage("verticalTabSelection") var verticalTabSelection: VerticalTab = .chat
     @EnvironmentObject var straddleScreen: StraddleScreen //to handle verticalTab view's position onscreen to avoid having it block screen elements
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
     @State var isOpen = false //maps to showSidebar
-    
+
     var button = RiveViewModel(fileName: "menu_button", stateMachineName: "State Machine", autoPlay: false/*, animationName: "open"*/)
 
     var body: some View {
@@ -43,10 +44,10 @@ struct ContentView: View {
                         Text("Create")
                             .tag(SelectedMenu.create)
                         
-                        SeatsView()             
+                        Text("Notifications")
                             .tag(SelectedMenu.notifications)
                         
-                        VerticalContentView(selectedMenu: $selectedMenu)
+                        VerticalContentView(verticalTabSelection: $verticalTabSelection, selectedMenu: $selectedMenu)
                             .tag(SelectedMenu.verticalContent)
                     }
                     .ignoresSafeArea(.keyboard)
@@ -80,7 +81,7 @@ struct ContentView: View {
                 }
                 //}
                 
-                VerticalTabBar()
+                VerticalTabBar(verticalTabSelection: $verticalTabSelection, selectedMenu: $selectedMenu)
                     .background(
                         LinearGradient(colors: [Color("Background").opacity(0), Color("Background")], startPoint: .top, endPoint: .bottom)
                             .frame(height: 150)

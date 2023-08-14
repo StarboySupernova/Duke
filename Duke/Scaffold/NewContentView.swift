@@ -12,6 +12,8 @@ struct NewContentView: View {
     @State var show = false
     @State var isOpen = false
     var button = RiveViewModel(fileName: "menu_button", stateMachineName: "State Machine", autoPlay: false/*, animationName: "open"*/)
+    @State private var selectedMenu: SelectedMenu = .home
+    @State private var verticalTabSelection: VerticalTab = .chat
     
     var body: some View {
         ZStack {
@@ -38,7 +40,7 @@ struct NewContentView: View {
                 .scaleEffect(show ? 0.92 : 1)
                 .ignoresSafeArea()
             
-            VerticalTabBar()
+            VerticalTabBar(verticalTabSelection: $verticalTabSelection, selectedMenu: $selectedMenu)
                 .background(
                     LinearGradient(colors: [Color("Background").opacity(0), Color("Background")], startPoint: .top, endPoint: .bottom)
                         .frame(height: 150)
