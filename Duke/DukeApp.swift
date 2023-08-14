@@ -16,7 +16,7 @@ import FirebaseStorage
 struct DukeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.colorScheme) var colorScheme
-    @StateObject private var straddleScreen: StraddleScreen =  StraddleScreen() //will be used as nevironment variable to control the postioning of VerticalTabBar
+    @StateObject private var straddleScreen: StraddleScreen =  StraddleScreen() //will be used as environment variable to control the postioning of VerticalTabBar
 
     init() {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .black
@@ -39,6 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     static var orientationLock = UIInterfaceOrientationMask.all //By default we want all our views to rotate freely
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        UITabBar.appearance().isHidden = true //Tabs hidden, custom implementation will be shown
         return true
     }
     
