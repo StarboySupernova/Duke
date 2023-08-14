@@ -193,5 +193,6 @@ enum SelectedMenu: String {
     case profile //use user interactivity here. Bookings will be found inside account details
     case create
     case notifications //to set alarms for bookings and keep a record of authentications
+    case verticalContent //views managed by VerticalTabBar
     case darkmode
 }

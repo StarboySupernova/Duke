@@ -19,10 +19,6 @@ struct ContentView: View {
     
     var button = RiveViewModel(fileName: "menu_button", stateMachineName: "State Machine", autoPlay: false/*, animationName: "open"*/)
 
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
-
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
         ResponsiveView { prop in
@@ -47,8 +43,11 @@ struct ContentView: View {
                         Text("Create")
                             .tag(SelectedMenu.create)
                         
-                        SeatsView()
-                            .tag(SideMenuTab.notifications)
+                        SeatsView()             
+                            .tag(SelectedMenu.notifications)
+                        
+                        VerticalContentView(selectedMenu: $selectedMenu)
+                            .tag(SelectedMenu.verticalContent)
                     }
                     .ignoresSafeArea(.keyboard)
                     .mask(isOpen ? Rectangle().cornerRadius(30, corners: [.allCorners]) : Rectangle().cornerRadius(20, corners: [.bottomLeft, .bottomRight]))
