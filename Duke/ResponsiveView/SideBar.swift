@@ -22,7 +22,7 @@ struct SideBar: View {
                     .mask(Circle())
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Simbarashe Dombodzvuku") //should come from saved name stored in db
-                    Text("UI Designer")
+                    Text("Lead Developer")
                         .font(.subheadline)
                         .opacity(0.7)
                 }

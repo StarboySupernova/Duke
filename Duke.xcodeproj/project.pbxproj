@@ -443,7 +443,6 @@
 				C9FB296C2A7D481A00662A00 /* AnimatedHome.swift */,
 				C9FB296E2A7D492C00662A00 /* Card.swift */,
 				C9FB29702A7D4CC000662A00 /* HouseView.swift */,
-				C9FB29722A7D4E2400662A00 /* VerticalTabBar.swift */,
 				C9FB29742A7D4F5800662A00 /* SideMenu.swift */,
 			);
 			path = Scaffold;
@@ -564,6 +563,7 @@
 				C96B70892962DAC0009B3444 /* LoadingView.swift */,
 				C9886CC62A66B9B700622561 /* ContentView.swift */,
 				C957AEB52A89B30900B8026B /* VerticalContentView.swift */,
+				C9FB29722A7D4E2400662A00 /* VerticalTabBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
