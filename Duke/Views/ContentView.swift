@@ -38,7 +38,8 @@ struct ContentView: View {
                             .environmentObject(HomeViewModel())
                             .tag(SelectedMenu.home)
                         
-                        Text("Profile")
+                        ProfileView()
+                            .environmentObject(UserViewModel())
                             .tag(SelectedMenu.profile)
                         
                         Text("Create")

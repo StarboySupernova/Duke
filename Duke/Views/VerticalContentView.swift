@@ -29,7 +29,8 @@ struct VerticalContentView: View {
                     Text("Favourites")
                         .tag(VerticalTab.favourites)
                     
-                    Text("Profile") //this is also availabe through side menu
+                    ProfileView() //this is also availabe through side menu
+                        .environmentObject(UserViewModel())
                         .tag(VerticalTab.user)
                 }
             }
