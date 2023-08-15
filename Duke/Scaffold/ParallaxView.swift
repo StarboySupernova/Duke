@@ -34,61 +34,130 @@ struct ParallaxView: View {
             
             VStack(alignment: .leading) {
                 //label & icon here, and additional icon array parameter
-                Text(headerText)
-                    .font(.system(size: 30))
-                    .fontWeight(.bold)
-                    .padding(.top, -60)
-                    .padding(.bottom, 55)
-                    .padding(.horizontal, .small)
-                    .zIndex(0)
-                
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(25)
-                    .frame(width: imageSize)
-                    .rotationEffect(.init(degrees: 0))
-                    .zIndex(1)
-                    .offset(x: -20)
-                    .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                
-                VStack(alignment: .leading, spacing: 10) {
+                ZStack {
+                    Image("background1")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 600)
+                        .overlay(
+                            ZStack {
+                                Image("logo1")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 180)
+                                    .offset(x: parallaxOffset.width/8, y: parallaxOffset.height/15)
+                                Image("logo2")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 400)
+                                    .offset(x: parallaxOffset.width/10, y: parallaxOffset.height/20)
+                                Image("logo3")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 392, height: 600)
+                                    .cornerRadius(50)
+                                    .blendMode(.overlay)
+                                    .offset(x: parallaxOffset.width/15, y: parallaxOffset.height/30)
+                            }
+                        )
+                        .overlay(gloss1.blendMode(.softLight))
+                        .overlay(
+                            Image("gloss2")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .blendMode(.luminosity)
+                                .mask(
+                                    LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: parallaxOffset.height/100, y: parallaxOffset.height/100))
+                                        .frame(width: 392)
+                                )
+                        )
+                        .overlay(gloss2.blendMode(.overlay))
+                        .overlay(
+                            LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5086403146)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: abs(parallaxOffset.height)/10 - 10, y: abs(parallaxOffset.height)/10 - 10))
+                                .cornerRadius(50)
+                        )
+                        .overlay(
+                            LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5086403146)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: parallaxOffset.height/10, y: parallaxOffset.height/10))
+                                .cornerRadius(50)
+                        )
+                        .overlay(
+                            // Outline
+                            RoundedRectangle(cornerRadius: 50)
+                                .strokeBorder(.linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.740428394)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7562086093)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: parallaxOffset.width/100 + 0.5, y: parallaxOffset.height/100 + 0.5)))
+                        )
+                        .overlay {
+                            LinearGradient(colors: [Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 0.5152369619)), Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0.4812706954))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                .blendMode(.overlay)
+                                .cornerRadius(50)
+                        }
+                        .cornerRadius(50)
+                        .background(
+                            RoundedRectangle(cornerRadius: 50)
+                                .fill(.black)
+                                .opacity(0.5)
+                                .blur(radius: 50)
+                                .offset(y: 50)
+                                .blendMode(.overlay)
+                        )
+                        .scaleEffect(0.9)
                     
-                    //for each buttontext array element create new button
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
-                            ForEach(buttonText, id: \.self) { text in
-                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
+                    Text(headerText)
+                        .font(.system(size: 30))
+                        .fontWeight(.bold)
+                        .padding(.top, -60)
+                        .padding(.bottom, 55)
+                        .padding(.horizontal, .small)
+                        .zIndex(0)
+                    
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(25)
+                        .frame(width: imageSize)
+                        .rotationEffect(.init(degrees: 0))
+                        .zIndex(1)
+                        .offset(x: -20)
+                        .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        //for each buttontext array element create new button
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
+                                ForEach(buttonText, id: \.self) { text in
+                                    SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
+                                }
                             }
                         }
-                    }
-                    
-                    HStack {
-                        BlendedText("Create your favourites")
-                            .padding(.horizontal, .medium)
                         
-                        Spacer()
-                        
-                        Button {
-                            removeProperty()
-                        } label: {
-                            Text("Next") //animation to move to next card should show parallax features
-                                .fontWeight(.bold)
-                                .foregroundColor(Color("rw-dark"))
-                                .padding(.vertical, 12)
-                                .padding(.horizontal, 16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(Color.yellow)
-                                        .brightness(-0.1)
-                                )
+                        HStack {
+                            BlendedText("Create your favourites")
+                                .padding(.horizontal, .medium)
                             
+                            Spacer()
+                            
+                            Button {
+                                removeProperty()
+                            } label: {
+                                Text("Next") //animation to move to next card should show parallax features
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("rw-dark"))
+                                    .padding(.vertical, 12)
+                                    .padding(.horizontal, 16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .fill(Color.yellow)
+                                            .brightness(-0.1)
+                                    )
+                                
+                            }
+                            .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
                         }
-                        .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                        .padding(.top, .small)
                     }
-                    .padding(.top, .small)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                
                 
                 Spacer()
             }
@@ -99,7 +168,7 @@ struct ParallaxView: View {
             .background (
                 ZStack(alignment: .topTrailing) {
                     Rectangle()
-                        .fill(Color("rw-dark"))
+                        .fill(Color("Background"))
                     
                     Circle()
                         .fill(.yellow)
@@ -113,12 +182,10 @@ struct ParallaxView: View {
             .rotation3DEffect(offsetToAngle(), axis: (x: 0, y: 1, z: 0))
             .rotation3DEffect(offsetToAngle(true) * 0.1, axis: (x: 0, y: 0, z: 1))
             .scaleEffect(0.9)
-            .frame(maxWidth: .infinity, maxHeight: getRect().height)
+            .frame(maxWidth: .infinity, maxHeight: getRect().height * 0.75)
             //.contentShape(Rectangle())
             .clipped()
             .shadow(color: Color.red, radius: 10, x: 0, y: 0) //set this to work only for first card
-            
-           
 //            /// to determine which card shows up on top of the others based on getindex
 //            /// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
 //            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
@@ -303,6 +370,26 @@ struct ParallaxView: View {
                 .kerning(2)
                 .blendMode(.difference)
         }
+    }
+    
+    var gloss1: some View {
+        Image("gloss1")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .mask(
+                LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: abs(-parallaxOffset.height)/100+1, y: abs(-parallaxOffset.height)/100+1))
+                    .frame(width: 392)
+            )
+    }
+    
+    var gloss2: some View {
+        Image("gloss2")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .mask(
+                LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: abs(parallaxOffset.height)/100+1, y: abs(parallaxOffset.height)/100+1))
+                    .frame(width: 392)
+            )
     }
 }
 

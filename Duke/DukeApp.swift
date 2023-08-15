@@ -26,7 +26,9 @@ struct DukeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SelectionView()
+                .environmentObject(UserPreference())
+            //ContentView()
                 //.modifier(DarkModeViewModifier())
                 .environmentObject(HomeViewModel())
                 .environmentObject(straddleScreen)
