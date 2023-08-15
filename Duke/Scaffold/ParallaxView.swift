@@ -34,11 +34,77 @@ struct ParallaxView: View {
             
             VStack(alignment: .leading) {
                 //label & icon here, and additional icon array parameter
-                ZStack {
+                Text(headerText)
+                    .font(.system(size: 30))
+                    .fontWeight(.bold)
+                    .padding(.top, -60)
+                    .padding(.bottom, 55)
+                    .padding(.horizontal, .small)
+                    .zIndex(0)
+                
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(25)
+                    .frame(width: imageSize)
+                    .rotationEffect(.init(degrees: 0))
+                    .zIndex(1)
+                    .offset(x: -20)
+                    .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    //for each buttontext array element create new button
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
+                            ForEach(buttonText, id: \.self) { text in
+                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
+                            }
+                        }
+                    }
+                    
+                    HStack {
+                        BlendedText("Create your favourites")
+                            .padding(.horizontal, .medium)
+                        
+                        Spacer()
+                        
+                        Button {
+                            removeProperty()
+                        } label: {
+                            Text("Next") //animation to move to next card should show parallax features
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("rw-dark"))
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.yellow)
+                                        .brightness(-0.1)
+                                )
+                            
+                        }
+                        .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
+                    }
+                    .padding(.top, .small)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
+            }
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.top, 65)
+            .frame(width: imageSize)
+            .background (
+                ZStack(alignment: .topTrailing) {
+                    Rectangle()
+                        .fill(Color.clear)
+
                     Image("background1")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(height: 600)
+                        .frame(height: getRect().height * 0.75)
                         .overlay(
                             ZStack {
                                 Image("logo1")
@@ -54,7 +120,7 @@ struct ParallaxView: View {
                                 Image("logo3")
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 392, height: 600)
+                                    .frame(width: 392, height: getRect().height * 0.75)
                                     .cornerRadius(50)
                                     .blendMode(.overlay)
                                     .offset(x: parallaxOffset.width/15, y: parallaxOffset.height/30)
@@ -100,76 +166,8 @@ struct ParallaxView: View {
                                 .blendMode(.overlay)
                         )
                         .scaleEffect(0.9)
-                    
-                    Text(headerText)
-                        .font(.system(size: 30))
-                        .fontWeight(.bold)
-                        .padding(.top, -60)
-                        .padding(.bottom, 55)
-                        .padding(.horizontal, .small)
-                        .zIndex(0)
-                    
-                    Image(imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(25)
-                        .frame(width: imageSize)
-                        .rotationEffect(.init(degrees: 0))
-                        .zIndex(1)
-                        .offset(x: -20)
                         .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        
-                        //for each buttontext array element create new button
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
-                                ForEach(buttonText, id: \.self) { text in
-                                    SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
-                                }
-                            }
-                        }
-                        
-                        HStack {
-                            BlendedText("Create your favourites")
-                                .padding(.horizontal, .medium)
-                            
-                            Spacer()
-                            
-                            Button {
-                                removeProperty()
-                            } label: {
-                                Text("Next") //animation to move to next card should show parallax features
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("rw-dark"))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 16)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .fill(Color.yellow)
-                                            .brightness(-0.1)
-                                    )
-                                
-                            }
-                            .offset(x: offsetToAngle().degrees * 5, y: offsetToAngle(true).degrees * 5)
-                        }
-                        .padding(.top, .small)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                
-                Spacer()
-            }
-            .foregroundColor(.white)
-            .padding(.horizontal, 16)
-            .padding(.top, 65)
-            .frame(width: imageSize)
-            .background (
-                ZStack(alignment: .topTrailing) {
-                    Rectangle()
-                        .fill(Color("Background"))
-                    
+
                     Circle()
                         .fill(.yellow)
                         .scaleEffect(1.2, anchor: .leading)
@@ -235,7 +233,6 @@ struct ParallaxView: View {
                         }
                     })
             )
-
         }
     }
     
