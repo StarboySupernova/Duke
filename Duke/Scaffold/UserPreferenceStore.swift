@@ -12,11 +12,10 @@ import SwiftUI
 class UserPreference: ObservableObject {
     //should use MVVM here
     //this class should be the model, with instances of this broadcasting (publishing) user selected data
-    //view model will handle storage to Firebase/or Keychain
-    //headerText will be changed into String values
+    //view model will handle storage to UserDefaults
     //use of Dictionary values looking likely, but this will be determined later
     //some properties to be moved to UserPreferenceModel https://paulallies.medium.com/swiftui-mvvm-a1e7a18f4f03
-    var id: String = UUID().uuidString //should be set to same as authid from Firebase
+    var id: String = UUID().uuidString //should be set to same as authid from Firebase. Should probably ensure this checks different IDs in UseDefaults and return specific user data for each user
     var halaal: Bool = false
     var haram: Bool = false
     var pork: Bool = false
@@ -34,7 +33,6 @@ class UserPreference: ObservableObject {
     var chinese: Bool = true
     var thai: Bool = true
     
-    //Binding to buttons maybe. Use collectBoolProperties for button texts
     //Add attributed description texts
     //View model will handle saving to keychain
     
