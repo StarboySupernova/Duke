@@ -16,7 +16,7 @@ import FirebaseStorage
 struct DukeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.colorScheme) var colorScheme
-    @StateObject private var straddleScreen: StraddleScreen =  StraddleScreen() //will be used as environment variable to control the postioning of VerticalTabBar
+    @StateObject private var straddleScreen: StraddleScreen =  StraddleScreen()
     @StateObject var userViewModel: UserViewModel = UserViewModel()
     @StateObject var preferenceStore: UserPreference = UserPreference()
     @StateObject var homeViewModel: HomeViewModel = HomeViewModel()

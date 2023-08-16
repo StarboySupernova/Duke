@@ -59,7 +59,7 @@ struct ParallaxView: View {
                         LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
                             ForEach(buttonText, id: \.self) { text in
                                 SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text), action: {
-                                    
+                                    saveUserPreference(preferenceStore) //very inefficient, save occurs at every tap. Should rewrite
                                 }) //add presentedText parameter here to allow us to customize what appears on the button
                             }
                         }
@@ -188,7 +188,7 @@ struct ParallaxView: View {
             .shadow(color: Color.red, radius: 10, x: 0, y: 0) //set this to work only for first card
 //            /// to determine which card shows up on top of the others based on getindex
 //            /// when card is the first in the array, and it has been offset enough from center, the underlying cards come to the foreground, and wll have a higher zindex than the card currently being swiped out
-//            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very iffy zindex logic for determining which card appears on top of the other")
+//            .zIndex(getIndex() == 0 && offset > 100 ? Double(CGFloat(parallaxProperties.count) - getIndex()) - 1 : Double(CGFloat(parallaxProperties.count) - getIndex()))//MARK: #warning("very unsound zindex logic for determining which card appears on top of the other")
             .rotationEffect(.init(degrees: getRotation(angle: 10))) //- problematic line commented out.animation is not smooth when swiping out without this line
             .rotationEffect(getIndex() == 1 ? .degrees(-6) : .degrees(0))
             .rotationEffect(getIndex() == 2 ? .degrees(6) : .degrees(0))
