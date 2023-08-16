@@ -12,8 +12,8 @@ struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var straddleScreen: StraddleScreen //to handle verticalTab view's position onscreen to avoid having it block screen elements
-    @StateObject var userViewModel: UserViewModel = UserViewModel() 
-    @StateObject var preferenceStore: UserPreference = UserPreference()
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var preferenceStore: UserPreference
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
@@ -52,7 +52,6 @@ struct HomeView: View {
                      let showAdditionalDetails = prop.isiPad && !prop.isSplit && prop.isLandscape //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
                      */
                     let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-                    //let imageOffset = screenHeight + 36
                     
                     ZStack {
                         NavigationView {
@@ -150,9 +149,9 @@ struct HomeView: View {
                                 .edgesIgnoringSafeArea(.bottom) // Ignore safe area at the bottom
                             }
                         }
-                        /*.sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-                         PermissionView() { homeViewModel.requestPermission() }
-                         }*/
+                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+                            PermissionView() { homeViewModel.requestPermission() }
+                        }
                         .onChange(of: homeViewModel.showModal) { newValue in
                             homeViewModel.request()
                         }

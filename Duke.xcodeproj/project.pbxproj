@@ -28,6 +28,7 @@
 		C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937A1FD296223A400B36856 /* UserViewModel.swift */; };
 		C937A2002962463200B36856 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C937A1FF2962463200B36856 /* GoogleService-Info.plist */; };
 		C93B2E672A605625008BB251 /* PingCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2E662A605625008BB251 /* PingCheckerView.swift */; };
+		C94889F72A8CC50A00609E35 /* UserDataManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94889F62A8CC50A00609E35 /* UserDataManagerViewModel.swift */; };
 		C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */; };
 		C957AEB62A89B30900B8026B /* VerticalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C957AEB52A89B30900B8026B /* VerticalContentView.swift */; };
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
@@ -141,6 +142,7 @@
 		C937A1FD296223A400B36856 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		C937A1FF2962463200B36856 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C93B2E662A605625008BB251 /* PingCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingCheckerView.swift; sourceTree = "<group>"; };
+		C94889F62A8CC50A00609E35 /* UserDataManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManagerViewModel.swift; sourceTree = "<group>"; };
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C957AEB52A89B30900B8026B /* VerticalContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalContentView.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* SignInControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerView.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				C9E2AB62294232450001270B /* HomeViewModel.swift */,
 				C937A1FD296223A400B36856 /* UserViewModel.swift */,
 				C96B70852962D21A009B3444 /* PostViewModel.swift */,
+				C94889F62A8CC50A00609E35 /* UserDataManagerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				C9090234293AC9DE0050E808 /* Images.swift in Sources */,
 				C9FB296F2A7D492C00662A00 /* Card.swift in Sources */,
 				C9C39AE22947EBDC0036874D /* RaisedButton.swift in Sources */,
+				C94889F72A8CC50A00609E35 /* UserDataManagerViewModel.swift in Sources */,
 				C96B708D2962DD74009B3444 /* PhotoPicker.swift in Sources */,
 				C9FB29732A7D4E2400662A00 /* VerticalTabBar.swift in Sources */,
 				C9C39AF12947EDD10036874D /* ExtensionOnEncodable.swift in Sources */,
