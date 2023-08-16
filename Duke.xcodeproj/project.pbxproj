@@ -365,6 +365,7 @@
 		C96B70722962C188009B3444 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */,
 				C96B70732962C1AD009B3444 /* User.swift */,
 				C96B70752962C238009B3444 /* Post.swift */,
 				C9E648722A62DFE800E93B18 /* SideMenuTab.swift */,
@@ -375,6 +376,7 @@
 		C96B70772962C948009B3444 /* User Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				C90089442A4ACDEB0048F377 /* SelectionView.swift */,
 				C96B707E2962CDD3009B3444 /* ReusableSubViews */,
 				C96B70782962C97B009B3444 /* PostsView.swift */,
 				C96B707A2962CA7B009B3444 /* ProfileView.swift */,
@@ -441,13 +443,11 @@
 				C9B91C3A297F13C8002E6764 /* ScaffoldModel */,
 				C9AC810D2A06322B00B9FBC8 /* BookingView.swift */,
 				C9AC810F2A06326A00B9FBC8 /* SeatsView.swift */,
-				C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */,
 				C97817742A1114E30028CE08 /* PreferenceView.swift */,
-				C90089442A4ACDEB0048F377 /* SelectionView.swift */,
-				C9FB296A2A7D46E500662A00 /* NewContentView.swift */,
 				C9FB296C2A7D481A00662A00 /* AnimatedHome.swift */,
 				C9FB296E2A7D492C00662A00 /* Card.swift */,
 				C9FB29702A7D4CC000662A00 /* HouseView.swift */,
+				C9FB296A2A7D46E500662A00 /* NewContentView.swift */,
 				C9FB29742A7D4F5800662A00 /* SideMenu.swift */,
 			);
 			path = Scaffold;

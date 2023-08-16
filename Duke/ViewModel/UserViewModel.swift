@@ -127,26 +127,4 @@ class UserViewModel : ObservableObject {
             }
         }
     }
-    
-    func saveUserPreference(_ userPreferenceStoreInstance: UserPreference) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(userPreferenceStoreInstance) {
-            let defaults = UserDefaults.standard
-            defaults.set(encoded, forKey: userPreferenceStoreInstance.id) //to enable us to target different data sets for each user on the phone. This is not forecasted to increase past the 512kb recommended limit for UserDefaults data
-        }
-    }
-    
-    func fetchUserPreferences(for id: String) -> UserPreference? { //ID is stored in Firebase so this method is fine to write in its current configuration
-        let decoder = JSONDecoder()
-        guard let savedPerson = UserDefaults.standard.object(forKey: id) as? Data else {
-            showErrorAlertView("Error", "No preferences data found for this user", handler: {})
-            return nil
-        }
-        guard let loadedPerson = try? decoder.decode(UserPreference.self, from: savedPerson) else {
-            showErrorAlertView("Error", "Preferences data unable to be loaded at this time", handler: {})
-            return nil
-        }
-        
-        return loadedPerson
-    }
 }

@@ -58,7 +58,9 @@ struct ParallaxView: View {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: getRect().width * 0.05) {
                             ForEach(buttonText, id: \.self) { text in
-                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text)) //add presentedText parameter here to allow us to customize what appears on the button
+                                SelectionButton(buttonText: text, isSelected: preferenceStore.assignBoolBinding(for: text), action: {
+                                    
+                                }) //add presentedText parameter here to allow us to customize what appears on the button
                             }
                         }
                     }
@@ -385,6 +387,28 @@ struct ParallaxView: View {
                 LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: abs(parallaxOffset.height)/100+1, y: abs(parallaxOffset.height)/100+1))
                     .frame(width: 392)
             )
+    }
+    
+    func saveUserPreference(_ userPreferenceStoreInstance: UserPreference) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(userPreferenceStoreInstance) {
+            let defaults = UserDefaults.standard
+            defaults.set(encoded, forKey: userPreferenceStoreInstance.id) //to enable us to target different data sets for each user on the phone. This is not forecasted to increase past the 512kb recommended limit for UserDefaults data
+        }
+    }
+    
+    func fetchUserPreferences(for id: String) -> UserPreference? { //ID is stored in Firebase so this method is fine to write in its current configuration
+        let decoder = JSONDecoder()
+        guard let savedPerson = UserDefaults.standard.object(forKey: id) as? Data else {
+            showErrorAlertView("Error", "No preferences data found for this user", handler: {})
+            return nil
+        }
+        guard let loadedPerson = try? decoder.decode(UserPreference.self, from: savedPerson) else {
+            showErrorAlertView("Error", "Preferences data unable to be loaded at this time", handler: {})
+            return nil
+        }
+        
+        return loadedPerson
     }
 }
 
