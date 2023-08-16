@@ -20,5 +20,14 @@ extension UserDefaults {
             showErrorAlertView("Error", "Bundle ID incorrect") {}
         }
     }
+    
+    static func retrieveUserID() -> String {
+        guard let userID = UserDefaults.standard.string(forKey: "user_id") else {
+            showErrorAlertView("Error", "Logged-In User ID could not be found", handler: {})
+            fatalError("Logged-In User ID could not be found")
+        }
+        
+        return userID
+    }
 }
 

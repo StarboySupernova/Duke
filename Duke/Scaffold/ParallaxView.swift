@@ -399,16 +399,16 @@ struct ParallaxView: View {
     
     func fetchUserPreferences(for id: String) -> UserPreference? { //ID is stored in Firebase so this method is fine to write in its current configuration
         let decoder = JSONDecoder()
-        guard let savedPerson = UserDefaults.standard.object(forKey: id) as? Data else {
+        guard let savedPreferences = UserDefaults.standard.object(forKey: id) as? Data else {
             showErrorAlertView("Error", "No preferences data found for this user", handler: {})
             return nil
         }
-        guard let loadedPerson = try? decoder.decode(UserPreference.self, from: savedPerson) else {
+        guard let loadedPreferences = try? decoder.decode(UserPreference.self, from: savedPreferences) else {
             showErrorAlertView("Error", "Preferences data unable to be loaded at this time", handler: {})
             return nil
         }
         
-        return loadedPerson
+        return loadedPreferences
     }
 }
 

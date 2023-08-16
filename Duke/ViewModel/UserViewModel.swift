@@ -74,7 +74,7 @@ class UserViewModel : ObservableObject {
         await MainActor.run(body: {
             UserDefaults.standard.set(user.userName, forKey: "user_name")
             UserDefaults.standard.set(userID, forKey: "user_id")
-            UserDefaults.standard.set(true, forKey: "sign_in_status") //iffy, because Bool UserDefaults value returns nil for both no value and a false value. Should find more elegant solution here
+            UserDefaults.standard.set(true, forKey: "sign_in_status") //iffy, because Bool UserDefaults value returns nil for both no value and a false value. Should find more elegant solution here. Should possib;y tie this to UserDataManagerView model which will be saved as JSON as a singular object
             sign_in_status = true
             myProfile = user
         })
