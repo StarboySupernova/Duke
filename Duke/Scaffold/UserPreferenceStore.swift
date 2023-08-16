@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 //  MARK: DynamicMemberLookup Implementation @dynamicMemberLookup
-class UserPreference: ObservableObject {
+class UserPreference: ObservableObject, Codable {
     //should use MVVM here
     //this class should be the model, with instances of this broadcasting (publishing) user selected data
     //view model will handle storage to UserDefaults
@@ -62,6 +62,62 @@ class UserPreference: ObservableObject {
     ///The private initializer private init() ensures that the UserPreference class cannot be instantiated from outside the class. It prevents accidental creation of multiple instances and enforces the use of the shared singleton instance.
     private init() {
 
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case halaal
+        case haram
+        case pork
+        case vegan
+        case vegetarian
+        case lactose
+        case outdoor
+        case wineTasting
+        case wineFarms
+        case african
+        case italian
+        case greek
+        case chinese
+        case thai
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        halaal = try container.decode(Bool.self, forKey: .halaal)
+        haram = try container.decode(Bool.self, forKey: .haram)
+        pork = try container.decode(Bool.self, forKey: .pork)
+        vegan = try container.decode(Bool.self, forKey: .vegan)
+        vegetarian = try container.decode(Bool.self, forKey: .vegetarian)
+        lactose = try container.decode(Bool.self, forKey: .lactose)
+        outdoor = try container.decode(Bool.self, forKey: .outdoor)
+        wineTasting = try container.decode(Bool.self, forKey: .wineTasting)
+        wineFarms = try container.decode(Bool.self, forKey: .wineFarms)
+        african = try container.decode(Bool.self, forKey: .african)
+        italian = try container.decode(Bool.self, forKey: .italian)
+        greek = try container.decode(Bool.self, forKey: .greek)
+        chinese = try container.decode(Bool.self, forKey: .chinese)
+        thai = try container.decode(Bool.self, forKey: .thai)
+    }
+        
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(halaal, forKey: .halaal)
+        try container.encode(haram, forKey: .haram)
+        try container.encode(pork, forKey: .pork)
+        try container.encode(vegan, forKey: .vegan)
+        try container.encode(vegetarian, forKey: .vegetarian)
+        try container.encode(lactose, forKey: .lactose)
+        try container.encode(outdoor, forKey: .outdoor)
+        try container.encode(wineTasting, forKey: .wineTasting)
+        try container.encode(wineFarms, forKey: .wineFarms)
+        try container.encode(african, forKey: .african)
+        try container.encode(italian, forKey: .italian)
+        try container.encode(greek, forKey: .greek)
+        try container.encode(chinese, forKey: .chinese)
+        try container.encode(thai, forKey: .thai)
     }
     
     /*

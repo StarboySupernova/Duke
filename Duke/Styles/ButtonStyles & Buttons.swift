@@ -79,7 +79,6 @@ struct SelectionButton: View {
     }
 }
 
-
 struct TimeButton: View {
     @State var hour: String = "18:00"
     
@@ -141,7 +140,6 @@ struct CircleButton: View {
         }
     }
 }
-
 
 struct LargeButton: View {
     var selectedBorderColors: [Color] = [Color("pink"), Color("pink").opacity(0), Color("pink").opacity(0)]

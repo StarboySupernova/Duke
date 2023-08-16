@@ -249,7 +249,6 @@ struct ParallaxView: View {
         return index
     }
 
-    
     func getRotation(angle: Double) -> Double {
         let width = UIScreen.main.bounds.width - 50
         let progress = offset / width
@@ -350,7 +349,6 @@ struct ParallaxView: View {
         .contentShape(Rectangle())
     }
 
-    
     @ViewBuilder func BlendedText(_ stringValue: String) -> some View {
         //MARK: iOS 16 code
         if #available(iOS 16.0, *) {
