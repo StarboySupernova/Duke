@@ -24,8 +24,8 @@ struct PermissionView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
+        GeometryReader { geometry  in
+            VStack(alignment: .center) {
                 ZStack {
 //                    ForEach(1..<14, id: \.self) { index in
 //                        Image("food\(index % 7)")
@@ -35,8 +35,11 @@ struct PermissionView: View {
 //                            )
 //                            .animation(animation, value: isAnimating)
 //                    }
+
                 }
                 .frame(height: geometry.size.height / 3)
+                
+                Spacer()
                 
                 Text("Duke")
                     .font(.largeTitle)
@@ -55,17 +58,29 @@ struct PermissionView: View {
                         .bold()
                 }
                 .padding()
-                .frame(width: geometry.size.width - 30)
-                .background(colorScheme == .light ? Color.black : Color.white)
+                .frame(width: geometry.size.width * 0.7)
+//                .background(colorScheme == .light ? Color.black : Color.white)
                 .cornerRadius(15)
                 .shadow(radius: 10)
-                .foregroundColor(colorScheme == .light ? Color.white : Color.black)
+                .foregroundColor(Color.white)
+                .modifier(ConvexGlassView())
                 
+                Spacer()
             }
-            .edgesIgnoringSafeArea(.all) 
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: getRect().width * 0.95)
         }
-        .background(Color("background"))
+        .background(
+            ZStack {
+                Image("background3")
+                    .resizedToFill(width: getRect().width, height: getRect().height)
+                
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: getRect().width * 0.99, height: getRect().height * 0.98)
+                    .cornerRadius(100, corners: [.topRight])
+                    .cornerRadius(20, corners: [.topLeft, .bottomLeft, .bottomRight])
+            }
+        )
         .onAppear {
             isAnimating.toggle()
         }
