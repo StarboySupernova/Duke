@@ -27,14 +27,14 @@ struct PermissionView: View {
         GeometryReader { geometry in
             VStack {
                 ZStack {
-                    ForEach(1..<14, id: \.self) { index in
-                        Image("food\(index % 7)")
-                        //self positioning through geometry bounds
-                            .position(x: .random(in: 0...geometry.size.width),
-                                      y: .random(in: 0...geometry.size.height / 2)
-                            )
-                            .animation(animation, value: isAnimating)
-                    }
+//                    ForEach(1..<14, id: \.self) { index in
+//                        Image("food\(index % 7)")
+//                        //self positioning through geometry bounds
+//                            .position(x: .random(in: 0...geometry.size.width),
+//                                      y: .random(in: 0...geometry.size.height / 2)
+//                            )
+//                            .animation(animation, value: isAnimating)
+//                    }
                 }
                 .frame(height: geometry.size.height / 3)
                 
@@ -62,6 +62,8 @@ struct PermissionView: View {
                 .foregroundColor(colorScheme == .light ? Color.white : Color.black)
                 
             }
+            .edgesIgnoringSafeArea(.all) 
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color("background"))
         .onAppear {

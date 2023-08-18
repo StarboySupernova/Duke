@@ -18,7 +18,7 @@ struct DukeApp: App {
     @Environment(\.colorScheme) var colorScheme
     @StateObject private var straddleScreen: StraddleScreen =  StraddleScreen()
     @StateObject var userViewModel: UserViewModel = UserViewModel()
-    @StateObject var preferenceStore: UserPreference = UserPreference()
+//    @StateObject var preferenceStore: UserPreference = UserPreference() //should not be initialized until afer user is logged in
     @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
 
     init() {
@@ -30,7 +30,7 @@ struct DukeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(preferenceStore)
+//                .environmentObject(preferenceStore)
                 .environmentObject(homeViewModel)
                 .environmentObject(straddleScreen)
                 .environmentObject(userViewModel)

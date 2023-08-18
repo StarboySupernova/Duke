@@ -13,7 +13,7 @@ struct HomeView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @EnvironmentObject var straddleScreen: StraddleScreen //to handle verticalTab view's position onscreen to avoid having it block screen elements
     @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject var preferenceStore: UserPreference
+//    @EnvironmentObject var preferenceStore: UserPreference
     @Environment(\.colorScheme) var colorScheme
     @State private var showLogin: Bool = false
     @State var selectedBusiness: Business?
@@ -40,12 +40,6 @@ struct HomeView: View {
         //MARK: Need to implement smooth functionality on landscape mode. This will need to be implemented in responsiveView, as I tried to wrap this inside a scrolview with unintended results. The scrollview blocks out the content
         ResponsiveView { prop in
             HStack(spacing: 0) {
-                //displaying only on iPad and not on split mode
-                if prop.isiPad && !prop.isSplit {
-                    SideBar(prop: prop, selectedMenu: $selectedMenu)
-                }
-                
-                
                 //will not turn into separate view, for it introduces additional complexity
                 GeometryReader{ geometry in
                     /*
@@ -151,6 +145,7 @@ struct HomeView: View {
                         }
                         .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
                             PermissionView() { homeViewModel.requestPermission() }
+                                .background(Color.clear)
                         }
                         .onChange(of: homeViewModel.showModal) { newValue in
                             homeViewModel.request()
@@ -184,6 +179,8 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home))
             .environmentObject(HomeViewModel())
+            .environmentObject(StraddleScreen())
+            .environmentObject(UserViewModel())
             .preferredColorScheme(.dark)
     }
 }

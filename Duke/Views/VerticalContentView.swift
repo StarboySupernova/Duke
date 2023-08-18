@@ -13,12 +13,7 @@ struct VerticalContentView: View {
     
     var body: some View {
         ResponsiveView { prop in
-            HStack(spacing: 0) {
-                //displaying only on iPad and not on split mode
-                if prop.isiPad && !prop.isSplit {
-                    SideBar(prop: prop, selectedMenu: $selectedMenu)
-                }
-                
+            HStack(spacing: 0) {                
                 TabView(selection: $verticalTabSelection) {
                     Text("CHAT")
                         .tag(VerticalTab.chat)
