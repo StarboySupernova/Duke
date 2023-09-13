@@ -21,7 +21,8 @@ struct HomeView: View {
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
     @State var hasDragged: Bool = false
-    @State private var currentTab: SideMenuTab = .home //should become a Binding
+    @State private var currentTab: SideMenuTab = .home
+    @State private var isLocationEnabled: Bool = false //to try and triiger view re-render on homeViewModal change
     @Binding var showSideBar: Bool
     @Binding var selectedMenu: SelectedMenu
     
@@ -134,7 +135,7 @@ struct HomeView: View {
                                     }
                                 }
                                 
-                                CustomPopUpSheetBar {
+                                CustomPopUpSheetBar { //increase the height of this view
                                     bottomSheetPosition = .top
                                     overlaid = true
                                     straddleScreen.isStraddling = true
@@ -143,10 +144,10 @@ struct HomeView: View {
                                 .edgesIgnoringSafeArea(.bottom) // Ignore safe area at the bottom
                             }
                         }
-                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-                            PermissionView() { homeViewModel.requestPermission() }
-                                .background(Color.clear)
-                        }
+//                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+//                            PermissionView() { homeViewModel.requestPermission() }
+//                                .background(Color.clear)
+//                        }
                         .onChange(of: homeViewModel.showModal) { newValue in
                             homeViewModel.request()
                         }

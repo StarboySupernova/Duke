@@ -74,7 +74,7 @@ struct DetailView: View {
             }
         }
         .scaleEffect(press ? 1.2 : 1)
-        .padding(.xLarge)
+        .padding(.medium)
     }
     
 }

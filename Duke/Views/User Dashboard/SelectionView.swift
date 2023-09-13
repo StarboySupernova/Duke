@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//modify this since ExtenstionOnUserDedaults causes a fatal error here
+
 struct SelectionView: View {
     //here singleton pattern on UserPreference is used only inside initialization of @State property
     @State var parallaxProperties: [ParallaxProperties] = [
