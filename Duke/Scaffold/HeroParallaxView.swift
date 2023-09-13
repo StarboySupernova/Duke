@@ -1,5 +1,5 @@
 //
-//  NewParallaxView.swift
+//  HeroParallaxView.swift
 //  Duke
 //
 //  Created by Simbarashe Dombodzvuku on 8/15/23.
@@ -7,13 +7,22 @@
 
 import SwiftUI
 
-struct NewParallaxView: View {
+struct HeroParallaxView: View {
     @State var translation: CGSize = .zero
-        @State var isDragging = false
+    @State var isDragging = false
+    @State var isAnimating: Bool = true
         
         var body: some View {
             ZStack {
-                Color("Background").ignoresSafeArea()
+                LinearGradient(
+                stops: [
+                Gradient.Stop(color: Color(red: 0.45, green: 0.72, blue: 0.98), location: 0.00),
+                Gradient.Stop(color: Color("backgroundColor-1"), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0.12),
+                endPoint: UnitPoint(x: 0.5, y: 0.81)
+                )
+                .ignoresSafeArea()
                 
                 Image("background1")
                     .resizable()
@@ -82,6 +91,12 @@ struct NewParallaxView: View {
                     .scaleEffect(0.9)
                     .rotation3DEffect(.degrees(isDragging ? 10 : 0), axis: (x: -translation.height, y: translation.width, z: 0))
                     .gesture(drag)
+                    .onTapGesture {
+                        isAnimating = false
+                    }
+            }
+            .onAppear {
+                isAnimating ? performDragAnimation() : nil
             }
         }
         
@@ -118,10 +133,24 @@ struct NewParallaxView: View {
                     .frame(width: 392)
             )
     }
+    
+    func performDragAnimation() {
+        withAnimation(Animation.easeInOut(duration: 5.0).repeatForever(autoreverses: true)) {
+            let centre = (getRect().height * 0.2, getRect().width * 0.2)
+               let radius: CGFloat = getRect().width
+               let currentTime = Date().timeIntervalSince1970
+               let angle = CGFloat(currentTime) * 2 * .pi / 10.0 // Adjust the divisor to control the speed of rotation
+
+            let x = radius * cos(angle) / centre.0
+            let y = radius * sin(angle) * getRect().height * 0.002
+               
+               translation = CGSize(width: x, height: y)
+           }
+    }
 }
 
-struct NewParallaxView_Previews: PreviewProvider {
+struct HeroParallaxView_Previews: PreviewProvider {
     static var previews: some View {
-        NewParallaxView()
+        HeroParallaxView()
     }
 }
