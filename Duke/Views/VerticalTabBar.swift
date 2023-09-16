@@ -14,61 +14,35 @@ struct VerticalTabBar: View {
     @Binding var selectedMenu: SelectedMenu
     
     var body: some View {
-        ResponsiveView { prop in
-            Group {
-                if prop.isLandscape && !prop.isSplit {
-                    HStack {
-                        VStack {
-                            VStack(alignment: .leading) {
-                                content
-                            }
-                            .frame(maxWidth: getRect().width * 0.025)
-                            .padding(12)
-                            .background(Color("Background 2").opacity(0.8))
-                            .background(.ultraThinMaterial)
-                            .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
-                            .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                    .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                            )
-                            .padding(.horizontal, .large)
-                            //                .offset(y: getRect().height * 0.065)
-                            .if(straddleScreen.isStraddling, transform: { thisView in
-                                thisView
-                                    .straddleScreen()
-                                    .opacity(0.5)
-                                    .disabled(straddleScreen.isStraddling)
-                            })
-                                
-                                Spacer()
-                        }
-                        
-                        Spacer()
-                    }
-                } else {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            content
-                        }
-                        .frame(maxHeight: getRect().height * 0.025)
-                        .padding(12)
-                        .background(Color("Background 2").opacity(0.8))
-                        .background(.ultraThinMaterial)
-                        .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
-                        .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        )
-                        .padding(.horizontal, getRect().width * 0.1)
-                    }
+        HStack {
+            VStack {
+                VStack(alignment: .leading) {
+                    content
                 }
+                .frame(maxWidth: getRect().width * 0.025)
+                .padding(12)
+                .background(Color("Background 2").opacity(0.8))
+                .background(.ultraThinMaterial)
+                .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
+                .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 26, style: .continuous)
+                        .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                )
+                .padding(.horizontal, .large)
+                //                .offset(y: getRect().height * 0.065)
+                .if(straddleScreen.isStraddling, transform: { thisView in
+                    thisView
+                        .straddleScreen()
+                        .opacity(0.5)
+                        .disabled(straddleScreen.isStraddling)
+                })
+                    
+                    Spacer()
             }
             
+            Spacer()
         }
-        
     }
     
     var content: some View {

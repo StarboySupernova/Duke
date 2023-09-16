@@ -51,14 +51,6 @@ struct HomeView: View {
                     ZStack {
                         NavigationView {
                             ZStack {
-                                if #available(iOS 16, *), colorScheme == .light {
-                                    GrayBackground()
-                                        .zIndex(-10)
-                                } else {
-                                    DarkBackground(show: $hasDragged)
-                                        .zIndex(-10)
-                                }
-                                
                                 VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
                                     //List
                                     List(homeViewModel.businesses, id: \.id){ business in
@@ -113,6 +105,15 @@ struct HomeView: View {
                                 .padding(.top, 51)
                                 .offset(y: -bottomSheetTranslationProrated * 46)
                                 .opacity(overlaid ? 0.1 : 1)
+                                .background(
+                                    Image("img_waves_1152x768")
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width,
+                                               height: UIScreen.main.bounds.height,
+                                               alignment: .topLeading)
+                                        .scaledToFit()
+                                        .clipped()
+                                )
                                 
                                 BottomSheetView(position: $bottomSheetPosition) {
 #warning("display a heading here when sheet is activated")
@@ -146,7 +147,7 @@ struct HomeView: View {
                         }
 //                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
 //                            PermissionView() { homeViewModel.requestPermission() }
-//                                .background(Color.clear)
+//                                .background(Color.clear) //PermissionView shows when LocationAccess is not given, however HeroParallaxView should show to repeats users
 //                        }
                         .onChange(of: homeViewModel.showModal) { newValue in
                             homeViewModel.request()
@@ -161,6 +162,7 @@ struct HomeView: View {
                                 }
                         }
                     }
+                   
                     /* //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
                      .overlay(alignment: .topTrailing) {
                      if showStorageDetails {
@@ -182,6 +184,5 @@ struct HomeView_Previews: PreviewProvider {
             .environmentObject(HomeViewModel())
             .environmentObject(StraddleScreen())
             .environmentObject(UserViewModel())
-            .preferredColorScheme(.dark)
     }
 }
