@@ -931,6 +931,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Duke requests camera access for media sharing, and to allow you to create your moments";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
@@ -964,6 +965,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Duke requests camera access for media sharing, and to allow you to create your moments";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
