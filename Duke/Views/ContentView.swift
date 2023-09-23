@@ -36,6 +36,8 @@ struct ContentView: View {
                     TabView(selection: $selectedMenu) {
                         HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu)
                             .environmentObject(HomeViewModel())
+                            .environmentObject(StraddleScreen())
+                            .environmentObject(UserViewModel())
                             .tag(SelectedMenu.home)
                         
                         ProfileView()
@@ -120,7 +122,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
             .environmentObject(StraddleScreen())
     }
 }

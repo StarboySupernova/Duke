@@ -284,7 +284,6 @@
 		C909020F293AB2320050E808 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
-				C9E648742A6306F500E93B18 /* ResponsiveView */,
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
 				C9C4E5F029EC7C5900131E97 /* Info.plist */,
@@ -578,6 +577,7 @@
 		C9FFE4FD294286D300DE106F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9E648742A6306F500E93B18 /* ResponsiveView */,
 				C96B70932962F6AC009B3444 /* Registration */,
 				C96B70772962C948009B3444 /* User Dashboard */,
 				C937A1FA2962211500B36856 /* Login */,

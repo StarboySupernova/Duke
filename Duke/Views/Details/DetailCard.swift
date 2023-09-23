@@ -11,79 +11,106 @@ import ExtensionKit
 struct DetailCard: View {
     let businessDetail: BusinessDetails
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Group {
-                Text(businessDetail.formattedName)
-                    .bold()
-                    .foregroundColor(.offWhite)
-                Text(businessDetail.formattedCategories)
-                    .font(.subheadline)
-                    .padding(.bottom, .large)
-                    .foregroundColor(.offWhite)
-            }
+        //Booking button ought to come here
+        ZStack(alignment: .topLeading) {
+            ZStack {}
+                .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.65)
+                .background(RoundedCorners(topRight: 60.0,bottomLeft: 40.0,bottomRight: 40.0)
+                    .fill(LinearGradient(gradient: Gradient(colors: [ColorConstants.RedA200,ColorConstants.PinkA100]),startPoint: .topLeading,endPoint: .bottomTrailing)))
+                .shadow(color: ColorConstants.Black9003f, radius: 40,
+                        x: 0, y: 20)
             
-            Group {
-                HStack {
-                    Image("map")
-                    Button {
-                        navigate()
-                    } label: {
-                        Text(businessDetail.formattedAddress)
+            ZStack(alignment: .topTrailing) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Group {
+                        Text(businessDetail.formattedName)
+                            .bold()
+                            .foregroundColor(.offWhite)
+                        Text(businessDetail.formattedCategories)
+                            .font(.subheadline)
+                            .padding(.bottom, .large)
                             .foregroundColor(.offWhite)
                     }
-                    Image("star")
-                    Text(businessDetail.formattedRating)
-                        .foregroundColor(.offWhite)
-                    Image("money")
-                    Text(businessDetail.formattedPrice)
-                        .foregroundColor(.offWhite)
-                }
-                .font(.subheadline)
-            }
-            
-            Group {
-                HStack {
-                    Image("clock")
-                    Text(businessDetail.dayOfTheWeek)
-                    Image("phone")
-                    Button {
-                        phone()
-                    } label: {
-                        Text(businessDetail.formattedPhoneNumber)
-                            .foregroundColor(.offWhite)
-                    }
-
-                    Spacer() //Spacer affects other groups in same VStack
-                }
-                .font(.subheadline)
-                .padding(.bottom, .large)
-            }
-            
-            Group {
-                TabView {
-                    ForEach(businessDetail.images, id: \.self) { url in
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Color.gray.shimmer()
+                    
+                    Group {
+                        HStack {
+                            Image("map")
+                            Button {
+                                navigate()
+                            } label: {
+                                Text(businessDetail.formattedAddress)
+                                    .foregroundColor(.offWhite)
+                            }
+                            Image("star")
+                            Text(businessDetail.formattedRating)
+                                .foregroundColor(.offWhite)
+                            Image("money")
+                            Text(businessDetail.formattedPrice)
+                                .foregroundColor(.offWhite)
                         }
+                        .font(.subheadline)
+                    }
+                    
+                    Group {
+                        HStack {
+                            Image("clock")
+                            Text(businessDetail.dayOfTheWeek)
+                            Image("phone")
+                            Button {
+                                phone()
+                            } label: {
+                                Text(businessDetail.formattedPhoneNumber)
+                                    .foregroundColor(.offWhite)
+                            }
+
+                            Spacer() //Spacer affects other groups in same VStack
+                        }
+                        .font(.subheadline)
+                        .padding(.bottom, .large)
+                    }
+                    
+                    Group {
+                        TabView {
+                            ForEach(businessDetail.images, id: \.self) { url in
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } placeholder: {
+                                    Color.gray.shimmer()
+                                }
+                            }
+                        }
+                        .frame(height: 250)
+                        .clipShape(RoundedCorner(radius: 30, corners: [.topLeft, .bottomRight]))
+                        .tabViewStyle(.page)
                     }
                 }
-                .frame(height: 250)
-                .clipShape(RoundedCorner(radius: 30, corners: [.topLeft, .bottomRight]))
-                .tabViewStyle(.page)
+                .padding(.xLarge)
+                
+                Button(action: {}, label: {
+                    Image("pencil")
+                })
+                .frame(width: .xxLarge,
+                       height: .xxLarge,
+                       alignment: .center)
+                .background(RoundedCorners(topLeft: 16.0,
+                                           topRight: 16.0,
+                                           bottomLeft: 16.0,
+                                           bottomRight: 16.0)
+                    .fill(Color.black))
             }
+            .overlay(RoundedCorners(topRight: 30.0, bottomLeft: 40.0,
+                                    bottomRight: 40.0)
+                .stroke(Color.white.opacity(0.2),
+                        lineWidth: 1))
+            .background(RoundedCorners(topRight: 30.0, bottomLeft: 40.0,
+                                       bottomRight: 40.0)
+                .fill(Color.black.opacity(0.1)))
+            .shadow(radius: 40)
         }
-        .padding()
-        .padding() //hacky
-        //.background(LinearGradient(mycolors: Color("background"), Color.black, .black, Color("background")))
-        .background(
-            mainBackground
-        )
-        .cornerRadius(20)
-        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.65)
+        .padding(.xxLarge)
+        .frame(maxWidth: .infinity, maxHeight: getRect().height * 0.65)
     }
     
     func phone () {

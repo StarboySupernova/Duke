@@ -30,12 +30,7 @@ struct HomeView: View {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
     }
         
-    /*
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
-     */
-    
+        
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
         //MARK: Need to implement smooth functionality on landscape mode. This will need to be implemented in responsiveView, as I tried to wrap this inside a scrolview with unintended results. The scrollview blocks out the content
@@ -56,6 +51,7 @@ struct HomeView: View {
                                     List(homeViewModel.businesses, id: \.id){ business in
                                         BusinessCell(business: business)
                                             .listRowSeparator(.hidden)
+                                            .listRowBackground(Color.green)
                                             .onTapGesture {
                                                 selectedBusiness = business
                                             }

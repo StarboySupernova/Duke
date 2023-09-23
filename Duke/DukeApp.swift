@@ -25,7 +25,9 @@ struct DukeApp: App {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .black
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
         UISearchBar.appearance().overrideUserInterfaceStyle = .dark
+        
     }
+    
     
     var body: some Scene {
         WindowGroup {

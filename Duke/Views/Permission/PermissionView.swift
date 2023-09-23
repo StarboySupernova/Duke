@@ -264,13 +264,13 @@ struct PermissionView: View {
             }
             .frame(maxWidth: getRect().width * 0.95)
         }
-        .background(
-            HeroParallaxView()
-                .opacity(0.9)
-        )
-        .onAppear {
-            isAnimating.toggle()
-        }
+//        .background(
+//            HeroParallaxView()
+//                .opacity(0.9)
+//        )
+//        .onAppear {
+//            isAnimating.toggle()
+//        }
     }
 }
 
