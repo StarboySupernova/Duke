@@ -40,6 +40,12 @@
 		C957AEB62A89B30900B8026B /* VerticalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C957AEB52A89B30900B8026B /* VerticalContentView.swift */; };
 		C95B136629F866C600A07CE7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C95B136529F866C600A07CE7 /* BottomSheet */; };
 		C95B136A29F8706800A07CE7 /* SignInControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95B136929F8706800A07CE7 /* SignInControllerView.swift */; };
+		C95E42EF2ABF1B5600C6DB20 /* AuthorizationChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42EE2ABF1B5600C6DB20 /* AuthorizationChecker.swift */; };
+		C95E42F12ABF1DCA00C6DB20 /* ExtensionOnAVCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42F02ABF1DCA00C6DB20 /* ExtensionOnAVCaptureSession.swift */; };
+		C95E42F32ABF22F000C6DB20 /* VideoContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42F22ABF22F000C6DB20 /* VideoContentViewModel.swift */; };
+		C95E42F52ABF3AC400C6DB20 /* VideoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42F42ABF3AC400C6DB20 /* VideoError.swift */; };
+		C95E42F72ABF416600C6DB20 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42F62ABF416600C6DB20 /* Preview.swift */; };
+		C95E42F92ABF43FE00C6DB20 /* VideoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E42F82ABF43FE00C6DB20 /* VideoContentView.swift */; };
 		C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */; };
 		C96127812AB294D10027101B /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96127802AB294D10027101B /* TestView.swift */; };
 		C968FF952A741101003AD997 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968FF942A741101003AD997 /* Dashboard.swift */; };
@@ -162,6 +168,12 @@
 		C94F6324297926CD003F7911 /* FavouriteRestaurantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRestaurantCard.swift; sourceTree = "<group>"; };
 		C957AEB52A89B30900B8026B /* VerticalContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalContentView.swift; sourceTree = "<group>"; };
 		C95B136929F8706800A07CE7 /* SignInControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerView.swift; sourceTree = "<group>"; };
+		C95E42EE2ABF1B5600C6DB20 /* AuthorizationChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationChecker.swift; sourceTree = "<group>"; };
+		C95E42F02ABF1DCA00C6DB20 /* ExtensionOnAVCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnAVCaptureSession.swift; sourceTree = "<group>"; };
+		C95E42F22ABF22F000C6DB20 /* VideoContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentViewModel.swift; sourceTree = "<group>"; };
+		C95E42F42ABF3AC400C6DB20 /* VideoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoError.swift; sourceTree = "<group>"; };
+		C95E42F62ABF416600C6DB20 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		C95E42F82ABF43FE00C6DB20 /* VideoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentView.swift; sourceTree = "<group>"; };
 		C96094BC2A0F6A3F00AB602E /* UserPreferenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceStore.swift; sourceTree = "<group>"; };
 		C96127802AB294D10027101B /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		C968FF942A741101003AD997 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
@@ -466,6 +478,11 @@
 				C9FB29702A7D4CC000662A00 /* HouseView.swift */,
 				C9FB296A2A7D46E500662A00 /* NewContentView.swift */,
 				C9FB29742A7D4F5800662A00 /* SideMenu.swift */,
+				C95E42EE2ABF1B5600C6DB20 /* AuthorizationChecker.swift */,
+				C95E42F22ABF22F000C6DB20 /* VideoContentViewModel.swift */,
+				C95E42F42ABF3AC400C6DB20 /* VideoError.swift */,
+				C95E42F62ABF416600C6DB20 /* Preview.swift */,
+				C95E42F82ABF43FE00C6DB20 /* VideoContentView.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -523,6 +540,7 @@
 				C9C39AEB2947EDD00036874D /* ExtensionOnString.swift */,
 				C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */,
 				C9C39AE82947EDD00036874D /* ExtensionOnView.swift */,
+				C95E42F02ABF1DCA00C6DB20 /* ExtensionOnAVCaptureSession.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -707,6 +725,7 @@
 				C9C39AF42947EDD10036874D /* ExtensionOnLinearGradient.swift in Sources */,
 				C9C39ACE2947EB200036874D /* OffsetModifier.swift in Sources */,
 				C99B7B9C2943BC2600F0F8FD /* DetailView.swift in Sources */,
+				C95E42F92ABF43FE00C6DB20 /* VideoContentView.swift in Sources */,
 				C96B70862962D21A009B3444 /* PostViewModel.swift in Sources */,
 				C95B136A29F8706800A07CE7 /* SignInControllerView.swift in Sources */,
 				C98A49102AB3DF09009C89DC /* Test2.swift in Sources */,
@@ -727,6 +746,7 @@
 				C9C1CEA52A618ED5007A1136 /* SigntureGenerator.swift in Sources */,
 				C9B01C5429789DE600689998 /* FavouritesContentView.swift in Sources */,
 				C9C39AD62947EB490036874D /* Backgrounds.swift in Sources */,
+				C95E42F72ABF416600C6DB20 /* Preview.swift in Sources */,
 				C96B708A2962DAC0009B3444 /* LoadingView.swift in Sources */,
 				C9C39AE12947EBDC0036874D /* EmbossedButton.swift in Sources */,
 				C9175F512AB324CD0048FA52 /* Row1Cel.swift in Sources */,
@@ -744,6 +764,7 @@
 				C9C39AD52947EB490036874D /* ButtonStyles & Buttons.swift in Sources */,
 				C9AC810E2A06322B00B9FBC8 /* BookingView.swift in Sources */,
 				C919888229F3C769007EDECF /* Trapezoid.swift in Sources */,
+				C95E42F12ABF1DCA00C6DB20 /* ExtensionOnAVCaptureSession.swift in Sources */,
 				C9C39ACF2947EB200036874D /* ConvexGlassModifier.swift in Sources */,
 				C937A1FE296223A400B36856 /* UserViewModel.swift in Sources */,
 				C96B70922962E785009B3444 /* UserPostCardView.swift in Sources */,
@@ -766,6 +787,7 @@
 				C968FF952A741101003AD997 /* Dashboard.swift in Sources */,
 				C937A1FC2962222B00B36856 /* LoginContainerView.swift in Sources */,
 				C9FB296B2A7D46E500662A00 /* NewContentView.swift in Sources */,
+				C95E42F52ABF3AC400C6DB20 /* VideoError.swift in Sources */,
 				C9C39AD02947EB200036874D /* ConcaveGlassModifier.swift in Sources */,
 				C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */,
 				C9C39AF02947EDD10036874D /* ExtensionOnString.swift in Sources */,
@@ -786,12 +808,14 @@
 				C9C39AF32947EDD10036874D /* ExtensionOnInteger.swift in Sources */,
 				C9CF8AE6293FFA5C005FF0F5 /* YelpAPIService.swift in Sources */,
 				C9090236293ACA4E0050E808 /* String.swift in Sources */,
+				C95E42EF2ABF1B5600C6DB20 /* AuthorizationChecker.swift in Sources */,
 				C94F6325297926CD003F7911 /* FavouriteRestaurantCard.swift in Sources */,
 				C96B707B2962CA7B009B3444 /* ProfileView.swift in Sources */,
 				C9175F4D2AB31C5F0048FA52 /* FontScheme.swift in Sources */,
 				C9C39AE02947EBDC0036874D /* Corners.swift in Sources */,
 				C9F25FD42A886B9E00498EC0 /* StraddleScreenModifier.swift in Sources */,
 				C9175F4F2AB31F690048FA52 /* ViewportHelper.swift in Sources */,
+				C95E42F32ABF22F000C6DB20 /* VideoContentViewModel.swift in Sources */,
 				C9FFE4FF2942887E00DE106F /* BusinessCell.swift in Sources */,
 				C9090211293AB2320050E808 /* DukeApp.swift in Sources */,
 				C9090232293AC9580050E808 /* FoodCategories.swift in Sources */,
