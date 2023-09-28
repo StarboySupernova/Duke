@@ -28,7 +28,6 @@
 		C919888229F3C769007EDECF /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888129F3C769007EDECF /* Trapezoid.swift */; };
 		C919888429F3C7DB007EDECF /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888329F3C7DB007EDECF /* SegmentedControl.swift */; };
 		C919888629F3C851007EDECF /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919888529F3C851007EDECF /* WeatherWidget.swift */; };
-		C920E82E2AC31393001A52B8 /* Aespa in Frameworks */ = {isa = PBXBuildFile; productRef = C920E82D2AC31393001A52B8 /* Aespa */; };
 		C92474802A7C15E800126694 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = C924747F2A7C15E800126694 /* RiveRuntime */; };
 		C924782B29F9A6C400A64A8C /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924782A29F9A6C400A64A8C /* LandingView.swift */; };
 		C925BD3E2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C925BD3D2A6BAB380019EF44 /* ScreenEdgeButtonModifier.swift */; };
@@ -79,6 +78,9 @@
 		C977532E2A7D147A004A21FD /* icons.riv in Resources */ = {isa = PBXBuildFile; fileRef = C97753272A7D147A004A21FD /* icons.riv */; };
 		C97817752A1114E30028CE08 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97817742A1114E30028CE08 /* PreferenceView.swift */; };
 		C97D4EF62A46B1FA006190FD /* ParallaxProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4EF52A46B1FA006190FD /* ParallaxProperties.swift */; };
+		C988587E2AC50494006E608C /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C988587D2AC50494006E608C /* GalleryView.swift */; };
+		C98858802AC50506006E608C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C988587F2AC50506006E608C /* SettingView.swift */; };
+		C98858892AC51CB3006E608C /* Aespa in Frameworks */ = {isa = PBXBuildFile; productRef = C98858882AC51CB3006E608C /* Aespa */; };
 		C9886CC72A66B9B700622561 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9886CC62A66B9B700622561 /* ContentView.swift */; };
 		C98A49102AB3DF09009C89DC /* Test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A490F2AB3DF09009C89DC /* Test2.swift */; };
 		C9937D272A7B9BA60019E7C7 /* TitleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9937D262A7B9BA60019E7C7 /* TitleCard.swift */; };
@@ -202,6 +204,8 @@
 		C97753272A7D147A004A21FD /* icons.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.riv; sourceTree = "<group>"; };
 		C97817742A1114E30028CE08 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 		C97D4EF52A46B1FA006190FD /* ParallaxProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxProperties.swift; sourceTree = "<group>"; };
+		C988587D2AC50494006E608C /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		C988587F2AC50506006E608C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		C9886CC62A66B9B700622561 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C98A490F2AB3DF09009C89DC /* Test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2.swift; sourceTree = "<group>"; };
 		C9937D262A7B9BA60019E7C7 /* TitleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCard.swift; sourceTree = "<group>"; };
@@ -270,7 +274,7 @@
 				C96B706A2962B4AE009B3444 /* FirebaseAuth in Frameworks */,
 				C96B706C2962B4AE009B3444 /* FirebaseFirestore in Frameworks */,
 				C92474802A7C15E800126694 /* RiveRuntime in Frameworks */,
-				C920E82E2AC31393001A52B8 /* Aespa in Frameworks */,
+				C98858892AC51CB3006E608C /* Aespa in Frameworks */,
 				C96B70702962B4AE009B3444 /* FirebaseStorage in Frameworks */,
 				C96B706E2962B4AE009B3444 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -485,6 +489,8 @@
 				C95E42F42ABF3AC400C6DB20 /* VideoError.swift */,
 				C95E42F62ABF416600C6DB20 /* Preview.swift */,
 				C95E42F82ABF43FE00C6DB20 /* VideoContentView.swift */,
+				C988587D2AC50494006E608C /* GalleryView.swift */,
+				C988587F2AC50506006E608C /* SettingView.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -646,7 +652,7 @@
 				C96B708F2962E711009B3444 /* SDWebImageSwiftUI */,
 				C95B136529F866C600A07CE7 /* BottomSheet */,
 				C924747F2A7C15E800126694 /* RiveRuntime */,
-				C920E82D2AC31393001A52B8 /* Aespa */,
+				C98858882AC51CB3006E608C /* Aespa */,
 			);
 			productName = Duke;
 			productReference = C909020D293AB2320050E808 /* Duke.app */;
@@ -683,7 +689,7 @@
 				C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				C95B136429F866C600A07CE7 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 				C924747E2A7C15E700126694 /* XCRemoteSwiftPackageReference "rive-ios" */,
-				C920E82C2AC31393001A52B8 /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */,
+				C98858872AC51CB3006E608C /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */,
 			);
 			productRefGroup = C909020E293AB2320050E808 /* Products */;
 			projectDirPath = "";
@@ -740,6 +746,7 @@
 				C919888029F3C718007EDECF /* Arc.swift in Sources */,
 				C9937D272A7B9BA60019E7C7 /* TitleCard.swift in Sources */,
 				C9E648762A63071D00E93B18 /* ResponsiveView.swift in Sources */,
+				C98858802AC50506006E608C /* SettingView.swift in Sources */,
 				C9C39AF22947EDD10036874D /* ExtensionOnUserDefaults.swift in Sources */,
 				C96B70792962C97B009B3444 /* PostsView.swift in Sources */,
 				C97817752A1114E30028CE08 /* PreferenceView.swift in Sources */,
@@ -802,6 +809,7 @@
 				C96094BD2A0F6A3F00AB602E /* UserPreferenceStore.swift in Sources */,
 				C9EE10682947541800103492 /* Completions.swift in Sources */,
 				C9175F4B2AB31BB20048FA52 /* ColorConstants.swift in Sources */,
+				C988587E2AC50494006E608C /* GalleryView.swift in Sources */,
 				C9D0F0332944218700EF3174 /* BusinessDetails.swift in Sources */,
 				C96B707D2962CB61009B3444 /* LoginView.swift in Sources */,
 				C9C39AD12947EB200036874D /* DarkModeViewModifier.swift in Sources */,
@@ -963,6 +971,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Duke requests Photo library permissions to allow gallery functionality for media sharing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -997,6 +1006,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Duke requests Photo library permissions to allow gallery functionality for media sharing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1047,14 +1057,6 @@
 				kind = branch;
 			};
 		};
-		C920E82C2AC31393001A52B8 /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StarboySupernova/Aespa-iOSCamera";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.3.1;
-			};
-		};
 		C924747E2A7C15E700126694 /* XCRemoteSwiftPackageReference "rive-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rive-app/rive-ios";
@@ -1087,6 +1089,14 @@
 				kind = branch;
 			};
 		};
+		C98858872AC51CB3006E608C /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StarboySupernova/Aespa-iOSCamera";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C9C39ABB2947D9F70036874D /* XCRemoteSwiftPackageReference "ExtensionKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StarboySupernova/ExtensionKit";
@@ -1098,11 +1108,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C920E82D2AC31393001A52B8 /* Aespa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C920E82C2AC31393001A52B8 /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */;
-			productName = Aespa;
-		};
 		C924747F2A7C15E800126694 /* RiveRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C924747E2A7C15E700126694 /* XCRemoteSwiftPackageReference "rive-ios" */;
@@ -1137,6 +1142,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C96B708E2962E711009B3444 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		C98858882AC51CB3006E608C /* Aespa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C98858872AC51CB3006E608C /* XCRemoteSwiftPackageReference "Aespa-iOSCamera" */;
+			productName = Aespa;
 		};
 		C9C39ABC2947D9F70036874D /* ExtensionKit */ = {
 			isa = XCSwiftPackageProductDependency;
