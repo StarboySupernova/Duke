@@ -98,7 +98,7 @@ final class HomeViewModel: ObservableObject {
             .map { $0.map(\.text) }
             .assign(to: &$completions)
         
-        print("Request succesfully called")
+        print("Request successfully called")
     }
     
     func requestDetails(forID id : String) {

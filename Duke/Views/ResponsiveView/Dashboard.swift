@@ -669,25 +669,6 @@ struct RadialLayout: Layout {
     }
 }
 
-
-#warning("first milepost")
-
-
-
-#warning("second milepost")
-
-
-
-#warning("third milepost")
-
-
-
-#warning("fifth milepost")
-
-
-
-#warning("sixth milepost")
-
 struct CustomButton: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -725,37 +706,6 @@ extension View {
     }
 }
 
-#warning("seventh milepost")
-
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (1, 1, 1, 0)
-        }
-
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue:  Double(b) / 255,
-            opacity: Double(a) / 255
-        )
-    }
-}
-
-#warning("eighth milepost")
-
 struct CustomTextField: ViewModifier {
     var image: Image
     func body(content: Content) -> some View {
@@ -775,39 +725,92 @@ extension View {
     }
 }
 
-#warning("ninth milepost")
 
-struct Course: Identifiable {
+struct Course: Identifiable, Hashable {
     var id = UUID()
     var title: String
     var subtitle: String
-    var caption: String
     var color: Color
-    var image: Image
+    var image: String
+    var logo: String
+    var show: Bool
+    var index: Double
 }
 
 var courses = [
-    Course(title: "Animations in SwiftUI", subtitle: "Build and animate an iOS app from scratch", caption: "20 sections - 3 hours", color: Color(hex: "7850F0"), image: Image("Topic 1")),
-    Course(title: "Build Quick Apps with SwiftUI", subtitle: "Apply your Swift and SwiftUI knowledge by building real, quick and various applications from scratch", caption: "47 sections - 11 hours", color: Color(hex: "6792FF"), image: Image("Topic 2")),
-    Course(title: "Build a SwiftUI app for iOS 15", subtitle: "Design and code a SwiftUI 3 app with custom layouts, animations and gestures using Xcode 13, SF Symbols 3, Canvas, Concurrency, Searchable and a whole lot more", caption: "21 sections - 4 hours", color: Color(hex: "005FE7"), image: Image("Topic 1"))
+    Course(
+        title: "UI Design for iOS 14",
+        subtitle: "20 sections",
+        color: Color(#colorLiteral(red: 0, green: 0.5217629075, blue: 1, alpha: 1)),
+        image: "Illustration 1",
+        logo: "Logo UI Design",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "Build a SwiftUI app for iOS 14",
+        subtitle: "20 sections",
+        color: Color(#colorLiteral(red: 0.3150139749, green: 0, blue: 0.8982304931, alpha: 1)),
+        image: "Illustration 2",
+        logo: "Logo SwiftUI",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "UI Design for iPadOS",
+        subtitle: "12 sections",
+        color: Color(#colorLiteral(red: 0, green: 0.7283110023, blue: 1, alpha: 1)),
+        image: "Illustration 3",
+        logo: "Logo UI Design",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "UI Design for macOS",
+        subtitle: "12 sections",
+        color: Color(#colorLiteral(red: 0.9467853904, green: 0.2021691203, blue: 0.3819385171, alpha: 1)),
+        image: "Illustration 4",
+        logo: "Logo UI Design",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "Build a SwiftUI app for iOS 13",
+        subtitle: "60 sections",
+        color: Color(#colorLiteral(red: 0.9721538424, green: 0.2151708901, blue: 0.5066347718, alpha: 1)),
+        image: "Illustration 5",
+        logo: "Logo SwiftUI",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "Design System in Figma",
+        subtitle: "12 sections",
+        color: Color(#colorLiteral(red: 1, green: 0.3477956653, blue: 0.3974102139, alpha: 1)),
+        image: "Illustration 6",
+        logo: "Logo Figma",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "React for designers",
+        subtitle: "12 sections",
+        color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)),
+        image: "Illustration 7",
+        logo: "Logo React",
+        show: false,
+        index: -1
+    ),
+    Course(
+        title: "UI Design for developers",
+        subtitle: "20 sections",
+        color: Color(#colorLiteral(red: 0.1446507573, green: 0.8378821015, blue: 0.9349924922, alpha: 1)),
+        image: "Illustration 8",
+        logo: "Logo UI Design",
+        show: false,
+        index: -1
+    )
 ]
-
-
-struct CourseSection: Identifiable {
-    var id = UUID()
-    var title: String
-    var caption: String
-    var color: Color
-    var image: Image
-}
-
-var courseSections = [
-    CourseSection(title: "State Machine", caption: "Watch video - 15 mins", color: Color(hex: "9CC5FF"), image: Image("Topic 2")),
-    CourseSection(title: "Animated Menu", caption: "Watch video - 10 mins", color: Color(hex: "6E6AE8"), image: Image("Topic 1")),
-    CourseSection(title: "Tab Bar", caption: "Watch video - 8 mins", color: Color(hex: "005FE7"), image: Image("Topic 2")),
-    CourseSection(title: "Button", caption: "Watch video - 9 mins", color: Color(hex: "BBA6FF"), image: Image("Topic 1"))
-]
-
 
 
 

@@ -48,9 +48,14 @@ struct SignInControllerView: View {
                 
             }
             .backgroundBlur(radius: 25, opaque: true)
-            .background(Image("Background"))
             .background(Color.bottomSheetBackground)
-            .background(.ultraThinMaterial)
+            .background(
+                Rectangle()
+                    .stroke(Color.white.opacity(0.2))
+                    .background(Color("secondaryBackground").opacity(0.5))
+                    .background(VisualEffectBlur(blurStyle: .dark))
+                    .shadow(color: Color("shadowColor").opacity(0.5), radius: 60, x: 0, y: 30)
+            )
             .clipShape(RoundedRectangle(cornerRadius: 44))
             .innerShadow(shape: RoundedRectangle(cornerRadius: 44), color: Color.bottomSheetBorderMiddle, lineWidth: 1, offsetX: 0, offsetY: 1, blur: 0, blendMode: .overlay, opacity: 1 - bottomSheetTranslationProrated)
             .overlay {
@@ -77,7 +82,7 @@ struct SignInControllerView_Previews: PreviewProvider {
     static var previews: some View {
         SignInControllerView()
         //.background(Color.background)
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(.dark) //may want to include darkmovemodifier to force dark mode
             .environmentObject(UserViewModel())
     }
 }

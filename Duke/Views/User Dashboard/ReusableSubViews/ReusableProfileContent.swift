@@ -58,6 +58,14 @@ struct ReusableProfileContent: View {
                     }
                     .horizontalAlign(.leading)
                 }
+                .padding()
+                .background(
+                    Rectangle()
+                        .stroke(Color.white.opacity(0.2))
+                        .background(Color("secondaryBackground").opacity(0.5))
+                        .background(VisualEffectBlur(blurStyle: .dark))
+                        .shadow(color: Color("shadowColor").opacity(0.5), radius: 60, x: 0, y: 30)
+                        .cornerRadius(10)                )
                 
                 Text("Posts")
                     .font(.title2)

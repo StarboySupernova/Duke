@@ -9,45 +9,49 @@ import SwiftUI
 import MapKit
 
 struct DetailView: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var homeVM: HomeViewModel
     var id: String
     @Binding var selectedBusiness: Business?
     @State var press = false
     
     var body: some View {
-        ZStack(alignment: .top) {
-            Rectangle() //note to self - alignment has no effect when this is a Spacer
-                .fill(LinearGradient(gradient: Gradient(colors: [ColorConstants
-                    .RedA200,ColorConstants.PinkA100]),startPoint: .topLeading, endPoint: .bottomTrailing))
+        NavigationView {
+            ZStack(alignment: .top) {
+                Rectangle() //note to self - alignment has no effect when this is a Spacer
+                    .fill(LinearGradient(gradient: Gradient(colors: [ColorConstants
+                        .RedA200,ColorConstants.PinkA100]),startPoint: .topLeading, endPoint: .bottomTrailing))
 
-            Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.businessDetails != nil ? viewModel.businessDetails!.mapItems : []) {
-                MapMarker(coordinate: $0.coordinate, tint: .teal)
-            }
-            .frame(height: UIScreen.main.bounds.height * 0.45)
-        }
-        .overlay (
-            viewModel.businessDetails != nil ? DetailCard(businessDetail: viewModel.businessDetails!) : nil,
-            alignment: .bottom
-        )
-        .overlay(alignment: .topLeading, content: {
-            CircleButton {
-                withAnimation {
-                    selectedBusiness = nil
+                Map(coordinateRegion: $homeVM.region, annotationItems: homeVM.businessDetails != nil ? homeVM.businessDetails!.mapItems : []) {
+                    MapMarker(coordinate: $0.coordinate, tint: .teal)
                 }
-                withAnimation(.spring()) {
-                    press = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        press = false
+                .frame(height: UIScreen.main.bounds.height * 0.45)
+            }
+            .overlay (
+                homeVM.businessDetails != nil ? DetailCard(businessDetail: homeVM.businessDetails!) : nil,
+                alignment: .bottom
+            )
+            .ignoresSafeArea(edges: [.top, .bottom])
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    CircleButton {
+                        withAnimation {
+                            selectedBusiness = nil
+                        }
+                        withAnimation(.spring()) {
+                            press = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                press = false
+                            }
+                        }
                     }
+                    .scaleEffect(press ? 1.2 : 1)
+                    .padding(.top, .xxLarge)
+                    .padding(.leading, .medium)
                 }
+            })
+            .onAppear {
+                homeVM.requestDetails(forID: id)
             }
-            .scaleEffect(press ? 1.2 : 1)
-            .padding(.top, .xxLarge)
-            .padding(.leading, .medium)
-        })
-        .ignoresSafeArea(edges: [.top, .bottom])
-        .onAppear {
-            viewModel.requestDetails(forID: id)
         }
     }
 }

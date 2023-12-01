@@ -82,6 +82,18 @@ extension View {
             self
         }
     }
+    
+    /// Performs work based on the value of a boolean argument.
+    ///
+    /// - Parameters:
+    ///   - condition: The boolean value determining whether to perform the work.
+    ///   - work: The closure containing the work to be performed.
+    /// - Returns: A modified version of the view.
+    func performWorkIf(_ condition: Bool, _ work: () -> Void) {
+        if condition {
+            work()
+        }
+    }
 }
 
 //MARK: UI View Extensions
@@ -139,7 +151,8 @@ extension View {
             HStack {
                 placeholder().opacity(shouldShow ? 1 : 0)
                 Spacer()
-                Image(systemName: systemImageName).renderingMode(.original).opacity(shouldShow ? 1 : 0)
+//                Image(systemName: systemImageName).renderingMode(.original).opacity(shouldShow ? 1 : 0)
+                TextfieldIcon(iconName: systemImageName, passedImage: .constant(nil), currentlyEditing: .constant(false)).opacity(shouldShow ? 1 : 0)
             }
             self
         }

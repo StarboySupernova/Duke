@@ -10,7 +10,7 @@ import RiveRuntime
 
 struct VerticalTabBar: View {
     @EnvironmentObject var straddleScreen: StraddleScreen
-    @Binding var verticalTabSelection: VerticalTab
+    @Binding var verticalTabSelection: Tab
     @Binding var selectedMenu: SelectedMenu
     
     var body: some View {
@@ -87,12 +87,76 @@ struct VerticalTabBar_Previews: PreviewProvider {
     }
 }
 
+struct HorizontalTabBar: View {
+    @EnvironmentObject var straddleScreen: StraddleScreen
+    @Binding var horizontalTabSelection: Tab
+    @Binding var selectedMenu: SelectedMenu
+
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                content
+            }
+            .frame(maxWidth: .infinity)
+            .padding(12)
+            .background(Color("Background 2").opacity(0.8))
+            .background(.ultraThinMaterial)
+            .mask(RoundedRectangle(cornerRadius: 26, style: .continuous))
+            .shadow(color: Color("Background 2").opacity(0.3), radius: 20, x: 0, y: 20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 26, style: .continuous)
+                    .stroke(.linearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .topLeading, endPoint: .bottomTrailing))
+            )
+            .padding(.horizontal, 24)
+            .offset(y: straddleScreen.isHidden ? 3000 : 0)
+        }
+    }
+
+    var content: some View {
+        ForEach(tabItems) { item in
+            Button {
+                try? item.icon.setInput("active", value: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    try? item.icon.setInput("active", value: false)
+                }
+                withAnimation {
+                    horizontalTabSelection = item.tab
+                }
+                withAnimation {
+                    selectedMenu = .horizontalContent
+                }
+            } label: {
+                item.icon.view()
+                    .frame(width: 36, height: 36)
+                    .frame(maxWidth: .infinity)
+                    .opacity(horizontalTabSelection == item.tab ? 1 : 0.5)
+                    .background(
+                        VStack {
+                            RoundedRectangle(cornerRadius: 2)
+                                .frame(width: horizontalTabSelection == item.tab ? 20 : 0, height: 4)
+                                .offset(y: -4)
+                                .opacity(horizontalTabSelection == item.tab ? 1 : 0)
+                            Spacer()
+                        }
+                    )
+            }
+            .foregroundStyle(horizontalTabSelection == item.tab ? Color("pink") : .white)
+        }
+    }
+}
+
+struct HorizontalTabBar_Previews: PreviewProvider {
+    static var previews: some View {
+        HorizontalTabBar(horizontalTabSelection: .constant(.chat), selectedMenu: .constant(.home))
+    }
+}
 
 
 struct TabItem: Identifiable {
     var id = UUID()
     var icon: RiveViewModel
-    var tab: VerticalTab
+    var tab: Tab
 }
 
 var tabItems = [
@@ -100,13 +164,15 @@ var tabItems = [
     TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "SEARCH_Interactivity", artboardName: "SEARCH"), tab: .search),
     TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "STAR_Interactivity", artboardName: "LIKE/STAR"), tab: .favourites),
     TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "USER_Interactivity", artboardName: "USER"), tab: .user),
+    TabItem(icon: RiveViewModel(fileName: "icons", stateMachineName: "HOME_interactivity", artboardName: "HOME"), tab: .home),
 ]
 
-enum VerticalTab: String {
+enum Tab: String {
     case chat
     case search
     case favourites
     case user
+    case home
 }
 
 

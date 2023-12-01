@@ -264,6 +264,15 @@ struct PermissionView: View {
             }
             .frame(maxWidth: getRect().width * 0.95)
         }
+        .background(
+            Image("img_waves_1146x768")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.height,
+                       alignment: .topLeading)
+                .scaledToFit()
+                .clipped()
+        )
 //        .background(
 //            HeroParallaxView()
 //                .opacity(0.9)

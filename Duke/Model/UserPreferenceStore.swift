@@ -15,7 +15,7 @@ class UserPreference: ObservableObject, Codable {
     //view model will handle storage to UserDefaults
     //use of Dictionary values looking likely, but this will be determined later
     //some properties to be moved to UserPreferenceModel https://paulallies.medium.com/swiftui-mvvm-a1e7a18f4f03
-    var id: String = UserDefaults.retrieveUserID() //checks different IDs in UseDefaults and return specific user data for each user. Logic may cause issues in future
+    var id: String = UUID().uuidString 
     var halaal: Bool = false
     var haram: Bool = false
     var pork: Bool = false
@@ -171,6 +171,7 @@ extension UserPreference {
         return boolProperties
     }
     
+    #warning("Modify this to add new Cuisine options from a String that the user types in. After adding the new property, then assign Binding to it. Implementation Priority - low")
     func assignBoolBinding(for propertyToFind: String) -> Binding<Bool> {
         
         let mirror = Mirror(reflecting: self)

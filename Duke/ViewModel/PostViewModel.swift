@@ -56,7 +56,10 @@ class PostViewModel: ObservableObject {
                 updatedPost.id = doc.documentID
                 onPost(updatedPost)
                 showSuccessAlertView("✔️", "Success", handler: {})
+            } else {
+                showErrorAlertView("Error", error!.localizedDescription, handler: { return })
             }
         })
     }
 }
+

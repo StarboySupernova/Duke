@@ -13,14 +13,10 @@ struct ProfileView: View {
     @State private var isLoading: Bool = false //rename to processing
     var body: some View {
         VStack {
-            MenuBar()
-                .background (Color.pink.opacity(0.3))
-                .customCornerRadius(10, corners: [.topLeft, .bottomRight])
-#warning("find more elegant implementation here & restrict to safe area insets")
-            
+//#warning("find more elegant implementation here & restrict to safe area insets") - resolved
             ZStack {
-                if loginVM.myProfile != nil {
-                    ReusableProfileContent(user: loginVM.myProfile! /*?? User(userName: "Jon", userBio: "Sales", userBioLink: "jon@twitter.com", userUID: "jon", userEmail: "jon@gmail.com")*/)
+                if loginVM.myProfile == nil {
+                    ReusableProfileContent(user: loginVM.myProfile ?? User(userName: "Jon", userBio: "Sales", userBioLink: "jon@twitter.com", userUID: "jon", userEmail: "jon@gmail.com"))
                         .refreshable {
                             loginVM.myProfile = nil
                             do {
@@ -36,6 +32,17 @@ struct ProfileView: View {
             }
         }
         .padding(.top, .small)
+        .safeAreaInset(edge: .top, content: {
+            MenuBar()
+                .background(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.white.opacity(0.2))
+                        .background(Color("secondaryBackground").opacity(0.5))
+                        .background(VisualEffectBlur(blurStyle: .dark))
+                        .shadow(color: Color("shadowColor").opacity(0.5), radius: 60, x: 0, y: 30)
+                )
+                .customCornerRadius(10, corners: [.topLeft, .bottomRight])
+        })
         .overlay {
             LoadingView(show: $isLoading)
         }

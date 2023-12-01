@@ -34,7 +34,7 @@ struct DetailCard: View {
                     
                     Group {
                         HStack {
-                            Image("map")
+                            Image("map") //should include open map button on the space at the bottom
                             Button {
                                 navigate()
                             } label: {
@@ -100,11 +100,11 @@ struct DetailCard: View {
                                            bottomRight: 16.0)
                     .fill(Color.black))
             }
-            .overlay(RoundedCorners(topRight: 30.0, bottomLeft: 40.0,
+            .overlay(RoundedCorners(topRight: 0.0, bottomLeft: 40.0,
                                     bottomRight: 40.0)
                 .stroke(Color.white.opacity(0.2),
                         lineWidth: 1))
-            .background(RoundedCorners(topRight: 30.0, bottomLeft: 40.0,
+            .background(RoundedCorners(topRight: 50.0, bottomLeft: 40.0,
                                        bottomRight: 40.0)
                 .fill(Color.black.opacity(0.1)))
             .shadow(radius: 40)

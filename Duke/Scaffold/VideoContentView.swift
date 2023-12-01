@@ -9,6 +9,7 @@ import Aespa
 import SwiftUI
 
 struct VideoContentView: View {
+    @EnvironmentObject var straddleScreen: StraddleScreen
     @State var isRecording = false
     @State var isFront = false
     
@@ -115,6 +116,16 @@ struct VideoContentView: View {
         }
         .sheet(isPresented: $showGallery) {
             GalleryView(mediaType: $captureMode, contentViewModel: viewModel)
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                straddleScreen.isHidden = true
+            }
+        }
+        .onDisappear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                straddleScreen.isHidden = false
+            }
         }
     }
 }

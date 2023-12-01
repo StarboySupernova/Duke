@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CustomPopUpSheetBar: View {
-    @State var symbolName: String = "person.fill"
+    @State var symbolName: String = "questionmark.key.filled" //chnage this based  on sign-in status
     @State var action: () -> Void
     
-    var backgroundColors: [Color] = [Color("purple"),Color("lightBlue"), Color("pink")]
+    var backgroundColors: [Color] = [Color("purple"),Color("lightBlue"), Color(hex: "17203A")]
     var gradientCircle: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
     
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
@@ -26,14 +26,11 @@ struct CustomPopUpSheetBar: View {
     
     var body: some View {
         GeometryReader { geometry in
-//            let width = geometry.size.width
-//            let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-            
             ZStack {
                 // MARK: Arc Shape
                 Arc()
                     .fill(LinearGradient(colors: backgroundColors, startPoint: .leading, endPoint: .trailing))
-                    .frame(height: getRect().height * 0.1)
+                    .frame(height: getRect().height * 0.12)
                     .innerShadow(shape: Arc(), color: Color.bottomSheetBorderMiddle, lineWidth: 2, offsetX: 0, offsetY: 2, blur: 0, blendMode: .overlay, opacity: 1)
                     .overlay {
                         // MARK: Arc Border
@@ -49,41 +46,41 @@ struct CustomPopUpSheetBar: View {
                     .zIndex(-1)
                 
                 circleTabButton
+                    .padding(.bottom, getRect().height * 0.075)
             }
             
             
         }
-        .frame(height: getRect().height * 0.1)
+        .frame(height: getRect().height * 0.12)
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
     var circleTabButton: some View {
-        HStack(spacing: 0.0) {
-            Button {
-                withAnimation(.easeInOut) {
-                    action()
-                }
-                
-                withAnimation(.spring()) {
-                    press = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        press = false
-                    }
-                }
-                
-            } label: {
-                Image(systemName: "square.3.layers.3d.bottom.filled")
-                    .renderingMode(.original)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.white)
-                    .offset(y: -17)
+        Button {
+            withAnimation(.easeInOut) {
+                action()
             }
-            .scaleEffect(press ? 1.2 : 1)
+            
+            withAnimation(.spring()) {
+                press = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    press = false
+                }
+            }
+            
+        } label: {
+            Image(systemName: symbolName)
+                .renderingMode(.original)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .offset(y: -17)
+                .opacity(0)
+            #warning("come back and fix this opacity issue")
         }
-        .frame(maxWidth: .infinity)
+        .scaleEffect(press ? 1.2 : 1)
         .background(Circle()
             .fill(.ultraThinMaterial)
-            .frame(width: 80, height: 80)
+            .frame(width: 50, height: 50)
             .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
             .offset(y: -17)
             .overlay(
@@ -91,10 +88,17 @@ struct CustomPopUpSheetBar: View {
                     .trim(from: 0, to: CGFloat(0.5))
                     .stroke(LinearGradient(colors: gradientCircle, startPoint: press ? .bottom : .top, endPoint: press ? .top : .bottom), style: StrokeStyle(lineWidth: 2))
                     .rotationEffect(.degrees(135))
-                    .frame(width: 78, height: 78)
+                    .frame(width: 58, height: 58)
                     .offset(y: -17)
                     .scaleEffect(press ? 1.2 : 1)
-            ), alignment: .center)
+                    .overlay(content: {
+                        Image(systemName: "square.3.layers.3d.bottom.filled")
+                            .renderingMode(.original)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .offset(y: -17)
+                    })
+            ), alignment: .trailing)
     }
 }
 

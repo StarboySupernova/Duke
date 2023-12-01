@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    //internal employee login credentials
-    //@State private var password: String = ""
-    //@State private var email : String = ""
+    
     @State private var createAccount : Bool = false
     @State private var isLoading : Bool = false
     @EnvironmentObject var loginVM: UserViewModel
@@ -19,12 +17,12 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Let's Sign you in")
+            GradientText(text: "Let's Sign you in")
                 .foregroundColor(.white)
                 .font(.largeTitle.bold())
                 .horizontalAlign(.leading)
             
-            Text("Welcome Back")
+            GradientText(text: "Welcome Back")
                 .foregroundColor(.white)
                 .font(.title3)
                 .horizontalAlign(.leading)
@@ -48,24 +46,19 @@ struct LoginView: View {
                     Text("Reset Password?")
                         .foregroundColor(.white)
                         .font(.callout)
-                        .fontWeight(.medium)
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
                         .tint(.white)
                         .horizontalAlign(.trailing)
                 }
                 
-                Button {
+                
+                GradientButton(buttonTitle: "Sign In") {
                     isLoading = true
                     closeKeyboard()
                     loginVM.internalLogin()
                     isLoading = false
-                } label: {
-                    Text("Sign In")
-                        .foregroundColor(.white)
-                        .horizontalAlign(.center)
-                        .fillView(.pink)
                 }
                 .padding(.top, .medium)
-                
             }
             
             HStack {

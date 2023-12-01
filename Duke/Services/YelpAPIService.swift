@@ -116,7 +116,7 @@ struct SearchResult: Codable {
 }
 
 // MARK: - Business
-struct Business: Codable {
+struct Business: Codable, Identifiable {
     let alias: String?
     let categories: [Category]?
     let coordinates: Coordinates?

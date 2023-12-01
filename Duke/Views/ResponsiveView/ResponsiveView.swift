@@ -50,6 +50,6 @@ struct ResponsiveView<Content:View> : View {
 
 struct ResponsiveView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home))
+        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true))
     }
 }

@@ -49,26 +49,26 @@ struct SideMenu: View {
             
             Spacer()
             
-            HStack(spacing: 14) {
-                menuItems3[0].icon.view()
-                    .frame(width: 32, height: 32)
-                    .opacity(0.6)
-                    .onChange(of: isDarkMode) { newValue in
-                        if newValue {
-                            try? menuItems3[0].icon.setInput("active", value: true)
-                        } else {
-                            try? menuItems3[0].icon.setInput("active", value: false)
-                        }
-                    }
-                Text(menuItems3[0].text)
-                
-                Toggle("", isOn: $isDarkMode)
-            }
-            .font(.headline)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(12)
-            .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .padding(8)
+//            HStack(spacing: 14) {
+//                menuItems3[0].icon.view()
+//                    .frame(width: 32, height: 32)
+//                    .opacity(0.6)
+//                    .onChange(of: isDarkMode) { newValue in
+//                        if newValue {
+//                            try? menuItems3[0].icon.setInput("active", value: true)
+//                        } else {
+//                            try? menuItems3[0].icon.setInput("active", value: false)
+//                        }
+//                    }
+//                Text(menuItems3[0].text)
+//                
+//                Toggle("", isOn: $isDarkMode)
+//            }
+//            .font(.headline)
+//            .frame(maxWidth: .infinity, alignment: .leading)
+//            .padding(12)
+//            .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
+//            .padding(8)
         }
         .foregroundColor(.white)
         .frame(maxWidth: 288, maxHeight: .infinity)
@@ -181,7 +181,7 @@ var menuItems = [
 
 var menuItems2 = [
     MenuItem(text: "Create", icon: RiveViewModel(fileName: "icons", stateMachineName: "CHAT_Interactivity", artboardName: "CHAT"), menu: .create),
-    MenuItem(text: "Notifications", icon: RiveViewModel(fileName: "icons", stateMachineName: "BELL_Interactivity", artboardName: "BELL"), menu: .notifications)
+    MenuItem(text: "Settings", icon: RiveViewModel(fileName: "icons", stateMachineName: "SETTINGS_Interactivity", artboardName: "SETTINGS"), menu: .settings)
 ]
 
 var menuItems3 = [
@@ -194,5 +194,8 @@ enum SelectedMenu: String {
     case create
     case notifications //to set alarms for bookings and keep a record of authentications
     case verticalContent //views managed by VerticalTabBar
+    case horizontalContent
     case darkmode
+    case settings
+    case favourites
 }

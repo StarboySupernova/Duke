@@ -183,7 +183,7 @@ struct UserPostCardView: View {
                     ])
                 } else {
                     //Adding userUID to downvote array and removing from upvote, if user had made a prior upvote
-                    try await Firestore.firestore().collection("Posts").document(postID).updateData([// may have structured my db differently from tut here
+                    try await Firestore.firestore().collection("Posts").document(postID).updateData([
                         "upvoteIDs" : FieldValue.arrayRemove([userUID]),
                         "downvoteIDs" : FieldValue.arrayUnion([userUID])
                     ])

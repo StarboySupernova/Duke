@@ -18,16 +18,17 @@ struct RegistrationView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Let's Register a new account for you")
+            GradientText(text: "Let's Register a new account for you")
                 .font(.headline.bold())
                 .horizontalAlign(.leading)
             
-            Text("Onboarding")
+            GradientText(text: "Onboarding")
                 .font(.title3)
                 .horizontalAlign(.leading)
             
             ScrollView(getRect().height < 750 ? .vertical : .init(), showsIndicators: true) {
                 Spacer()
+                    .frame(height: .xLarge)
                 HelperView()
             }
             
@@ -68,6 +69,10 @@ struct RegistrationView: View {
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
                         .padding()
+                        .background(
+                            Circle()
+                                .stroke(LinearGradient(gradient: .init(colors: [Color(#colorLiteral(red: 0.6196078431, green: 0.6784313725, blue: 1, alpha: 1)), Color(#colorLiteral(red: 1, green: 0.5607843137, blue: 0.9803921569, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                        )
                         .onTapGesture {
                             isShowingPhotoPicker = true
                         }
@@ -86,7 +91,7 @@ struct RegistrationView: View {
                         )
                         .background(Image("Background").opacity(0.5))
                         .modifier(CompactConcaveGlassView())
-                        .glow(color: Color("pink"), radius: 3) //gradient here
+                        .glow(color: Color("pink"), radius: 3)
                         .onTapGesture {
                             isShowingPhotoPicker = true
                         }
@@ -107,7 +112,7 @@ struct RegistrationView: View {
                 })
                 .disableAutocorrection(true)
                 .textContentType(.username)
-                //.autocorrectionDisabled(true) ? not entirely sure why this is throwing an error
+                .disableAutocorrection(true)
                 .paddedBorder(.gray.opacity(0.5), 1)
                 .padding(.top, .xLarge)
 
@@ -128,34 +133,22 @@ struct RegistrationView: View {
                 .paddedBorder(.gray.opacity(0.5), 1)
             
             TextField("", text: $userVM.userBio)
-                .placeholder(when: userVM.userBio.isEmpty, placeholder: {
+                .placeholder(when: userVM.userBio.isEmpty,systemImageName: "pencil.and.outline", placeholder: {
                     Text("Bio (Optional)").foregroundColor(.offWhite)
                 })
                 .textContentType(.jobTitle)
                 .paddedBorder(.gray.opacity(0.5), 1)
             
-            #warning("should completely remove link to socilas option, as we have our own implementation")
-            TextField("", text: $userVM.userBioLink)
-                .placeholder(when: userVM.userBioLink.isEmpty, placeholder: {
-                    Text("Link to Socials (Optional)").foregroundColor(.offWhite)
-                })
-                .textContentType(.URL)
-                .paddedBorder(.gray.opacity(0.5), 1)
-                            
-            Button {
+            #warning("re-add link/website here")
+                                        
+            GradientButton(buttonTitle: "Sign  Up") {
                 isLoading = true
                 closeKeyboard()
                 userVM.internalRegistration()
                 isLoading = false
                 dismiss()
-            } label: {
-                Text("Sign Up")
-                    .foregroundColor(.white)
-                    .horizontalAlign(.center)
-                    .fillView(.pink)
             }
             .disableWithOpacity(userVM.userName == "" || userVM.email == "" || userVM.password == "")
-            .padding(.top, .medium)
         }
     }
 }

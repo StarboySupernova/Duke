@@ -119,21 +119,21 @@ struct CircleButton: View {
     @State var image: String = "arrow.left"
     @State var action: () ->Void
     
-    var gradient: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
-    
+    var selectedBorderColors: [Color] = [Color("pink"), Color("pink").opacity(0), Color("pink").opacity(0)]
+
     var body: some View {
         Button {
             action()
         } label: {
             Image(systemName: image)
                 .frame(width: 44, height: 44)
-                .background(.ultraThinMaterial)
                 .foregroundColor(.white)
+                .background(LinearGradient(colors: [Color("majenta"), Color("purple")], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .cornerRadius(30)
                 .overlay(
                     Circle()
                         .trim(from: 0, to: CGFloat(0.5))
-                        .stroke(LinearGradient(colors: gradient, startPoint: .top, endPoint: .bottom), style: StrokeStyle(lineWidth: 2))
+                        .stroke(LinearGradient(colors: selectedBorderColors, startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 2))
                         .rotationEffect(.degrees(135))
                         .frame(width: 42, height: 42)
                 )
@@ -282,13 +282,80 @@ func iOS16Buttons(_ press: Binding<Bool>, action: @escaping () -> ()) -> some Vi
     .offset(y: -100)
 }
 
+struct FloatingButton: View {
+    @State private var smallbuttonText: String = ""
+
+    var body: some View {
+        HStack {
+            Spacer()
+            Image("img_group_white_a700")
+                .resizable()
+                .frame(width: getRelativeWidth(20.0),
+                       height: getRelativeHeight(18.0),
+                       alignment: .center)
+                .scaledToFit()
+                .clipped()
+                .padding(.vertical, getRelativeHeight(13.0))
+                .padding(.leading, getRelativeWidth(14.0))
+                .padding(.trailing, getRelativeWidth(10.0))
+            TextField(StringConstants.kMsgMoreFigmaTuto,
+                      text: $smallbuttonText)
+            .font(FontScheme
+                .kRobotoCondensedRegular(size: getRelativeHeight(15.0)))
+            .foregroundColor(ColorConstants.WhiteA700)
+            .padding()
+        }
+        .frame(width: getRelativeWidth(220.0),
+               height: getRelativeHeight(44.0), alignment: .center)
+        .overlay(RoundedCorners(topLeft: 22.0, topRight: 22.0,
+                                bottomLeft: 22.0, bottomRight: 22.0)
+            .stroke(ColorConstants.Black9004c,
+                    lineWidth: 1))
+        .background(RoundedCorners(topLeft: 22.0, topRight: 22.0,
+                                   bottomLeft: 22.0, bottomRight: 22.0)
+            .fill(LinearGradient(gradient: Gradient(colors: [ColorConstants
+                .Bluegray9007f,
+                                                             ColorConstants
+                .Bluegray9007f]),
+                                 startPoint: .topLeading,
+                                 endPoint: .bottomTrailing)))
+        .shadow(color: ColorConstants.Black90026, radius: 40, x: 0,
+                y: 20)
+        .padding(.top, getRelativeHeight(12.0))
+        .padding(.horizontal, getRelativeWidth(48.0))
+    }
+}
+
 struct SelectionButton_Previews: PreviewProvider {
     static var previews: some View {
         SelectionButton(buttonText: "Test Button", isSelected: .constant(false))
             .preferredColorScheme(.dark)
         iOS16Buttons(.constant(false), action: {})
             .preferredColorScheme(.dark)
+        CircleButton(action: {})
+            .preferredColorScheme(.dark)
+        TimeButton(isSelected: .constant(false))
+            .preferredColorScheme(.dark)
     }
+}
+
+@ViewBuilder func StandardBackButton(action: () -> Void) -> some View {
+    VStack(alignment: .leading, spacing: 12) {
+        Button {
+            
+        } label: {
+            Label {
+                Text("Back")
+                    .fontWeight(.semibold)
+            } icon: {
+                Image(systemName: "chevron.left")
+                    .font(.title2.bold())
+            }
+            .foregroundColor(.primary)
+        }
+    }
+    .frame(width: .infinity, alignment: .leading)
+    .padding()
 }
 
 

@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 struct User: Identifiable, Codable {
     @DocumentID var id : String?
     var userName: String
-    var userBio : String //substitution for userBio
+    var userBio : String 
     var userBioLink: String
     var userUID: String
     var userEmail : String

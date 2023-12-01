@@ -163,7 +163,7 @@ struct SideBar: View {
 struct SideBar_Previews: PreviewProvider {
     static var previews: some View {
         //BookingView()
-        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home))
+        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true))
             .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
     }

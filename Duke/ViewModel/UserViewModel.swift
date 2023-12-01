@@ -20,7 +20,8 @@ class UserViewModel : ObservableObject {
     @Published var userName: String = ""
     //internal employee details
     @Published var userBio : String = ""
-    @Published var userBioLink: String = ""
+    #warning("userBioLink now in disuse. Should remove from Firebase backend")
+    @Published var userBioLink: String = "" //MARK:
     
     //sign-in status
     @Published var sign_in_status: Bool = false

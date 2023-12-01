@@ -15,8 +15,9 @@ struct BusinessCell: View {
         ZStack(alignment: .bottom) {
             // MARK: Trapezoid
             Trapezoid()
-                .fill(Color.red) //weatherWidgetBackground
+                .fill(Color("Background 2")) 
                 .frame(width: getRect().width * 0.95, height: 130)
+                
             
             // MARK: Content
             HStack(alignment: .bottom) {

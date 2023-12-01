@@ -10,9 +10,10 @@ import SwiftUI
 
 class StraddleScreen: ObservableObject {
     @Published var isStraddling: Bool = false
+    @Published var isHidden: Bool =  false //to handle menu button's visibility
 }
 
-struct StraddleScreenModifier: ViewModifier {
+struct StraddleScreenModifier: ViewModifier {    
     func body(content: Content) -> some View {
         GeometryReader { geometry in
             content

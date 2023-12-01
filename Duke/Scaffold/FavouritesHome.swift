@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FavouritesHome: View {
+    @EnvironmentObject var homeViewModel: HomeViewModel
     //MARK: View Bounds
     var size: CGSize
     var safeArea : EdgeInsets
@@ -18,25 +19,18 @@ struct FavouritesHome: View {
     @StateObject var animator : Animator = .init()
     
     var body: some View {
+        #warning("this view should be re-used, with wholesale upgrades and modifications, such that it is capable of handling bookings, with the price, restaurant menu, order, and payment being housed and displayed here")
         VStack(spacing: 0) {
             HeaderView()
                 .overlay(alignment: .bottomTrailing, content: {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.title3)
-                            //.fontWeight(.semibold)
-                            .foregroundColor(.gray)
-                            .frame(width: .xxxLarge, height: .xxxLarge)
-                            .background(
-                                Ellipse()
-                                    .fill(.white)
-                                    .shadow(color: .black.opacity(0.35), radius: 5, x: 5, y: 5)
-                            )
+                    CircleButton(image: "arrow.clockwise" ) {
+                        withAnimation {
+                            currentCardIndex = 0
+                        }
                     }
+                    .glow(color: .pink, radius: 5)
                     .offset(x: -.large, y: .large)
-                    .offset(x: animator.startAnimation ? 80 : 0)
+                    .offset(x: animator.startAnimation ? 800 : 0)
                 })
                 .zIndex(1)
             FavouritesCardView()
@@ -125,6 +119,7 @@ struct FavouritesHome: View {
                 }
             }
         }
+        
     }
     
     func makeBookingPurchase () {
@@ -199,8 +194,11 @@ struct FavouritesHome: View {
     }
     
     @ViewBuilder func HeaderView () -> some View {
+        var headerImages: [String] = ["pancakes", "breakfast","cooking", "eating", "groceries", "ice-cream"]
+        let trendingBusinesses = homeViewModel.businesses.randomSelection(count: 5)
+        
         VStack {
-            Image("pancakes")
+            Image(headerImages.randomElement()!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: size.width * 0.4)
@@ -208,7 +206,7 @@ struct FavouritesHome: View {
             
             HStack {
                 #warning("create scroll like effect here")
-                BookedVenueView(place: "The Icarus", code: "JHB", time: "17:30", categories: ["Greek", "Vegan"])
+                BookedVenueView()
                 
                 VStack {
                     Image(systemName: "chevron.left")
@@ -220,7 +218,7 @@ struct FavouritesHome: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 
-                BookedVenueView(alignment: .trailing, place: "Dionysius Cafe", code: "CPT", time: "14:30", categories: ["Local Micro Brew",]).opacity(0.5)
+                BookedVenueView(alignment: .trailing)
             }
             .padding(.top, .xLarge)
             
@@ -238,7 +236,7 @@ struct FavouritesHome: View {
         .padding(.top, safeArea.top)
         .background (
             Rectangle()
-                .fill(.linearGradient(colors: [.purple, .purple, .pink], startPoint: .top, endPoint: .bottom))
+                .fill(.linearGradient(colors: [Color("settingsBackground"), Color("settingsBackground"), .pink], startPoint: .top, endPoint: .bottom))
         )
         .rotation3DEffect(.init(degrees: animator.startAnimation ? 90.0 : 0.0), axis: (x: 1, y: 0, z: 0), anchor: UnitPoint(x: 0.5, y: 0.8))
         .offset(y: animator.startAnimation ? -100 : 0)
@@ -246,6 +244,7 @@ struct FavouritesHome: View {
     
     @ViewBuilder func FavouritesCardView () -> some View {
         VStack {
+            #warning("if user has no favourites, show trending below")
             Text("Favourites")
                 .font(.caption)
                 .fontWeight(.semibold)
@@ -276,19 +275,8 @@ struct FavouritesHome: View {
                     .allowsHitTesting(false) //users need to interact with underlying views
                 
                 #warning("when user clicks on one past favourite restaurant, they can rebook without going through the payment walkthrough")
-                Button {
+                GradientButton(buttonTitle: "Purchase Membership") { //ADD PRICE FROM FAVOURITE RESTAURANT CARD
                     makeBookingPurchase()
-                } label: {
-                    Text("Confirm Booking") //ADD PRICE FROM FAVOURITE RESTAURANT CARD
-                        .font(.callout)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, .xxLarge)
-                        .padding(.vertical, .medium)
-                        .background(
-                            Capsule()
-                                .fill(LinearGradient(mycolors: .purple, .pink, .purple))
-                        )
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 .padding(.bottom, safeArea.bottom == 0 ? .large : safeArea.bottom)
@@ -317,7 +305,7 @@ struct FavouritesHome: View {
                     }
                 }
         )
-        .background(Color.white.ignoresSafeArea())
+        .background(Color("settingsBackground").ignoresSafeArea())
         .clipped()
         .rotation3DEffect(.init(degrees: animator.startAnimation ? -90.0 : 0.0), axis: (x: 1, y: 0, z: 0), anchor: UnitPoint(x: 0.5, y: 0.25))
         .offset(y: animator.startAnimation ? 100 : 0)
@@ -379,40 +367,69 @@ struct CloudView: View {
 
 #warning("code string value here should come from Firebase")
 struct BookedVenueView : View {
+    @EnvironmentObject var homeVM: HomeViewModel
     var alignment: HorizontalAlignment = .leading
-    var place: String
-    var code: String
-    var time: String
-    var categories : [String] = []
+    @State private var business: Business?
+    @State private var isActive: Bool = false
     
     var body: some View {
         VStack {
-            Text(place)
+            Text(business?.formattedName ?? "Duke")
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
             
             Divider()
             
             HStack {
-                ForEach(categories, id: \.self){ text in
-                    Text("|  " + text + ".")
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .truncationMode(.tail)
-                        .multilineTextAlignment(.center)
+                if business?.categories != nil {
+                    ForEach(business!.categories!, id: \.title){ category in
+                        Text("|  " + category.title! + ".")
+                            .font(.caption)
+                            .foregroundColor(.white)
+                            .truncationMode(.tail)
+                            .multilineTextAlignment(.center)
+                    }
                 }
+                
             }
             
-            Text(code)
+            Text(business?.location?.city ?? "Johannesburg")
                 .font(.title)
                 .foregroundColor(.white)
             
-            Text(time)
+            Text(business?.formattedRating ?? "5 stars")
+                .font(.title)
+                .foregroundColor(.white)
+            
+            Text(formattedDate())
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
         }
         .frame(maxWidth: .infinity)
+        .onAppear{
+            isActive = true
+        }
     }
+   
+    func runLoop() {
+            DispatchQueue.global().async {
+                while isActive {
+                    for randomBusiness in homeVM.businesses.randomSelection(count: 5) {
+                        if !isActive {
+                            break
+                        }
+
+                        DispatchQueue.main.async {
+                            withAnimation {
+                                business = randomBusiness
+                            }
+                        }
+
+                        Thread.sleep(forTimeInterval: 5.0)
+                    }
+                }
+            }
+        }
 }
 
 struct PaymentDetailView: View {
@@ -428,12 +445,12 @@ struct PaymentDetailView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100)
                     
-                    Text("Your order has been submitted successfully")
+                    Text("Success!")
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .padding(.top, .medium)
                     
-                    Text("Check your inbox for order confirmation")
+                    Text("Subscription processed successfully")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
@@ -446,8 +463,8 @@ struct PaymentDetailView: View {
                 )
                 
                 HStack {
-                    #warning("create scroll like effect here")
-                    BookedVenueView(place: "The Icarus", code: "JHB", time: "17:30", categories: ["Greek", "Vegan"])
+                    #warning("create scroll-like effect here")
+                    BookedVenueView()
 
                     VStack {
                         Image(systemName: "chevron.left")
@@ -459,7 +476,7 @@ struct PaymentDetailView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     
-                    BookedVenueView(alignment: .trailing, place: "Dionysius Cafe", code: "CPT", time: "14:30", categories: ["Local Micro Brew",]).opacity(0.5)
+                    BookedVenueView(alignment: .trailing).opacity(0.5)
                 }
                 .padding(.large)
                 .padding(.bottom, 70)
@@ -475,7 +492,7 @@ struct PaymentDetailView: View {
             .offset(y: animator.showFinalView ? 0 : 300)
             .background(
                 Rectangle()
-                    .fill(.pink)
+                    .fill(Color("settingsBackground"))
                     .scaleEffect(y: animator.showFinalView ? 1 : 0.001, anchor: .top)
                     .padding(.bottom, 80)
             )
@@ -514,7 +531,7 @@ struct PaymentDetailView: View {
     @ViewBuilder func AccountInformationView () -> some View {
         VStack(spacing: .large) {
             HStack {
-                #warning("Include ambience and time information here")
+                #warning("Include ambience and time information here. Ambience being a Firebase db option entered by restauranteurs")
                 OrderInformationView(title: "Venue", subtitle: "The Icarus")
                 OrderInformationView(title: "Cuisine", subtitle: "Greek")
                 OrderInformationView(title: "Meal", subtitle: "Taramasalata")
@@ -538,18 +555,8 @@ struct PaymentDetailView: View {
             .padding(.top, .xLarge)
             .padding(.leading, .large)
 
-            Button {
+            GradientButton(buttonTitle: "Home") {
                 resetAnimationAndView()
-            } label: {
-                Text("Home")
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, .xxLarge)
-                    .padding(.vertical, .medium)
-                    .background(
-                        Capsule()
-                            .fill(.linearGradient(colors: [.purple, .purple, .pink], startPoint: .top, endPoint: .bottom))
-                    )
             }
             .padding(.top, .large)
             .frame(maxHeight: .infinity, alignment: .bottom)
@@ -597,6 +604,15 @@ class Animator : ObservableObject {
     @Published var showLoadingView : Bool = false
     @Published var showClouds : Bool = false
     @Published var showFinalView: Bool = false
+}
+
+func formattedDate() -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .long
+
+    let formattedDate = dateFormatter.string(from: Date())
+    return formattedDate
 }
 
 //MARK: Anchor Preference Key
