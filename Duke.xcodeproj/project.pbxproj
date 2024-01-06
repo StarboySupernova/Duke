@@ -287,7 +287,6 @@
 		C9C39AED2947EDD00036874D /* ExtensionOnUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnUserDefaults.swift; sourceTree = "<group>"; };
 		C9C39AEE2947EDD10036874D /* ExtensionOnImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnImage.swift; sourceTree = "<group>"; };
 		C9C39AEF2947EDD10036874D /* ExtensionOnEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOnEncodable.swift; sourceTree = "<group>"; };
-		C9C4E5F029EC7C5900131E97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C9CE33822B0F5FB200B97192 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C9CEA6A92AEC9B2E0093C516 /* HorizontalTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabBar.swift; sourceTree = "<group>"; };
 		C9CEDAA2297C7C7E0013C87A /* PaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
@@ -357,7 +356,6 @@
 				C9090210293AB2320050E808 /* DukeApp.swift */,
 				C98EED852B11DB6F006F7785 /* AppDelegate+Injection.swift */,
 				C937A1FF2962463200B36856 /* GoogleService-Info.plist */,
-				C9C4E5F029EC7C5900131E97 /* Info.plist */,
 				C98B5CE72971C4B400086457 /* Scaffold */,
 				C9FFE4FD294286D300DE106F /* Views */,
 				C96B70722962C188009B3444 /* Model */,
@@ -1070,8 +1068,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Duke requests camera access for media sharing, and to allow you to create your moments";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Duke requests Photo library permissions to allow gallery functionality for media sharing";
@@ -1106,8 +1105,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Duke/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Duke requests camera access for media sharing, and to allow you to create your moments";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help us find the best restaurants in your area";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Duke requests location permissions to help find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need location permissions to help us find the best restaurants in your area";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Granting Duke location permisions will allow us to display the best restaurants in your area";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Duke requests Photo library permissions to allow gallery functionality for media sharing";
@@ -1181,7 +1181,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				branch = master;
+				branch = main;
 				kind = branch;
 			};
 		};
