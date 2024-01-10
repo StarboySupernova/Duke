@@ -1171,8 +1171,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Wouter125/BottomSheet";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = 1.4.5;
 			};
 		};
 		C96B70682962B4AE009B3444 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

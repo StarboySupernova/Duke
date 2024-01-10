@@ -197,25 +197,25 @@ struct HomeView: View {
                                     .offset(y: -bottomSheetTranslationProrated * 46)
                                 }
                                 
-//                                BottomSheetView(position: $bottomSheetPosition) {} content: {
-//                                    SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
-//                                        .environmentObject(userViewModel)
-//                                        .modifier(DarkModeViewModifier())
-//                                }
-//                                .onBottomSheetDrag { translation in
-//                                    bottomSheetTranslation = translation / screenHeight
-//
-//                                    withAnimation(.easeInOut) {
-//                                        if bottomSheetPosition == BottomSheetPosition.top {
-//                                            hasDragged = true
-//                                        } else {
-//                                            hasDragged = false
-//                                            withAnimation(.spring()) {
-//                                                overlaid = false
-//                                            }
-//                                        }
-//                                    }
-//                                }
+                                BottomSheetView(position: $bottomSheetPosition) {} content: {
+                                    SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                                        .environmentObject(userViewModel)
+                                        .modifier(DarkModeViewModifier())
+                                }
+                                .onBottomSheetDrag { translation in
+                                    bottomSheetTranslation = translation / screenHeight
+
+                                    withAnimation(.easeInOut) {
+                                        if bottomSheetPosition == BottomSheetPosition.top {
+                                            hasDragged = true
+                                        } else {
+                                            hasDragged = false
+                                            withAnimation(.spring()) {
+                                                overlaid = false
+                                            }
+                                        }
+                                    }
+                                }
                                 
                                 CustomPopUpSheetBar { //increase the height of this view
                                     withAnimation {
