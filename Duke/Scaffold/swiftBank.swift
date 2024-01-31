@@ -36,7 +36,7 @@ var sampleBankCards: [BankCard] = [
 
 //the first is the card to be expanded, so it has no data
 
-struct swiftBank: View {
+struct BankView: View {
     var proxy: ScrollViewProxy
     var size: CGSize
     var safeArea: EdgeInsets
@@ -46,17 +46,18 @@ struct swiftBank: View {
     /// Page Offset
     @State private var offset: CGFloat = 0
     @State var shouldScroll: Bool = true
+    @State private var isScrollActionPending: Bool = false
 
     var body: some View {
-        ScrollView(axes, showsIndicators: false) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 10) {
                 ProfileCard()
-
+                
                 ///Indicator
                 Capsule()
-                .fill(.gray.opacity(0.2))
-                .frame(width:50, height:5)
-                .padding(.vertical, 5)
+                    .fill(.gray.opacity(0.2))
+                    .frame(width:50, height:5)
+                    .padding(.vertical, 5)
                 
                 ///Page Tab View Height Based on Screen Height
                 let pageHeight = size.height * 0.65
@@ -64,14 +65,14 @@ struct swiftBank: View {
                 //To Keep track of minY
                 GeometryReader {
                     let geometry = $0.frame(in: .global)
-
+                    
                     TabView(selection: $activePage) {
                         ForEach(myCards) { card in
                             ZStack
                             {
                                 if card.isFirstBlankCard {
                                     Rectangle()
-                                    .fill(.clear)
+                                        .fill(.clear)
                                 } else  {
                                     /// Card View
                                     CardView(card: card)
@@ -91,43 +92,47 @@ struct swiftBank: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .background(
                         RoundedRectangle(cornerRadius:40 * reverseProgress(size), style: .continuous)
-                            .fill(LinearGradient(colors: [.offWhite, .black], startPoint: .top, endPoint: .bottom))
-                        .frame(height: pageHeight + fullScreenHeight(size, pageHeight, safeArea: safeArea))
+                            .fill(LinearGradient(colors: [.red, .yellow], startPoint: .top, endPoint: .bottom))
+                            .frame(height: pageHeight + fullScreenHeight(size, pageHeight, safeArea: safeArea))
                         //Expanding to Full Screen, Based on the Progress
-                        .frame(width:geometry.width - (60 * reverseProgress(size)), height:pageHeight, alignment: .top)
+                            .frame(width:geometry.width - (60 * reverseProgress(size)), height:pageHeight, alignment: .top)
                         /// Making it a little visible at Idle
-                        .offset(x:-15 * reverseProgress(size))
-                        .scaleEffect(0.95 + (0.05 * progress(size)), anchor: .leading)
+                            .offset(x:-15 * reverseProgress(size))
+                            .scaleEffect(0.95 + (0.05 * progress(size)), anchor: .leading)
                         /// Moving along side with the second card
-                        .offset(x: (offset + size.width) < 0 ? (offset + size.width) : 0)
-                        .offset(y: (offset + size.width) > 0 ? (-geometry.minY * progress(size)): 0) //achieving true full screen, from using global proxy(geometry)
+                            .offset(x: (offset + size.width) < 0 ? (offset + size.width) : 0)
+                            .offset(y: (offset + size.width) > 0 ? (-geometry.minY * progress(size)): 0) //achieving true full screen, from using global proxy(geometry)
                     )
                 }
                 .frame(height: pageHeight)
                 .zIndex(1000)
-
+                
                 /// Displaying Expenses
                 ExpensesView(expenses: myCards[activePage == 0 ? 1 : activePage].expenses)
-                .padding(.horizontal, 30)
-                .padding(.top, 30)
+                    .padding(.horizontal, 30)
+                    .padding(.top, 30)
             }
             .padding(.top, safeArea.top + 15)
             .padding(.bottom, safeArea.bottom + 15)
             .id("CONTENT")
         }
-//        .overlay(content : {
-//            if reverseProgress(size) < 0.15 && activePage == 0 {
-//                ExpandedView()
-//                ///adding animation
-//                .scaleEffect(1 - reverseProgress(size))
-//                .opacity(1.0 - (reverseProgress(size) / 0.15))
-//                .transition(.identity)
-//            }
-//        })
-        onChange(of: offset) { newValue in
-            if newValue == 0 && activePage == 0 {
+        .overlay(content : {
+            if reverseProgress(size) < 0.15 && activePage == 0 {
+                EmptyView()
+                ///adding animation
+                .scaleEffect(1 - reverseProgress(size))
+                .opacity(1.0 - (reverseProgress(size) / 0.15))
+                .transition(.identity)
+            }
+        })
+        .onChange(of: offset) { newValue in
+            if !isScrollActionPending && newValue == 0 && activePage == 0 {
+                isScrollActionPending = true // Set the flag to prevent further scrolling in this cycle
                 proxy.scrollTo("CONTENT", anchor: .topLeading)
             }
+        }
+        .onChange(of: activePage) { _ in
+            isScrollActionPending = false // Reset the flag when activePage changes
         }
     }
     
@@ -204,7 +209,7 @@ struct BankContentView: View {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
             ScrollViewReader { proxy in
-             swiftBank(proxy: proxy, size: size, safeArea: safeArea)
+                BankView(proxy: proxy, size: size, safeArea: safeArea)
             }
             .preferredColorScheme(.light)
             .ignoresSafeArea()
