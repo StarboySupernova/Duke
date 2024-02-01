@@ -60,8 +60,9 @@ struct ContentView: View {
 //                            FavouritesContentView()
 //                                .tag(SelectedMenu.favourites)
                             
-                           SettingsView()
-                                .tag(SelectedMenu.settings) //use VCard for badges
+#warning("removed because there are now 7 elements in TabBar, which is causing issues")
+//                           SettingsView()
+//                                .tag(SelectedMenu.settings) //use VCard for badges
                             
                             if prop.isLandscape && !prop.isiPad {
                                 VerticalContentView(verticalTabSelection: $tabSelection, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
