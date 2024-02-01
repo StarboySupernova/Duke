@@ -56,8 +56,9 @@ struct ContentView: View {
                             VideoContentView()
                                 .tag(SelectedMenu.create)
                             
-                            FavouritesContentView()
-                                .tag(SelectedMenu.favourites)
+                            #warning("removed because there are now 7 elements in TabBar, which is causing issues")
+//                            FavouritesContentView()
+//                                .tag(SelectedMenu.favourites)
                             
                            SettingsView()
                                 .tag(SelectedMenu.settings) //use VCard for badges
