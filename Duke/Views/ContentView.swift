@@ -56,13 +56,12 @@ struct ContentView: View {
                             VideoContentView()
                                 .tag(SelectedMenu.create)
                             
-                            #warning("removed because there are now 7 elements in TabBar, which is causing issues")
+#warning("removed because there are now 6 elements in TabBar, which is causing issues")
 //                            FavouritesContentView()
 //                                .tag(SelectedMenu.favourites)
                             
-#warning("removed because there are now 7 elements in TabBar, which is causing issues")
-//                           SettingsView()
-//                                .tag(SelectedMenu.settings) //use VCard for badges
+                           SettingsView()
+                                .tag(SelectedMenu.settings) //use VCard for badges
                             
                             if prop.isLandscape && !prop.isiPad {
                                 VerticalContentView(verticalTabSelection: $tabSelection, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
@@ -161,6 +160,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(StraddleScreen())
+            .environmentObject(UserPreference())
             .preferredColorScheme(.dark)
 //            .previewInterfaceOrientation(.landscapeLeft)
     }
