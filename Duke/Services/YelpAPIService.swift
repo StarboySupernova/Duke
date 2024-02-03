@@ -199,3 +199,9 @@ struct Location: Codable {
     }
 }
 
+extension Category: Identifiable {
+    var id: String {
+        UUID().uuidString
+    }
+}
+
