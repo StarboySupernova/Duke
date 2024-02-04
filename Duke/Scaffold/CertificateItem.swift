@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct CertificateItem: View {
-    var item: Course
+struct TrendingBusinessItem: View {
+    var switchButtonText: String = "More"
+    var switchButtonImage: String = ""
+    var business: Business
     var color1: Color = Color(red: 0.992, green: 0.247, blue: 0.2)
     var color2: Color = Color(red: 0.298, green: 0, blue: 0.784)
 
@@ -24,27 +26,41 @@ struct CertificateItem: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.title)
+                    Text(business.formattedName)
                         .font(.system(size: 17, weight: .bold))
                         .bold()
                         .foregroundColor(.white)
                         .animation(nil)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("Certificate")
+                    Text(business.formattedCategory)
                         .font(.footnote)
                         .foregroundColor(.white)
                         .opacity(0.8)
+                    
+                    AsyncImage(url: business.formattedImageURL) { image in
+                        image
+                            .resizable()
+                    } placeholder: {
+                        Color.blue.shimmer()
+                    }
+                    .frame(width: 110, height: 110)
+                    .cornerRadius(10)
+                    .padding(.small)
                 }
                 Spacer()
-                Image(systemName: "info.circle")
-                    .foregroundColor(.white)
-                    .frame(width: 32, height: 32)
-                    .background(Color.white.opacity(0.2))
-                    .mask(Circle())
-                    .shadow(radius: 30)
-                    .onTapGesture {
-                        show.toggle()
-                    }
+                HStack(spacing: .small) {
+                    Text(switchButtonText)
+                    Image(systemName: switchButtonImage)
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, .medium)
+                .padding(.vertical, .small)
+                .background(Color.white.opacity(0.2))
+                .mask(Capsule())
+                .shadow(radius: 30)
+                .onTapGesture {
+                    show.toggle()
+                }
             }
             Spacer()
             HStack {
@@ -102,8 +118,8 @@ struct CertificateItem: View {
 }
 
 
-struct CertificateItem_Previews: PreviewProvider {
+struct TrendingBusinessItem_Previews: PreviewProvider {
     static var previews: some View {
-        CertificateItem(item: courses.first!, show: .constant(false))
+        TrendingBusinessItem(business: Business(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Blue bottle", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil), show: .constant(true))
     }
 }
