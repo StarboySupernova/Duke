@@ -36,7 +36,7 @@ struct HomeView: View {
     @State var position: CGPoint = .zero
     @State var isScrolling: Bool = false
     
-    @State var items = courses
+    @State var businesses = placeholderBusinesses
     @State var shouldScroll: Bool = false
     
     @State var trendingContentHeight: CGFloat = 450
@@ -52,16 +52,16 @@ struct HomeView: View {
     
     var trendingContent: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
-            ForEach(items.indices, id: \.self) { index in
+            ForEach(businesses.indices, id: \.self) { index in
                 let flipView = FlipView(
-                    item1: items[index],
-                    item2: items[courses.count - index - 1],
+                    business1: businesses[index],
+                    business2: businesses[placeholderBusinesses.count - index - 1],
                     color1: gradients[index].color1,
                     color2: gradients[index].color2
                 )
-                    .frame(height: items[index].show ? 360 : 220)
+                    .frame(height: businesses[index].show ? 360 : 220)
                     .onTapGesture {
-                        items[index].show.toggle()
+//                        businesses[index].show.toggle()
                     }
                 
                 switch index {
