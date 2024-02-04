@@ -40,14 +40,14 @@ struct ContentView: View {
                         
                         TabView(selection: $selectedMenu) {
                             HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
+                                .tag(SelectedMenu.home)
                                 .environmentObject(HomeViewModel())
                                 .environmentObject(straddleScreen)
                                 .environmentObject(UserViewModel())
-                            //                        #("uncomment ths")
+                                                    #warning("uncomment this")
                             //                            .environmentObject(homeVM)
                             //                            .environmentObject(straddleScreen)
                             //                            .environmentObject(userVM)
-                                .tag(SelectedMenu.home)
                             
                             ProfileView()
                                 .environmentObject(UserViewModel())
@@ -55,10 +55,6 @@ struct ContentView: View {
                             
                             VideoContentView()
                                 .tag(SelectedMenu.create)
-                            
-#warning("removed because there are now 6 elements in TabBar, which is causing issues")
-//                            FavouritesContentView()
-//                                .tag(SelectedMenu.favourites)
                             
                            SettingsView()
                                 .tag(SelectedMenu.settings) //use VCard for badges
@@ -161,6 +157,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(StraddleScreen())
             .environmentObject(UserPreference())
+            .environmentObject(HomeViewModel())
             .preferredColorScheme(.dark)
 //            .previewInterfaceOrientation(.landscapeLeft)
     }
