@@ -33,8 +33,7 @@ struct VerticalContentView: View {
                         .tag(Tab.favourites)
                         .environmentObject(preferenceStore)
                     
-                    ProfileView() //this is also availabe through side menu
-                        .environmentObject(UserViewModel())
+                    FavouritesContentView()
                         .tag(Tab.user)
                     
                     HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
@@ -54,10 +53,10 @@ struct VerticalContentView: View {
 
 struct VerticalContentView_Previews: PreviewProvider {
     static var previews: some View {
-        VerticalContentView(verticalTabSelection: .constant(.chat), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true))
+        VerticalContentView(verticalTabSelection: .constant(.user), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true))
             .environmentObject(HomeViewModel())
             .environmentObject(StraddleScreen())
             .environmentObject(UserViewModel())
-            .environmentObject( UserPreference())
+            .environmentObject(UserPreference())
     }
 }
