@@ -21,7 +21,7 @@ struct SideMenu: View {
                     .mask(Circle())
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Simbarashe Dombodzvuku") //should come from saved name stored in db
-                    Text("UI Designer")
+                    Text("Lead iOS Dev")
                         .font(.subheadline)
                         .opacity(0.7)
                 }
@@ -197,5 +197,4 @@ enum SelectedMenu: String {
     case horizontalContent
     case darkmode
     case settings
-    case favourites
 }

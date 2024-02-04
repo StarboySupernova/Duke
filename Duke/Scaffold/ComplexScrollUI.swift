@@ -9,7 +9,33 @@ import SwiftUI
 
 struct ComplexScrollUI: View {
     @State var offset: CGFloat = 0
+    @EnvironmentObject var homeViewModel: HomeViewModel
+//    @Binding var selectedBusiness: Business?
+    @State private var selectedBusiness: Business?
+    
     var topEdge: CGFloat
+    let monthDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.dateFormat = "MMMM"
+        return formatter
+    }()
+    let weekDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.dateFormat = "W"
+        return formatter
+    }()
+    var currentDate = Date()
+    
+    func refreshableOffset(offset: CGFloat) -> CGFloat {
+        homeViewModel.request()
+        return offset > 0 ? (offset / UIScreen.main.bounds.width) * 100 : 0
+    }
+    
+    var color1: Color = Color(red: 0.992, green: 0.247, blue: 0.2)
+    var color2: Color = Color(red: 0.298, green: 0, blue: 0.784)
+    
     var body: some View {
         ZStack {
             //geometryreader for getting height and width
@@ -25,34 +51,12 @@ struct ComplexScrollUI: View {
             //MainView
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    //wEATHER Data
-                    VStack(alignment: .center, spacing: 5) {
-                        Text("San Jose")
-                            .font(.system(size: 35))
-                            .foregroundStyle(.white)
-                            .shadow(radius: 5)
-                        
-                        Text("18")
-                            .font(.system(size: 45))
-                            .foregroundStyle(.white)
-                            .shadow(radius: 5)
-                            .opacity(getTitleOpacity())
-                        
-                        Text("Cloudy")
-                            .foregroundStyle(.secondary)
-                            .foregroundStyle(.white)
-                            .shadow(radius: 5)
-                            .opacity(getTitleOpacity())
-                        
-                        Text("H:33 L:15")
-                            .foregroundStyle(.primary)
-                            .foregroundStyle(.white)
-                            .shadow(radius: 5)
-                            .opacity(getTitleOpacity())
-                    }
+                    DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
+                    .foregroundColor(.offWhite)
+                    .padding()
                     .offset(y: -offset)
                     //for bottom drag effect
-                    .offset(y: offset > 0 ? (offset / UIScreen.main.bounds.width) * 100 : 0)
+                    .offset(y: refreshableOffset(offset: offset))
                     .offset(y: getTitleOffset())
                     
                     //Custom Data View
@@ -62,28 +66,17 @@ struct ComplexScrollUI: View {
                         CustomStackView {
                             //Label here
                             Label {
-                                Text("Hourly Forecast")
+                                Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
+                                    .font(Font.subheadline.smallCaps()).bold()
                             } icon: {
                                 Image(systemName: "clock")
                             }
                         } contentView: {
                             //Content...
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 15) {
-                                    ForecastView(time:"12 PM", celsius: 94, image: "sun.min")
-                                    
-                                    ForecastView(time:"12 PM", celsius: 94, image: "sun.min")
-                                    
-                                    ForecastView(time:"12 PM", celsius: 94, image: "sun.min")
-                                    
-                                    ForecastView(time:"12 PM", celsius: 94, image: "sun.min")
-                                    
-                                    ForecastView(time:"12 PM", celsius: 94, image: "sun.min")
-                                }
-                            }
+                            FlipView(business1: placeholderBusinesses[2], business2: placeholderBusinesses[3])
                         }
-                        
-                        WeatherDataView()
+                                                
+                        RestaurantListView()
                     }
                 }
                 .padding(.top)
@@ -102,6 +95,10 @@ struct ComplexScrollUI: View {
                 )
             }
         }
+    }
+    
+    var randomBusinesses : [Business] {
+        homeViewModel.businesses.randomSelection(count: 4)
     }
     
     func getTitleOffset() -> CGFloat {
@@ -129,35 +126,84 @@ struct ComplexScrollUI: View {
         
         return opacity
     }
+    
+    @ViewBuilder func RestaurantListView() -> some View {
+        VStack(spacing: 8){
+            ForEach(homeViewModel.businesses, id: \.id) { business in
+                CustomStackView {
+                    Label {
+                        Text(business.name ?? "")
+                    } icon : {
+                        Image(systemName: "circle.hexagongrid.fill")
+                    }
+                } contentView: {
+                    GeometryReader { geometry in
+                        BusinessRow(business: business, size: geometry.size)
+                    }
+                    .frame(height: 100)
+                    .onTapGesture {
+                        selectedBusiness = business
+                    }
+                    .id(business.name ?? UUID().uuidString)
+                }
+            }
+            
+            HStack {
+                CustomStackView {
+                    Label {
+                        Text("Auteuristic/Repertoire")
+                    } icon: {
+                        Image(systemName: "heater.vertical")
+                    }
+                } contentView: {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        ForEach(randomBusinesses.randomElement()?.categories ?? []) { category in
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(category.title!)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                
+                                Text(randomBusinesses[1].isClosed ?? false ? "Closed" : "Open")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                }
+                
+                CustomStackView {
+                    Label {
+                        Text("Top Restaurateurs")
+                    } icon: {
+                        Image(systemName: "line.horizontal.star.fill.line.horizontal")
+                    }
+                } contentView: {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        ForEach(randomBusinesses) { business in
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(business.name ?? "Business")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                
+                                Text(business.price ?? "$8.00")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                        }
+                    }
+                }
+            }
+            .frame(maxHeight: .infinity)
+        }
+        
+    }
+
 }
 
-struct ForecastView: View {
-    var time: String
-    var celsius: CGFloat
-    var image: String
-    
-    var body: some View {
-        VStack(spacing: 15) {
-            Text(time)
-                .font(.callout.bold())
-                .foregroundStyle(.white)
-            
-            Image(systemName: image)
-                .font(.title2)
-            //multicolor
-                .symbolVariant(.fill)
-                .symbolRenderingMode(.palette)
-                .foregroundStyle(.white, .yellow)
-            //max frame
-                .frame(height: 30)
-            
-            Text("\(Int(celsius))")
-                .font(.callout.bold())
-                .foregroundStyle(.white)
-        }
-        .padding(.horizontal, .medium)
-    }
-}
 
 struct CustomStackView<Title: View, Content: View>: View {
     var titleView: Title
@@ -166,6 +212,9 @@ struct CustomStackView<Title: View, Content: View>: View {
     //Offsets
     @State private var topOffset: CGFloat=0
     @State private var bottomOffset: CGFloat=0
+    
+    var color1: Color = Color(red: 0.992, green: 0.247, blue: 0.2)
+    var color2: Color = Color(red: 0.298, green: 0, blue: 0.784)
     
     init (@ViewBuilder titleView: @escaping ()-> Title, @ViewBuilder contentView: @escaping () -> Content) {
         self.contentView = contentView()
@@ -181,16 +230,17 @@ struct CustomStackView<Title: View, Content: View>: View {
                 .frame(height: 38)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
-                .background(.ultraThinMaterial, in: RoundedCorner(radius: 12, corners: bottomOffset < 38 ? .allCorners : [.topLeft, .topRight]))
+                .background(RadialGradient(gradient: Gradient(colors: [color1, color2]), center: .topLeading, startRadius: 5, endRadius: 500), in: RoundedCorner(radius: 12, corners: bottomOffset < 38 ? .allCorners : [.topLeft, .topRight]))
                 .zIndex(1)
             
             VStack {
-                Divider()
+                Divider().glow(color: .black)
                 
                 contentView
                     .padding()
             }
-            .background(.ultraThinMaterial, in: RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
+            .background(RadialGradient(gradient: Gradient(colors: [color1, color2]), center: .topLeading, startRadius: 5, endRadius: 500), in: RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight]))
+            .shadow(color: color2.opacity(0.3), radius: 20, x: 0, y: 10)
             //Moving content Upward
             .offset(y: topOffset >= 120 ? 0 : -(-topOffset + 120))
             .zIndex(0)
@@ -245,6 +295,7 @@ struct CornerModifier: ViewModifier {
 struct ComplexScrollUI_Previews: PreviewProvider {
     static var previews: some View {
         ComplexContentView()
+            .environmentObject(HomeViewModel())
     }
 }
 
@@ -255,74 +306,8 @@ struct ComplexContentView: View {
             let topEdge = geometry.safeAreaInsets.top
             ComplexScrollUI(topEdge: topEdge)
                 .ignoresSafeArea(.all, edges: .top)
+                .environmentObject(HomeViewModel())
         }
     }
 }
 
-struct WeatherDataView: View {
-    var body: some View{
-        VStack(spacing: 8){
-            CustomStackView {
-                Label {
-                    Text("Air Quality")
-                } icon : {
-                    Image(systemName: "circle.hexagongrid.fill")
-                }
-            } contentView: {
-                VStack(alignment: .leading, spacing: 10){
-                    Text("143-Moderately polluted")
-                        .font(.title3.bold())
-                    
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur")
-                        .fontWeight(.semibold)
-                }
-            }
-            
-            HStack {
-                CustomStackView {
-                    Label {
-                        Text("UV Index")
-                    } icon: {
-                        Image(systemName: "sun.min")
-                    }
-                } contentView: {
-                    VStack(alignment: .leading, spacing: 10)
-                    {
-                        Text("0")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                        
-                        Text("Low")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                CustomStackView {
-                    Label {
-                        Text("Rainfall")
-                    } icon: {
-                        Image(systemName: "drop.fill")
-                    }
-                } contentView: {
-                    VStack(alignment: .leading, spacing: 10)
-                    {
-                        Text("0 mm")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                        
-                        Text("in last 24 hours")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                }
-            }
-            .frame(maxHeight: .infinity)
-        }
-    }
-    
-}

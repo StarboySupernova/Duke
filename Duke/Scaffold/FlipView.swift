@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FlipView: View {
-    var item1: Course = courses[0]
-    var item2: Course = courses[1]
+    var business1: Business
+    var business2: Business
 
     @State var show = false
     @State var viewState = CGSize.zero
@@ -24,11 +24,11 @@ struct FlipView: View {
 
     var content: some View {
         ZStack {
-            CertificateItem(item: item1, color1: color1, color2: color2, show: $show)
+            TrendingBusinessItem(business: business1, color1: color1, color2: color2, show: $show)
                 .opacity(0.9)
                 .rotation3DEffect(
                     Angle(degrees: show ? 90 : 0),
-                    axis: (x: 0.0, y: 1.0, z: 0.0),
+                    axis: (x: 1.0, y: 1.0, z: 0.0),
                     anchor: .center,
                     anchorZ: 0.0,
                     perspective: 0.3
@@ -37,7 +37,7 @@ struct FlipView: View {
                     show ? .easeIn(duration: 0.3) : Animation.easeOut(duration: 0.3).delay(0.3)
                 )
 
-            CertificateItem(item: item2, color1: Color(red: 0.365, green: 0.067, blue: 0.969), color2: Color(red: 0.961, green: 0.706, blue: 0.2), show: $show)
+            TrendingBusinessItem(switchButtonText: "List", switchButtonImage: "list.bullet", business: business2, color1: Color(red: 0.365, green: 0.067, blue: 0.969), color2: Color(red: 0.961, green: 0.706, blue: 0.2), show: $show)
                 .rotation3DEffect(
                     Angle(degrees: show ? 0 : -90),
                     axis: (x: 0.0, y: 1.0, z: 0.0),
@@ -68,6 +68,6 @@ struct FlipView: View {
 
 struct FlipView_Previews: PreviewProvider {
     static var previews: some View {
-        FlipView()
+        FlipView(business1: Business(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Blue bottle", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil), business2: Business(alias: nil, categories: [.init(alias: nil, title: "SteakHouse")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Avenue Gastronomic", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil))
     }
 }

@@ -56,14 +56,14 @@ struct SplitListView: View {
         .id(UUID()) //perfomance aid
         .onPreferenceChange(SizingPreferenceKey.self) { position in
             if (position.y > self.position.y) {
-//                print("up")
-//                dismissSearch()
+                print("up")
+                dismissSearch()
 
             }
             else if (position.y < self.position.y) {
                 #warning("should implement a counter that will keep track of how many list items a user has scrolled over, and display payment page after the threshold is reached")
-//                print("Down")
-//                dismissSearch()
+                print("Down")
+                dismissSearch()
             }
             dismissSearch()
             self.position = position
