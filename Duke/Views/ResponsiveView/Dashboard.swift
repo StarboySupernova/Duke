@@ -812,6 +812,18 @@ var courses = [
     )
 ]
 
+var placeholderBusinesses = [
+    Business(alias: nil, categories: [.init(alias: nil, title: "Cafe")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Blue bottle", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil),
+    Business(alias: nil, categories: [.init(alias: nil, title: "SteakHouse")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Spurs", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil),
+    Business(alias: nil, categories: [.init(alias: nil, title: "Supermarket")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "Salad", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil),
+    Business(alias: nil, categories: [.init(alias: nil, title: "Winery")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "GlenGoolie", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil),
+]
+
+extension Business {
+    var show: Bool {
+        false
+    }
+}
 
 
 
