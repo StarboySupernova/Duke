@@ -10,6 +10,7 @@ import BottomSheet
 
 struct ComplexScrollUI: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @State var offset: CGFloat = 0
 //    @Binding var selectedBusiness: Business?
     @State private var selectedBusiness: Business?
@@ -19,6 +20,7 @@ struct ComplexScrollUI: View {
     @State var overlaid = false
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
     @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
+    @State var hasDragged: Bool = false
     var bottomSheetTranslationProrated: CGFloat {
         (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
     }
@@ -60,94 +62,146 @@ struct ComplexScrollUI: View {
                         let screenHeight = geometryProxy.size.height + geometryProxy.safeAreaInsets.top + geometryProxy.safeAreaInsets.bottom
                         let imageOffset = screenHeight + 36
                         
-                        VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                            ScrollView(.vertical, showsIndicators: false) {
-                                VStack {
-                                    DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
-                                        .foregroundColor(.offWhite)
-                                        .padding()
-                                        .offset(y: -offset)
-                                    //for bottom drag effect
-                                        .offset(y: refreshableOffset(offset: offset))
-                                        .offset(y: getTitleOffset())
-                                    
-                                    //Custom Data View
-                                    VStack(spacing: 8) {
-                                        //Custom Stack
+                        ZStack {
+                            VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                                ScrollView(.vertical, showsIndicators: false) {
+                                    VStack {
+                                        DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
+                                            .foregroundColor(.offWhite)
+                                            .padding()
+                                            .offset(y: -offset)
+                                        //for bottom drag effect
+                                            .offset(y: refreshableOffset(offset: offset))
+                                            .offset(y: getTitleOffset())
                                         
-                                        CustomStackView {
-                                            //Label here
-                                            Label {
-                                                Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
-                                                    .font(Font.subheadline.smallCaps()).bold()
-                                            } icon: {
-                                                Image(systemName: "clock")
-                                            }
-                                        } contentView: {
-                                            //Content...
-                                            LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
-                                                ForEach(businesses.indices, id: \.self) { index in
-                                                    let flipView = FlipView(
-                                                        business1: businesses[index],
-                                                        business2: businesses[placeholderBusinesses.count - index - 1],
-                                                        color1: gradients[index].color1,
-                                                        color2: gradients[index].color2
-                                                    )
-                                                        .frame(height: 220)
-                                                        .onTapGesture {
-                                                            
+                                        //Custom Data View
+                                        VStack(spacing: 8) {
+                                            //Custom Stack
+                                            
+                                            CustomStackView {
+                                                //Label here
+                                                Label {
+                                                    Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
+                                                        .font(Font.subheadline.smallCaps()).bold()
+                                                } icon: {
+                                                    Image(systemName: "clock")
+                                                }
+                                            } contentView: {
+                                                //Content...
+                                                LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
+                                                    ForEach(businesses.indices, id: \.self) { index in
+                                                        let flipView = FlipView(
+                                                            business1: businesses[index],
+                                                            business2: businesses[placeholderBusinesses.count - index - 1],
+                                                            color1: gradients[index].color1,
+                                                            color2: gradients[index].color2
+                                                        )
+                                                            .frame(height: 220)
+                                                            .onTapGesture {
+                                                                
+                                                            }
+                                                        
+                                                        switch index {
+                                                        case 0:
+                                                            flipView
+                                                                .zIndex(3)
+                                                        case 1:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : -200)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.9)
+                                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                                .zIndex(2)
+                                                        case 2:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : -450)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.8)
+                                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                                .zIndex(1)
+                                                        default:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : 0)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.7)
+                                                                .opacity(expandedTrends ? 1 : 0)
+                                                                .zIndex(0)
                                                         }
-                                                    
-                                                    switch index {
-                                                    case 0:
-                                                        flipView
-                                                            .zIndex(3)
-                                                    case 1:
-                                                        flipView
-                                                            .offset(x: 0, y: expandedTrends ? 0 : -200)
-                                                            .scaleEffect(expandedTrends ? 1 : 0.9)
-                                                            .opacity(expandedTrends ? 1 : 0.3)
-                                                            .zIndex(2)
-                                                    case 2:
-                                                        flipView
-                                                            .offset(x: 0, y: expandedTrends ? 0 : -450)
-                                                            .scaleEffect(expandedTrends ? 1 : 0.8)
-                                                            .opacity(expandedTrends ? 1 : 0.3)
-                                                            .zIndex(1)
-                                                    default:
-                                                        flipView
-                                                            .offset(x: 0, y: expandedTrends ? 0 : 0)
-                                                            .scaleEffect(expandedTrends ? 1 : 0.7)
-                                                            .opacity(expandedTrends ? 1 : 0)
-                                                            .zIndex(0)
                                                     }
                                                 }
+                                                .animation(.easeInOut(duration: 0.8))
+                                                .padding(.top, 16)
+                                                .frame(height: 350, alignment: .top)
                                             }
-                                            .animation(.easeInOut(duration: 0.8))
-                                            .padding(.top, 16)
-                                            .frame(height: 350, alignment: .top)
+                                            
+                                            RestaurantListView()
                                         }
-                                        
-                                        RestaurantListView()
+                                    }
+                                    .padding(.top)
+                                    .padding([.horizontal, .bottom])
+                                    // getting offset....
+                                    .overlay(
+                                        //using GeometryReader
+                                        GeometryReader { geometry -> Color in
+                                            
+                                            let minY = geometry.frame(in: .global).minY
+                                            DispatchQueue.main.async {
+                                                self.offset = minY
+                                            }
+                                            return Color.clear
+                                        }
+                                    )
+                                }
+                            }
+                            .offset(y: -bottomSheetTranslationProrated * 46)
+                            
+                            BottomSheetView(position: $bottomSheetPosition) {} content: {
+                                SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                                    .environmentObject(userViewModel)
+                                    .modifier(DarkModeViewModifier())
+                            }
+                            .onBottomSheetDrag { translation in
+                                bottomSheetTranslation = translation / screenHeight
+
+                                withAnimation(.easeInOut) {
+                                    if bottomSheetPosition == BottomSheetPosition.top {
+                                        hasDragged = true
+                                    } else {
+                                        hasDragged = false
+                                        withAnimation(.spring()) {
+                                            overlaid = false
+                                        }
                                     }
                                 }
-                                .padding(.top)
-                                .padding([.horizontal, .bottom])
-                                // getting offset....
-                                .overlay(
-                                    //using GeometryReader
-                                    GeometryReader { geometry -> Color in
-                                        
-                                        let minY = geometry.frame(in: .global).minY
-                                        DispatchQueue.main.async {
-                                            self.offset = minY
-                                        }
-                                        return Color.clear
-                                    }
-                                )
                             }
+                            
+                            CustomPopUpSheetBar {
+                                withAnimation {
+                                    bottomSheetPosition = .top
+                                    overlaid = true
+                                }
+#warning("straddle screen should be removed unless device is on landscape mode")
+                                //                                    straddleScreen.isStraddling = true
+                            }
+                            .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
+                            .edgesIgnoringSafeArea(.bottom)
                         }
-                        .offset(y: -bottomSheetTranslationProrated * 46)
+                        .background (
+                            ZStack {
+                                if overlaid {
+                                    Rectangle()
+                                        .fill(Color.black)
+                                        .frame(width: getRect().width, height: getRect().height)
+                                        .ignoresSafeArea()
+                                } else {
+                                    Image("img_wave_1024x768")
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.width,
+                                               height: UIScreen.main.bounds.height,
+                                               alignment: .center)
+                                        .scaledToFit()
+                                        .clipped()
+                                        .ignoresSafeArea()
+                                }
+                            }
+                        )
                     }
                     ///this will be appened to the View inside GeometryReader. If effects are unpredictable then move back here on the GeometryReader proper
                     ///.offset(y: -bottomSheetTranslationProrated * 46)
@@ -355,6 +409,7 @@ struct ComplexScrollUI_Previews: PreviewProvider {
     static var previews: some View {
         ComplexContentView()
             .environmentObject(HomeViewModel())
+            .environmentObject(UserViewModel())
     }
 }
 
