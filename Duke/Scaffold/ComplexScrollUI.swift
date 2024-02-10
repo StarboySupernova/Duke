@@ -52,16 +52,17 @@ struct ComplexScrollUI: View {
                 ///SideBar coming here
                 
                 
-                //will not turn into separate view, for it introduces additional complexity
+                ///will not turn into separate view, for it introduces additional complexity
                 ZStack {
                     
+                    ///geometryreader for getting height and width
+                    GeometryReader{ geometryProxy in                        
+                        let screenHeight = geometryProxy.size.height + geometryProxy.safeAreaInsets.top + geometryProxy.safeAreaInsets.bottom
+                        let imageOffset = screenHeight + 36
+                    }
+                    ///this will be appened to the View inside GeometryReader. If effects are unpredictable then move back here on the GeometryReader proper
+                    ///.offset(y: -bottomSheetTranslationProrated * 46)
                 }
-                GeometryReader{ geometry in
-                    let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
-                    let imageOffset = screenHeight + 36
-                }
-                ///this will be appened to the View inside GeometryReader. If effects are unpredictable then move back here on the GeometryReader proper
-                ///.offset(y: -bottomSheetTranslationProrated * 46)
             }
         }
         ZStack {
