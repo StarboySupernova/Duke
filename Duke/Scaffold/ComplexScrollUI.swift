@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 struct ComplexScrollUI: View {
-    @State var offset: CGFloat = 0
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @State var offset: CGFloat = 0
 //    @Binding var selectedBusiness: Business?
     @State private var selectedBusiness: Business?
+//    @Binding var expandedTrends: Bool
+    @State private var expandedTrends: Bool = false
+    @State var businesses = placeholderBusinesses //change to randomBusinesses onAppear
+    @State var overlaid = false
+    @State var bottomSheetPosition: BottomSheetPosition = .bottom
+    @State var bottomSheetTranslation: CGFloat = BottomSheetPosition.middle.rawValue
+    var bottomSheetTranslationProrated: CGFloat {
+        (bottomSheetTranslation - BottomSheetPosition.middle.rawValue) / (BottomSheetPosition.top.rawValue - BottomSheetPosition.middle.rawValue)
+    }
     
     var topEdge: CGFloat
     let monthDateFormat: DateFormatter = {
@@ -37,6 +47,23 @@ struct ComplexScrollUI: View {
     var color2: Color = Color(red: 0.298, green: 0, blue: 0.784)
     
     var body: some View {
+        ResponsiveView { prop in
+            HStack(spacing: 0) {
+                ///SideBar coming here
+                
+                
+                //will not turn into separate view, for it introduces additional complexity
+                ZStack {
+                    
+                }
+                GeometryReader{ geometry in
+                    let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
+                    let imageOffset = screenHeight + 36
+                }
+                ///this will be appened to the View inside GeometryReader. If effects are unpredictable then move back here on the GeometryReader proper
+                ///.offset(y: -bottomSheetTranslationProrated * 46)
+            }
+        }
         ZStack {
             //geometryreader for getting height and width
             GeometryReader { geometry in
@@ -49,50 +76,92 @@ struct ComplexScrollUI: View {
             .overlay(.ultraThinMaterial)
             
             //MainView
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
-                    .foregroundColor(.offWhite)
-                    .padding()
-                    .offset(y: -offset)
-                    //for bottom drag effect
-                    .offset(y: refreshableOffset(offset: offset))
-                    .offset(y: getTitleOffset())
-                    
-                    //Custom Data View
-                    VStack(spacing: 8) {
-                        //Custom Stack
+            VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
+                            .foregroundColor(.offWhite)
+                            .padding()
+                            .offset(y: -offset)
+                        //for bottom drag effect
+                            .offset(y: refreshableOffset(offset: offset))
+                            .offset(y: getTitleOffset())
                         
-                        CustomStackView {
-                            //Label here
-                            Label {
-                                Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
-                                    .font(Font.subheadline.smallCaps()).bold()
-                            } icon: {
-                                Image(systemName: "clock")
-                            }
-                        } contentView: {
-                            //Content...
-                            FlipView(business1: placeholderBusinesses[2], business2: placeholderBusinesses[3])
-                        }
+                        //Custom Data View
+                        VStack(spacing: 8) {
+                            //Custom Stack
+                            
+                            CustomStackView {
+                                //Label here
+                                Label {
+                                    Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
+                                        .font(Font.subheadline.smallCaps()).bold()
+                                } icon: {
+                                    Image(systemName: "clock")
+                                }
+                            } contentView: {
+                                //Content...
+                                LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
+                                    ForEach(businesses.indices, id: \.self) { index in
+                                        let flipView = FlipView(
+                                            business1: businesses[index],
+                                            business2: businesses[placeholderBusinesses.count - index - 1],
+                                            color1: gradients[index].color1,
+                                            color2: gradients[index].color2
+                                        )
+                                            .frame(height: 220)
+                                            .onTapGesture {
                                                 
-                        RestaurantListView()
-                    }
-                }
-                .padding(.top)
-                .padding([.horizontal, .bottom])
-                // getting offset....
-                .overlay(
-                    //using GeometryReader
-                    GeometryReader { geometry -> Color in
-                        
-                        let minY = geometry.frame(in: .global).minY
-                        DispatchQueue.main.async {
-                            self.offset = minY
+                                            }
+                                        
+                                        switch index {
+                                        case 0:
+                                            flipView
+                                                .zIndex(3)
+                                        case 1:
+                                            flipView
+                                                .offset(x: 0, y: expandedTrends ? 0 : -200)
+                                                .scaleEffect(expandedTrends ? 1 : 0.9)
+                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                .zIndex(2)
+                                        case 2:
+                                            flipView
+                                                .offset(x: 0, y: expandedTrends ? 0 : -450)
+                                                .scaleEffect(expandedTrends ? 1 : 0.8)
+                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                .zIndex(1)
+                                        default:
+                                            flipView
+                                                .offset(x: 0, y: expandedTrends ? 0 : 0)
+                                                .scaleEffect(expandedTrends ? 1 : 0.7)
+                                                .opacity(expandedTrends ? 1 : 0)
+                                                .zIndex(0)
+                                        }
+                                    }
+                                }
+                                .animation(.easeInOut(duration: 0.8))
+                                .padding(.top, 16)
+                                .frame(height: 350, alignment: .top)
+                            }
+                            
+                            RestaurantListView()
                         }
-                        return Color.clear
                     }
-                )
+                    .padding(.top)
+                    .padding([.horizontal, .bottom])
+                    // getting offset....
+                    .overlay(
+                        //using GeometryReader
+                        GeometryReader { geometry -> Color in
+                            
+                            let minY = geometry.frame(in: .global).minY
+                            DispatchQueue.main.async {
+                                self.offset = minY
+                            }
+                            return Color.clear
+                        }
+                    )
+                }
             }
         }
     }

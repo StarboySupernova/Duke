@@ -819,11 +819,6 @@ var placeholderBusinesses = [
     Business(alias: nil, categories: [.init(alias: nil, title: "Winery")], coordinates: nil, displayPhone: nil, distance: nil, id: nil, imageURL: "https://loremflickr.com/g/620/440/paris", isClosed: nil, location: nil, name: "GlenGoolie", phone: nil, price: nil, rating: 4.5, reviewCount: nil, transactions: nil, url: nil),
 ]
 
-extension Business {
-    var show: Bool {
-        false
-    }
-}
 
 
 

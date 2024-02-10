@@ -59,7 +59,7 @@ struct HomeView: View {
                     color1: gradients[index].color1,
                     color2: gradients[index].color2
                 )
-                    .frame(height: businesses[index].show ? 360 : 220)
+                    .frame(height: 220)
                     .onTapGesture {
 //                        businesses[index].show.toggle()
                     }
