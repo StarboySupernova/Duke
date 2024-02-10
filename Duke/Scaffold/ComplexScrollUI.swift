@@ -56,112 +56,101 @@ struct ComplexScrollUI: View {
                 ZStack {
                     
                     ///geometryreader for getting height and width
-                    GeometryReader{ geometryProxy in                        
+                    GeometryReader{ geometryProxy in
                         let screenHeight = geometryProxy.size.height + geometryProxy.safeAreaInsets.top + geometryProxy.safeAreaInsets.bottom
                         let imageOffset = screenHeight + 36
+                        
+                        VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack {
+                                    DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
+                                        .foregroundColor(.offWhite)
+                                        .padding()
+                                        .offset(y: -offset)
+                                    //for bottom drag effect
+                                        .offset(y: refreshableOffset(offset: offset))
+                                        .offset(y: getTitleOffset())
+                                    
+                                    //Custom Data View
+                                    VStack(spacing: 8) {
+                                        //Custom Stack
+                                        
+                                        CustomStackView {
+                                            //Label here
+                                            Label {
+                                                Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
+                                                    .font(Font.subheadline.smallCaps()).bold()
+                                            } icon: {
+                                                Image(systemName: "clock")
+                                            }
+                                        } contentView: {
+                                            //Content...
+                                            LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
+                                                ForEach(businesses.indices, id: \.self) { index in
+                                                    let flipView = FlipView(
+                                                        business1: businesses[index],
+                                                        business2: businesses[placeholderBusinesses.count - index - 1],
+                                                        color1: gradients[index].color1,
+                                                        color2: gradients[index].color2
+                                                    )
+                                                        .frame(height: 220)
+                                                        .onTapGesture {
+                                                            
+                                                        }
+                                                    
+                                                    switch index {
+                                                    case 0:
+                                                        flipView
+                                                            .zIndex(3)
+                                                    case 1:
+                                                        flipView
+                                                            .offset(x: 0, y: expandedTrends ? 0 : -200)
+                                                            .scaleEffect(expandedTrends ? 1 : 0.9)
+                                                            .opacity(expandedTrends ? 1 : 0.3)
+                                                            .zIndex(2)
+                                                    case 2:
+                                                        flipView
+                                                            .offset(x: 0, y: expandedTrends ? 0 : -450)
+                                                            .scaleEffect(expandedTrends ? 1 : 0.8)
+                                                            .opacity(expandedTrends ? 1 : 0.3)
+                                                            .zIndex(1)
+                                                    default:
+                                                        flipView
+                                                            .offset(x: 0, y: expandedTrends ? 0 : 0)
+                                                            .scaleEffect(expandedTrends ? 1 : 0.7)
+                                                            .opacity(expandedTrends ? 1 : 0)
+                                                            .zIndex(0)
+                                                    }
+                                                }
+                                            }
+                                            .animation(.easeInOut(duration: 0.8))
+                                            .padding(.top, 16)
+                                            .frame(height: 350, alignment: .top)
+                                        }
+                                        
+                                        RestaurantListView()
+                                    }
+                                }
+                                .padding(.top)
+                                .padding([.horizontal, .bottom])
+                                // getting offset....
+                                .overlay(
+                                    //using GeometryReader
+                                    GeometryReader { geometry -> Color in
+                                        
+                                        let minY = geometry.frame(in: .global).minY
+                                        DispatchQueue.main.async {
+                                            self.offset = minY
+                                        }
+                                        return Color.clear
+                                    }
+                                )
+                            }
+                        }
+                        .offset(y: -bottomSheetTranslationProrated * 46)
                     }
                     ///this will be appened to the View inside GeometryReader. If effects are unpredictable then move back here on the GeometryReader proper
                     ///.offset(y: -bottomSheetTranslationProrated * 46)
-                }
-            }
-        }
-        ZStack {
-            //geometryreader for getting height and width
-            GeometryReader { geometry in
-                Image("img_waves_1146x768")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-            }
-            .ignoresSafeArea()
-            .overlay(.ultraThinMaterial)
-            
-            //MainView
-            VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
-                            .foregroundColor(.offWhite)
-                            .padding()
-                            .offset(y: -offset)
-                        //for bottom drag effect
-                            .offset(y: refreshableOffset(offset: offset))
-                            .offset(y: getTitleOffset())
-                        
-                        //Custom Data View
-                        VStack(spacing: 8) {
-                            //Custom Stack
-                            
-                            CustomStackView {
-                                //Label here
-                                Label {
-                                    Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
-                                        .font(Font.subheadline.smallCaps()).bold()
-                                } icon: {
-                                    Image(systemName: "clock")
-                                }
-                            } contentView: {
-                                //Content...
-                                LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
-                                    ForEach(businesses.indices, id: \.self) { index in
-                                        let flipView = FlipView(
-                                            business1: businesses[index],
-                                            business2: businesses[placeholderBusinesses.count - index - 1],
-                                            color1: gradients[index].color1,
-                                            color2: gradients[index].color2
-                                        )
-                                            .frame(height: 220)
-                                            .onTapGesture {
-                                                
-                                            }
-                                        
-                                        switch index {
-                                        case 0:
-                                            flipView
-                                                .zIndex(3)
-                                        case 1:
-                                            flipView
-                                                .offset(x: 0, y: expandedTrends ? 0 : -200)
-                                                .scaleEffect(expandedTrends ? 1 : 0.9)
-                                                .opacity(expandedTrends ? 1 : 0.3)
-                                                .zIndex(2)
-                                        case 2:
-                                            flipView
-                                                .offset(x: 0, y: expandedTrends ? 0 : -450)
-                                                .scaleEffect(expandedTrends ? 1 : 0.8)
-                                                .opacity(expandedTrends ? 1 : 0.3)
-                                                .zIndex(1)
-                                        default:
-                                            flipView
-                                                .offset(x: 0, y: expandedTrends ? 0 : 0)
-                                                .scaleEffect(expandedTrends ? 1 : 0.7)
-                                                .opacity(expandedTrends ? 1 : 0)
-                                                .zIndex(0)
-                                        }
-                                    }
-                                }
-                                .animation(.easeInOut(duration: 0.8))
-                                .padding(.top, 16)
-                                .frame(height: 350, alignment: .top)
-                            }
-                            
-                            RestaurantListView()
-                        }
-                    }
-                    .padding(.top)
-                    .padding([.horizontal, .bottom])
-                    // getting offset....
-                    .overlay(
-                        //using GeometryReader
-                        GeometryReader { geometry -> Color in
-                            
-                            let minY = geometry.frame(in: .global).minY
-                            DispatchQueue.main.async {
-                                self.offset = minY
-                            }
-                            return Color.clear
-                        }
-                    )
                 }
             }
         }
