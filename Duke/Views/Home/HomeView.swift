@@ -293,35 +293,6 @@ struct HomeView: View {
             }
         }
     }
-    
-    @ViewBuilder func HeroBackgroundView() -> some View {
-        GeometryReader { proxy in
-            let size = proxy.size
-            
-            TabView(selection:$currentIndex) {
-                ForEach(movies.indices, id: \.self) { index in
-                    Image(movies[index].artwork)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: size.width, height: size.height)
-                        .clipped()
-                        .tag(index)
-                }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut, value: currentIndex)
-            
-            let color: Color = .black
-            //Custom Gradient
-            LinearGradient(colors: [.black, .clear, color.opacity(0.15), color.opacity(0.5), color.opacity(0.8), color, color], startPoint: .top, endPoint: .bottom)
-            
-            //blurred overlay
-            Rectangle()
-                .fill(.ultraThinMaterial) //enforce DarkModeViewModifier
-        }
-        .ignoresSafeArea()
-    }
-    
 }
 
 struct HomeView_Previews: PreviewProvider {
