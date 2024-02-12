@@ -73,6 +73,7 @@ struct ComplexScrollUI: View {
                                         //for bottom drag effect
                                             .offset(y: refreshableOffset(offset: offset))
                                             .offset(y: getTitleOffset())
+                                            .opacity(getTitleOpacity())
                                         
                                         //Custom Data View
                                         VStack(spacing: 8) {
@@ -208,6 +209,9 @@ struct ComplexScrollUI: View {
                 }
             }
         }
+        .onChange(of: homeViewModel.showModal) { newValue in
+            homeViewModel.request()
+        }
     }
     
     var randomBusinesses : [Business] {
@@ -312,7 +316,6 @@ struct ComplexScrollUI: View {
             }
             .frame(maxHeight: .infinity)
         }
-        
     }
 
 }
