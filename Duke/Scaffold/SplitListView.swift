@@ -46,7 +46,7 @@ struct SplitListView: View {
                     .id(business.name!)
                 }
             }
-            .background(GeometryReader { geometry in
+            .background(GeometryReader { geometry in //to be added to search view
                 Color.clear.preference(
                     key: SizingPreferenceKey.self,
                     value: geometry.frame(in: .named(coordinateSpaceName)).origin
@@ -58,7 +58,6 @@ struct SplitListView: View {
             if (position.y > self.position.y) {
                 print("up")
                 dismissSearch()
-
             }
             else if (position.y < self.position.y) {
                 #warning("should implement a counter that will keep track of how many list items a user has scrolled over, and display payment page after the threshold is reached")

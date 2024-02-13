@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomPopUpSheetBar: View {
-    @State var symbolName: String = "questionmark.key.filled" //chnage this based  on sign-in status
+    @State var symbolName: String = "questionmark.key.filled"
     @State var action: () -> Void
     
     var backgroundColors: [Color] = [Color("purple"),Color("lightBlue"), Color(hex: "17203A")]
@@ -48,8 +48,9 @@ struct CustomPopUpSheetBar: View {
                 circleTabButton
                     .padding(.bottom, getRect().height * 0.075)
             }
-            
-            
+            .onAppear {
+                setSymbolName()
+            }
         }
         .frame(height: getRect().height * 0.12)
         .frame(maxHeight: .infinity, alignment: .bottom)
@@ -75,7 +76,6 @@ struct CustomPopUpSheetBar: View {
                 .foregroundColor(.white)
                 .offset(y: -17)
                 .opacity(0)
-            #warning("come back and fix this opacity issue")
         }
         .scaleEffect(press ? 1.2 : 1)
         .background(Circle()
@@ -92,13 +92,25 @@ struct CustomPopUpSheetBar: View {
                     .offset(y: -17)
                     .scaleEffect(press ? 1.2 : 1)
                     .overlay(content: {
-                        Image(systemName: "square.3.layers.3d.bottom.filled")
+                        Image(systemName: symbolName)
                             .renderingMode(.original)
                             .frame(maxWidth: .infinity)
                             .foregroundColor(.white)
                             .offset(y: -17)
                     })
             ), alignment: .trailing)
+        .onAppear {
+            setSymbolName()
+        }
+    }
+    
+    func setSymbolName() {
+        let defaultsValue = UserDefaults.standard.string(forKey: "sign_in_status")
+        if defaultsValue == "sign_in_status_true" {
+            symbolName = "person.crop.circle.badge.checkmark"
+        } else {
+            symbolName = "questionmark.key.filled"
+        }
     }
 }
 

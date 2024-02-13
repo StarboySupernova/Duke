@@ -45,7 +45,6 @@ struct SignInControllerView: View {
                     }
                 }
                 .padding(.vertical, 20)
-                
             }
             .backgroundBlur(radius: 25, opaque: true)
             .background(Color.bottomSheetBackground)
