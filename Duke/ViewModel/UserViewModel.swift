@@ -42,7 +42,7 @@ class UserViewModel : ObservableObject {
                     if error == nil {
                         UserDefaults.standard.set(user.userName, forKey: "user_name")
                         UserDefaults.standard.set(userID, forKey: "user_id")
-                        UserDefaults.standard.set(true, forKey: "sign_in_status") //iffy, because Bool UserDefaults value returns nil for both no value and a false value. Should find more elegant solution here
+                        UserDefaults.standard.set("sign_in_status_true", forKey: "sign_in_status")
                         sign_in_status = true
                         print("Save successful")
                     }
@@ -75,7 +75,7 @@ class UserViewModel : ObservableObject {
         await MainActor.run(body: {
             UserDefaults.standard.set(user.userName, forKey: "user_name")
             UserDefaults.standard.set(userID, forKey: "user_id")
-            UserDefaults.standard.set(true, forKey: "sign_in_status") //iffy, because Bool UserDefaults value returns nil for both no value and a false value. Should find more elegant solution here. Should possib;y tie this to UserDataManagerView model which will be saved as JSON as a singular object
+            UserDefaults.standard.set("sign_in_status_true", forKey: "sign_in_status")
             sign_in_status = true
             myProfile = user
         })
@@ -85,7 +85,7 @@ class UserViewModel : ObservableObject {
     func resetPassword() {
         Task {
             do {
-                // With the help of Swift concurrency Auth can be done on a single line
+                /// With the help of Swift concurrency Auth can be done on a single line
                 try await Auth.auth().sendPasswordReset(withEmail: loginEmail)
                 print("reset link sent")
             } catch {
@@ -97,7 +97,7 @@ class UserViewModel : ObservableObject {
     func internalUserLogout () {
         do {
             try Auth.auth().signOut()
-            UserDefaults.standard.set(false, forKey: "sign_in_status")
+            UserDefaults.standard.set("sign_in_status_false", forKey: "sign_in_status")
             sign_in_status = false
             //create helper method to check UserDefaults which I can control when it will be called
             myProfile = nil
@@ -117,7 +117,7 @@ class UserViewModel : ObservableObject {
                 try await Firestore.firestore().collection("Users").document(userUID).delete()
                 //deleting auth account
                 try await Auth.auth().currentUser?.delete()
-                UserDefaults.standard.set(false, forKey: "sign_in_status")
+                UserDefaults.standard.set("sign_in_status_true", forKey: "sign_in_status")
                 showSuccessAlertView("Success", "Account deleted successfully", handler: { [unowned self] in
                     myProfile = nil
                     sign_in_status = false
