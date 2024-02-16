@@ -97,7 +97,6 @@ struct ContentView: View {
                         .offset(x: isOpen ? 265 : 0)
                         .scaleEffect(isOpen ? 0.9 : 1)
                         .ignoresSafeArea()
-                        
                     }
                     .overlay {
                         ZStack(alignment: .leading) {

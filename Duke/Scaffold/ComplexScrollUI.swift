@@ -26,6 +26,7 @@ struct ComplexScrollUI: View {
     }
     
     var topEdge: CGFloat
+    let randomBusinesses: [Business]
     let monthDateFormat: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -67,7 +68,7 @@ struct ComplexScrollUI: View {
                                 VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
                                     ScrollView(.vertical, showsIndicators: false) {
                                         VStack {
-                                            DateTitle(title: "homeViewModel.cityName", location: "Duke Home")
+                                            DateTitle(title: homeViewModel.cityName, location: "Duke Home")
                                                 .foregroundColor(.offWhite)
                                                 .padding()
                                                 .offset(y: -offset)
@@ -91,10 +92,10 @@ struct ComplexScrollUI: View {
                                                 } contentView: {
                                                     //Content...
                                                     LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
-                                                        ForEach(businesses.indices, id: \.self) { index in
+                                                        ForEach(randomBusinesses.indices, id: \.self) { index in
                                                             let flipView = FlipView(
-                                                                business1: businesses[index],
-                                                                business2: businesses[placeholderBusinesses.count - index - 1],
+                                                                business1: randomBusinesses[index],
+                                                                business2: randomBusinesses[randomBusinesses.count - index - 1],
                                                                 color1: gradients[index].color1,
                                                                 color2: gradients[index].color2
                                                             )
@@ -222,10 +223,6 @@ struct ComplexScrollUI: View {
         }
     }
     
-    var randomBusinesses : [Business] {
-        homeViewModel.businesses.randomSelection(count: 4)
-    }
-    
     func getTitleOffset() -> CGFloat {
         //setting a single max height for whole title
         //consider max as 120
@@ -263,7 +260,7 @@ struct ComplexScrollUI: View {
                     }
                 } contentView: {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        ForEach(randomBusinesses.randomElement()?.categories ?? []) { category in
+                        ForEach(randomBusinesses.first?.categories ?? []) { category in
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(category.title!)
                                     .font(.title)
@@ -338,14 +335,12 @@ struct ComplexScrollUI: View {
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
         }
-        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+        .fullScreenCover(isPresented: $homeViewModel.showModal, onDismiss: nil) {
             PermissionView() { homeViewModel.requestPermission() }
                 .background(Color.clear) //PermissionView shows when LocationAccess is not given, however HeroParallaxView should show to repeat users
         }
     }
-
 }
-
 
 struct CustomStackView<Title: View, Content: View>: View {
     var titleView: Title
@@ -445,11 +440,15 @@ struct ComplexScrollUI_Previews: PreviewProvider {
 }
 
 struct ComplexContentView: View {
+    @EnvironmentObject var homeViewModel: HomeViewModel
+    var randomBusinesses : [Business] {
+        homeViewModel.businesses.randomSelection(count: 4)
+    }
     var body: some View {
         //getting safe area using GeometryReader since window is deprecated in ios15
         GeometryReader { geometry in
             let topEdge = geometry.safeAreaInsets.top
-            ComplexScrollUI(topEdge: topEdge)
+            ComplexScrollUI(topEdge: topEdge, randomBusinesses: randomBusinesses)
                 .ignoresSafeArea(.all, edges: .top)
                 .environmentObject(HomeViewModel())
         }

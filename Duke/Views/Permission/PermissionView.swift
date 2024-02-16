@@ -17,12 +17,9 @@ struct PermissionView: View {
     @State private var showMap: Bool = false
     let action : () -> Void
     
-    
-    
     var body: some View {
         GeometryReader { geometry  in
             VStack(alignment: .center) {
-                
                 Spacer()
                 
                 VStack {
