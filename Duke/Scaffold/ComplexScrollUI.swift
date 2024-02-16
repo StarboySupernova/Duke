@@ -338,6 +338,10 @@ struct ComplexScrollUI: View {
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
         }
+        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+            PermissionView() { homeViewModel.requestPermission() }
+                .background(Color.clear) //PermissionView shows when LocationAccess is not given, however HeroParallaxView should show to repeat users
+        }
     }
 
 }
