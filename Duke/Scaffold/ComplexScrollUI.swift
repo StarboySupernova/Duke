@@ -93,7 +93,7 @@ struct ComplexScrollUI: View {
                                                     //Content...
                                                     LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
                                                         ForEach(randomBusinesses.indices, id: \.self) { index in
-                                                            let flipView = FlipView(
+                                                            let flipView = FlipView (
                                                                 business1: randomBusinesses[index],
                                                                 business2: randomBusinesses[randomBusinesses.count - index - 1],
                                                                 color1: gradients[index].color1,
@@ -143,7 +143,6 @@ struct ComplexScrollUI: View {
                                         .overlay(
                                             //using GeometryReader
                                             GeometryReader { geometry -> Color in
-                                                
                                                 let minY = geometry.frame(in: .global).minY
                                                 DispatchQueue.main.async {
                                                     self.offset = minY

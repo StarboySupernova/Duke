@@ -19,6 +19,10 @@ struct VerticalContentView: View {
     @EnvironmentObject var userVM: UserViewModel
     @EnvironmentObject var preferenceStore: UserPreference
     
+    var randomBusinesses: [Business] {
+        homeVM.businesses.randomSelection(count: 4)
+    }
+    
     var body: some View {
         ResponsiveView { prop in
             HStack(spacing: 0) {                
@@ -36,7 +40,7 @@ struct VerticalContentView: View {
                     FavouritesContentView()
                         .tag(Tab.user)
                     
-                    HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
+                    HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends, randomBusinesses: randomBusinesses)
                         .environmentObject(HomeViewModel())
                         .environmentObject(straddleScreen)
                         .environmentObject(UserViewModel())

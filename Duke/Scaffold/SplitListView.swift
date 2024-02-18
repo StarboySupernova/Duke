@@ -12,9 +12,7 @@ struct SplitListView: View {
     @EnvironmentObject var straddleScreen: StraddleScreen
     @Environment(\.dismissSearch) private var dismissSearch
     @Binding var selectedBusiness: Business?
-    @Binding var showDetailView: Bool
     @Binding var expandedTrends: Bool
-    @Binding var showTrends: Bool
     @State private var currentIndex: Int = 0
     @State var position: CGPoint = .zero
     @Namespace var animation
@@ -71,7 +69,7 @@ struct SplitListView: View {
             homeViewModel.request()
         })
         .listStyle(.plain)
-        .if(!expandedTrends && !showTrends, transform: { thisView in
+        .if(!expandedTrends, transform: { thisView in
             thisView
                 .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
                     ForEach(homeViewModel.completions, id : \.self) { completion in

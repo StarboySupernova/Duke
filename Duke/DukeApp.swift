@@ -31,7 +31,7 @@ struct DukeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ComplexContentView()
+            ContentView()
                 .environmentObject(preferenceStore)
                 .environmentObject(homeViewModel)
                 .environmentObject(straddleScreen)

@@ -144,7 +144,9 @@ struct HomeView: View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
         //MARK: Need to implement smooth functionality on landscape mode. This will need to be implemented in responsiveView, as I tried to wrap this inside a scrolview with unintended results. The scrollview blocks out the content
         ResponsiveView { prop in
-            HStack(spacing: 0) {
+            HStack(spacing: 0) { //HStack may be redundant here since ContentView will provide it, which is where SideBar will be
+                ///SideBar coming here
+                
                 ///will not turn into separate view, for it introduces additional complexity
                 ///geometryreader for getting height and width
                 GeometryReader { geometry in
@@ -184,7 +186,7 @@ struct HomeView: View {
                                                 //Content...
                                                 LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
                                                     ForEach(randomBusinesses.indices, id: \.self) { index in
-                                                        let flipView = FlipView(
+                                                        let flipView = FlipView (
                                                             business1: randomBusinesses[index],
                                                             business2: randomBusinesses[randomBusinesses.count - index - 1],
                                                             color1: gradients[index].color1,
@@ -224,8 +226,6 @@ struct HomeView: View {
                                                 .padding(.top, 16)
                                                 .frame(height: 350, alignment: .top)
                                             }
-                                            
-                                            RestaurantListView()
                                         }
                                     }
                                     .padding(.top)
@@ -234,7 +234,6 @@ struct HomeView: View {
                                     .overlay(
                                         //using GeometryReader
                                         GeometryReader { geometry -> Color in
-                                            
                                             let minY = geometry.frame(in: .global).minY
                                             DispatchQueue.main.async {
                                                 self.offset = minY
@@ -243,6 +242,8 @@ struct HomeView: View {
                                         }
                                     )
                                 }
+                                SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
+                                    .offset(x: expandedTrends ? 3000 : 0)
                             }
                             .offset(y: -bottomSheetTranslationProrated * 46)
                             
@@ -331,7 +332,6 @@ struct HomeView: View {
         }
     }
 }
-
 
 extension Array where Element: Identifiable {
     func randomSelection(count: Int) -> [Element] {
