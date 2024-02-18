@@ -332,14 +332,6 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true), randomBusinesses: [])
-            .environmentObject(HomeViewModel())
-            .environmentObject(StraddleScreen())
-            .environmentObject(UserViewModel())
-    }
-}
 
 extension Array where Element: Identifiable {
     func randomSelection(count: Int) -> [Element] {
