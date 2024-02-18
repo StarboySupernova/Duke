@@ -35,6 +35,7 @@ struct HomeView: View {
     @State private var showDetailView: Bool = false
     @State var position: CGPoint = .zero
     @State var isScrolling: Bool = false
+    @State var offset: CGFloat = 0
     
     @State var businesses = placeholderBusinesses
     @State var shouldScroll: Bool = false
@@ -49,6 +50,21 @@ struct HomeView: View {
     private var axes: Axis.Set {
         return shouldScroll ? .vertical : []
     }
+    
+    let randomBusinesses: [Business]
+    let monthDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.dateFormat = "MMMM"
+        return formatter
+    }()
+    let weekDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.dateFormat = "W"
+        return formatter
+    }()
+    var currentDate = Date()
     
     var trendingContent: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
@@ -93,160 +109,148 @@ struct HomeView: View {
         .padding(.all, 16)
     }
     
+    func refreshableOffset(offset: CGFloat) -> CGFloat {
+        homeViewModel.request()
+        return offset > 0 ? (offset / UIScreen.main.bounds.width) * 100 : 0
+    }
+    
+    func getTitleOffset() -> CGFloat {
+        //setting a single max height for whole title
+        //consider max as 120
+        if offset < 0 {
+            
+            let progress = -offset / 120
+            
+            //since top padding is 25
+            let newOffset = (progress <= 1.0 ? progress : 1) * 20
+            
+            return -newOffset
+        }
+        
+        return 0
+    }
+    
+    func getTitleOpacity() -> CGFloat {
+        let titleOffset = -getTitleOffset()
+        
+        let progress = titleOffset / 20
+        
+        let opacity = 1 - progress
+        
+        return opacity
+    }
+    
     var body: some View {
         //MARK: Insert functionality to show sidebar on horizontal position / iPad
         //MARK: Need to implement smooth functionality on landscape mode. This will need to be implemented in responsiveView, as I tried to wrap this inside a scrolview with unintended results. The scrollview blocks out the content
         ResponsiveView { prop in
             HStack(spacing: 0) {
-                //will not turn into separate view, for it introduces additional complexity
-                GeometryReader{ geometry in
+                ///will not turn into separate view, for it introduces additional complexity
+                ///geometryreader for getting height and width
+                GeometryReader { geometry in
                     /*
                      let showAdditionalDetails = prop.isiPad && !prop.isSplit && prop.isLandscape //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
                      */
                     let screenHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
                     let imageOffset = screenHeight + 36
                     
-                    ZStack {
-                        NavigationView {
-                            ZStack {
-                                if !overlaid {
-                                    VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                                            if showTrends {
-                                                ScrollView(axes, showsIndicators: false){
-                                                    VStack {
-                                                        DateTitle(title: "Trending", location: homeViewModel.cityName)
-                                                            .foregroundColor(.offWhite)
-                                                            .padding(.small)
-                                                        
-                                                        trendingContent
-                                                    }
-                                                    .overlay(alignment: .topTrailing) {
-                                                        HStack(spacing: 2) {
-                                                            ToggleButton(icon: expandedTrends ? "xmark.square" : "square.stack.3d.down.right") {
-                                                                expandedTrends.toggle()
-                                                                if expandedTrends {
-                                                                    trendingContentHeight = 450
-                                                                } else {
-                                                                    trendingContentHeight = screenHeight * 1.1
-                                                                }
-                                                                shouldScroll.toggle()
-                                                            }
-                                                            .foregroundColor(expandedTrends ? .red : .offWhite)
-                                                            
-                                                            if !expandedTrends {
-                                                                ToggleButton(icon: "xmark.square") {
-                                                                    withAnimation {
-                                                                        showTrends.toggle()
-                                                                    }
-                                                                }
-                                                                .foregroundColor(.red)
-                                                            }
-                                                        }
-                                                        .padding()
-                                                    }
-                                                    .padding(.top, expandedTrends ? 150 : 0)
+                    ZStack { ///ZStack that allows BottomSheet and CustomTab to display in layers above the main content window (dependent on variables)
+                        ZStack { ///ZStack to enable DetailView to overlay main view, without covering over the SideBar, which will be very import in the context of displaying on an iPad
+                            VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
+                                ScrollView(.vertical, showsIndicators: false) {
+                                    VStack {
+                                        DateTitle(title: homeViewModel.cityName, location: "Duke Home")
+                                            .foregroundColor(.offWhite)
+                                            .padding()
+                                            .offset(y: -offset)
+                                        //for bottom drag effect
+                                            .offset(y: refreshableOffset(offset: offset))
+                                            .offset(y: getTitleOffset())
+                                            .opacity(getTitleOpacity())
+                                        
+                                        //Custom Data View
+                                        VStack(spacing: 8) {
+                                            //Custom Stack
+                                            
+                                            CustomStackView {
+                                                //Label here
+                                                Label {
+                                                    Text("Trending - \(currentDate, formatter: monthDateFormat), Week \(currentDate, formatter: weekDateFormat)")
+                                                        .font(Font.subheadline.smallCaps()).bold()
+                                                } icon: {
+                                                    Image(systemName: "clock")
                                                 }
-                                                .frame(height: expandedTrends ? getRect().height * 1.1 : 470)
-                                                .padding(.top)
-                                            } else {
-                                                DateTitle()
-                                                    .foregroundColor(.offWhite)
-                                                    .padding(.bottom, .large)
-                                                    .overlay(alignment: .topTrailing) {
-                                                        ToggleButton {
-                                                            withAnimation {
-                                                                showTrends.toggle()
+                                            } contentView: {
+                                                //Content...
+                                                LazyVGrid(columns: [GridItem(.adaptive(minimum: expandedTrends ? 200 : 700))], spacing: 16) {
+                                                    ForEach(randomBusinesses.indices, id: \.self) { index in
+                                                        let flipView = FlipView(
+                                                            business1: randomBusinesses[index],
+                                                            business2: randomBusinesses[randomBusinesses.count - index - 1],
+                                                            color1: gradients[index].color1,
+                                                            color2: gradients[index].color2
+                                                        )
+                                                            .frame(height: 220)
+                                                            .onTapGesture {
+                                                                
                                                             }
+                                                        
+                                                        switch index {
+                                                        case 0:
+                                                            flipView
+                                                                .zIndex(3)
+                                                        case 1:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : -200)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.9)
+                                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                                .zIndex(2)
+                                                        case 2:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : -450)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.8)
+                                                                .opacity(expandedTrends ? 1 : 0.3)
+                                                                .zIndex(1)
+                                                        default:
+                                                            flipView
+                                                                .offset(x: 0, y: expandedTrends ? 0 : 0)
+                                                                .scaleEffect(expandedTrends ? 1 : 0.7)
+                                                                .opacity(expandedTrends ? 1 : 0)
+                                                                .zIndex(0)
                                                         }
-                                                        .foregroundColor(.offWhite)
-                                                        .padding()
                                                     }
+                                                }
+                                                .animation(.easeInOut(duration: 0.8))
+                                                .padding(.top, 16)
+                                                .frame(height: 350, alignment: .top)
                                             }
                                             
-                                        SplitListView(selectedBusiness: $selectedBusiness, showDetailView: $showDetailView, expandedTrends: $expandedTrends, showTrends: $showTrends)
-                                            .offset(x: expandedTrends ? 3000 : 0)
-                                            .offset(y: showTrends ? 20 : 0)
-                                       
-                                        //                                        .navigationTitle(homeViewModel.cityName)
-                                        //                                        .navigationTitle(overlaid ? "" : homeViewModel.cityName) for this line to work, I'll need a preferenceKey such that child element can update parent element, hence the reliance on a simple if conditonal for overlaid
-                                        
-//                                            .toolbar(content: {
-//                                                ToolbarItem(placement: .navigationBarLeading) {
-//                                                    if prop.isiPad && !prop.isSplit {
-//                                                        Text("Dashboard")
-//                                                            .font(.title3)
-//                                                            .bold()
-//                                                    } else {
-//                                                        //menu button for sidebar
-//                                                        //dos not respond sometimes
-//                                                        Button {
-//                                                            withAnimation(.easeInOut) {
-//                                                                showSideBar = true
-//                                                            }
-//                                                        } label: {
-//                                                            Image(systemName: "line.3.horizontal")
-//                                                                .font(.title2)
-//                                                                .foregroundColor(.white)
-//                                                        }
-//                                                        .frame(maxWidth: 250)
-//                                                    }
-//                                                    
-//                                                }
-//                                            })
-                                    }
-                                    .offset(y: -bottomSheetTranslationProrated * 46)
-                                }
-                                
-                                BottomSheetView(position: $bottomSheetPosition) {} content: {
-                                    SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
-                                        .environmentObject(userViewModel)
-                                        .modifier(DarkModeViewModifier())
-                                }
-                                .onBottomSheetDrag { translation in
-                                    bottomSheetTranslation = translation / screenHeight
-
-                                    withAnimation(.easeInOut) {
-                                        if bottomSheetPosition == BottomSheetPosition.top {
-                                            hasDragged = true
-                                        } else {
-                                            hasDragged = false
-                                            withAnimation(.spring()) {
-                                                overlaid = false
-                                            }
+                                            RestaurantListView()
                                         }
                                     }
+                                    .padding(.top)
+                                    .padding([.horizontal, .bottom])
+                                    // getting offset....
+                                    .overlay(
+                                        //using GeometryReader
+                                        GeometryReader { geometry -> Color in
+                                            
+                                            let minY = geometry.frame(in: .global).minY
+                                            DispatchQueue.main.async {
+                                                self.offset = minY
+                                            }
+                                            return Color.clear
+                                        }
+                                    )
                                 }
-                                
-                                CustomPopUpSheetBar { //increase the height of this view
-                                    withAnimation {
-                                        bottomSheetPosition = .top
-                                        overlaid = true
-                                    }
-#warning("straddle screen should be removed unless device is on landscape mode")
-                                    //                                    straddleScreen.isStraddling = true
-                                }
-                                .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
-                                .edgesIgnoringSafeArea(.bottom)
                             }
-                            .background (
-                                ZStack {
-                                    if overlaid {
-                                        Rectangle()
-                                            .fill(Color.black)
-                                            .frame(width: getRect().width, height: getRect().height)
-                                            .ignoresSafeArea()
-                                    } else {
-                                        Image("img_wave_1024x768")
-                                            .resizable()
-                                            .frame(width: UIScreen.main.bounds.width,
-                                                   height: UIScreen.main.bounds.height,
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                            .ignoresSafeArea()
-                                    }
-                                }
-                            )
+                            .offset(y: -bottomSheetTranslationProrated * 46)
+                            
+                            if selectedBusiness != nil {
+                                DetailView(id: selectedBusiness!.id!, selectedBusiness: $selectedBusiness)
+                                    .edgesIgnoringSafeArea(.all)
+                                    .transition(.move(edge: .trailing))
+                            }
                         }
                         //                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
                         //                            PermissionView() { homeViewModel.requestPermission() }
@@ -258,29 +262,62 @@ struct HomeView: View {
                                 #warning("also test this on different simulator device")
                                 homeViewModel.request()
                             }
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                withAnimation(.easeInOut(duration: 1)) {
-                                    showTrends = false
+                        }
+                        .onChange(of: homeViewModel.showModal) { _ in
+                            homeViewModel.request()
+                        }
+                        
+                        BottomSheetView(position: $bottomSheetPosition) {} content: {
+                            SignInControllerView(bottomSheetTranslationProrated: bottomSheetTranslationProrated)
+                                .environmentObject(userViewModel)
+                                .modifier(DarkModeViewModifier())
+                        }
+                        .onBottomSheetDrag { translation in
+                            bottomSheetTranslation = translation / screenHeight
+
+                            withAnimation(.easeInOut) {
+                                if bottomSheetPosition == BottomSheetPosition.top {
+                                    hasDragged = true
+                                } else {
+                                    hasDragged = false
+                                    withAnimation(.spring()) {
+                                        overlaid = false
+                                    }
                                 }
                             }
                         }
-                        .onChange(of: homeViewModel.showModal) { newValue in
-                            homeViewModel.request()
-                        }
-//                        .onChange(of: !expandedTrends && !showTrends) { newValue in
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                straddleScreen.isHidden.toggle()
-//                            }
-//                        }
                         
-                        if selectedBusiness != nil {
-                            DetailView(id: selectedBusiness!.id!, selectedBusiness: $selectedBusiness)
-                                .edgesIgnoringSafeArea(.all)
-                                .transition(.move(edge: .trailing))
+                        CustomPopUpSheetBar { //increase the height of this view
+                            withAnimation {
+                                bottomSheetPosition = .top
+                                overlaid = true
+                            }
+#warning("straddle screen should be removed unless device is on landscape mode")
+                            //                                    straddleScreen.isStraddling = true
                         }
+                        .offset(y: bottomSheetTranslationProrated * 115) //- commenting this out made tab bar stop disappearing offscreen
+                        .edgesIgnoringSafeArea(.bottom)
                     }
-                    
+                    .background (
+                        ZStack {
+                            if overlaid {
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .frame(width: getRect().width, height: getRect().height)
+                                    .ignoresSafeArea()
+                            } else {
+                                Image("img_wave_1024x768")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width,
+                                           height: UIScreen.main.bounds.height,
+                                           alignment: .center)
+                                    .scaledToFit()
+                                    .clipped()
+                                    .ignoresSafeArea()
+                            }
+                        }
+                    )
+
                     /* //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
                      .overlay(alignment: .topTrailing) {
                      if showStorageDetails {
@@ -297,7 +334,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true))
+        HomeView(showSideBar: .constant(false), selectedMenu: .constant(.home), expandedTrends: .constant(false), showTrends: .constant(true), randomBusinesses: [])
             .environmentObject(HomeViewModel())
             .environmentObject(StraddleScreen())
             .environmentObject(UserViewModel())

@@ -22,6 +22,10 @@ struct ContentView: View {
     
     @State var expandedTrends = false
     @State var showTrends: Bool = true
+    
+    var randomBusinesses : [Business] {
+        homeVM.businesses.randomSelection(count: 4)
+    }
 
     var button = RiveViewModel(fileName: "menu_button", stateMachineName: "State Machine", autoPlay: false/*, animationName: "open"*/)
 
@@ -39,7 +43,7 @@ struct ContentView: View {
                         }
                         
                         TabView(selection: $selectedMenu) {
-                            HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends)
+                            HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends, randomBusinesses: randomBusinesses)
                                 .tag(SelectedMenu.home)
                                 .environmentObject(HomeViewModel())
                                 .environmentObject(straddleScreen)

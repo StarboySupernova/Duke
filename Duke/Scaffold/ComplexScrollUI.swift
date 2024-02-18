@@ -59,7 +59,7 @@ struct ComplexScrollUI: View {
                 ZStack { ///ZStack to give coordinate space to GeometryReader
                     
                     ///geometryreader for getting height and width
-                    GeometryReader{ geometryProxy in
+                    GeometryReader { geometryProxy in
                         let screenHeight = geometryProxy.size.height + geometryProxy.safeAreaInsets.top + geometryProxy.safeAreaInsets.bottom
                         let imageOffset = screenHeight + 36
                         
