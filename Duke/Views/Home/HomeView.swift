@@ -159,7 +159,15 @@ struct HomeView: View {
                     ZStack { ///ZStack that allows BottomSheet and CustomTab to display in layers above the main content window (dependent on variables)
                         ZStack { ///ZStack to enable DetailView to overlay main view, without covering over the SideBar, which will be very import in the context of displaying on an iPad
                             VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                                ScrollView(.vertical, showsIndicators: false) {
+                                List {
+                                    Section {
+                                        Text("First")
+                                    } header: {
+                                        Text("First")
+                                    } footer: {
+                                        Text("First")
+                                    }
+                                    
                                     VStack {
                                         DateTitle(title: homeViewModel.cityName, location: "Duke Home")
                                             .foregroundColor(.offWhite)
@@ -242,8 +250,8 @@ struct HomeView: View {
                                         }
                                     )
                                 }
-                                SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
-                                    .offset(x: expandedTrends ? 3000 : 0)
+//                                SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
+//                                    .offset(x: expandedTrends ? 3000 : 0)
                             }
                             .offset(y: -bottomSheetTranslationProrated * 46)
                             
@@ -318,6 +326,10 @@ struct HomeView: View {
                             }
                         }
                     )
+                    .fullScreenCover(isPresented: $homeViewModel.showModal, onDismiss: nil) {
+                        PermissionView() { homeViewModel.requestPermission() }
+                            .background(Color.clear) //PermissionView shows when LocationAccess is not given, however HeroParallaxView should show to repeat users
+                    }
 
                     /* //MARK: Functionality for overlaying additional details on View. Adapted from Dashboard in ResponsiveLayout project 2
                      .overlay(alignment: .topTrailing) {
