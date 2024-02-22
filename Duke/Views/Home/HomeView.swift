@@ -243,7 +243,7 @@ struct HomeView: View {
                                                         selectedBusiness = business
                                                     }
                                                     .id(business.name ?? UUID().uuidString)
-                                                } 
+                                                }
                                             }
                                         }
                                     }
@@ -274,10 +274,6 @@ struct HomeView: View {
                                     .transition(.move(edge: .trailing))
                             }
                         }
-                        //                        .sheet(isPresented: $homeViewModel.showModal, onDismiss: nil) {
-                        //                            PermissionView() { homeViewModel.requestPermission() }
-                        //                                .background(Color.clear) //PermissionView shows when LocationAccess is not given, however HeroParallaxView should show to repeat users
-                        //                        }
                         .onAppear {
                             DispatchQueue.main.async {
                                 #warning("add error propagation, calling this as is, is risky")
