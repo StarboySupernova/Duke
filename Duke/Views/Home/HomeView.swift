@@ -243,7 +243,7 @@ struct HomeView: View {
                                                         selectedBusiness = business
                                                     }
                                                     .id(business.name ?? UUID().uuidString)
-                                                }
+                                                } 
                                             }
                                         }
                                     }
