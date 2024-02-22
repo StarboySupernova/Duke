@@ -159,15 +159,7 @@ struct HomeView: View {
                     ZStack { ///ZStack that allows BottomSheet and CustomTab to display in layers above the main content window (dependent on variables)
                         ZStack { ///ZStack to enable DetailView to overlay main view, without covering over the SideBar, which will be very import in the context of displaying on an iPad
                             VStack(spacing: -10 * (1 - bottomSheetTranslationProrated)) {
-                                List {
-                                    Section {
-                                        Text("First")
-                                    } header: {
-                                        Text("First")
-                                    } footer: {
-                                        Text("First")
-                                    }
-                                    
+                                ScrollView(.vertical, showsIndicators: false) {
                                     VStack {
                                         DateTitle(title: homeViewModel.cityName, location: "Duke Home")
                                             .foregroundColor(.offWhite)
@@ -181,7 +173,6 @@ struct HomeView: View {
                                         //Custom Data View
                                         VStack(spacing: 8) {
                                             //Custom Stack
-                                            
                                             CustomStackView {
                                                 //Label here
                                                 Label {
@@ -234,6 +225,26 @@ struct HomeView: View {
                                                 .padding(.top, 16)
                                                 .frame(height: 350, alignment: .top)
                                             }
+                                            
+                                            ForEach(homeViewModel.businesses, id: \.id) { business in
+                                                CustomStackView {
+                                                    Label {
+                                                        Text(business.formattedName)
+                                                            .font(Font.subheadline.smallCaps()).bold()
+                                                    } icon: {
+                                                        Image(systemName: "custom.clock.rectangle.stack.fill")
+                                                    }
+                                                } contentView: {
+                                                    GeometryReader { geometry in
+                                                        BusinessRow(business: business, size: geometry.size)
+                                                    }
+                                                    .frame(height: 100)
+                                                    .onTapGesture {
+                                                        selectedBusiness = business
+                                                    }
+                                                    .id(business.name ?? UUID().uuidString)
+                                                }
+                                            }
                                         }
                                     }
                                     .padding(.top)
@@ -249,9 +260,11 @@ struct HomeView: View {
                                             return Color.clear
                                         }
                                     )
+                                    
+                                    ///SplitListView cannot be put here, data will not load
+//                                    SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
+//                                        .offset(x: expandedTrends ? 3000 : 0)
                                 }
-//                                SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
-//                                    .offset(x: expandedTrends ? 3000 : 0)
                             }
                             .offset(y: -bottomSheetTranslationProrated * 46)
                             
