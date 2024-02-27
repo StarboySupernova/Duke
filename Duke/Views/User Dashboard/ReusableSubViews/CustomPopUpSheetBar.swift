@@ -11,7 +11,7 @@ struct CustomPopUpSheetBar: View {
     @State var symbolName: String = "questionmark.key.filled"
     @State var action: () -> Void
     
-    var backgroundColors: [Color] = [Color("purple"),Color("lightBlue"), Color(hex: "17203A")]
+    var backgroundColors: [Color] = [Color("purple"), Color("settingsBackground"), Color(hex: "17203A")]
     var gradientCircle: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
     
     @State var bottomSheetPosition: BottomSheetPosition = .bottom
