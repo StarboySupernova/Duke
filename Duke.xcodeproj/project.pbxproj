@@ -80,7 +80,6 @@
 		C96B70902962E711009B3444 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C96B708F2962E711009B3444 /* SDWebImageSwiftUI */; };
 		C96B70922962E785009B3444 /* UserPostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70912962E785009B3444 /* UserPostCardView.swift */; };
 		C96B70952962F6E1009B3444 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B70942962F6E1009B3444 /* RegistrationView.swift */; };
-		C9712B512AFA41CC00B83F7B /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9712B502AFA41CC00B83F7B /* TrendView.swift */; };
 		C971D5302A8B2201003AB145 /* HeroParallaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C971D52F2A8B2201003AB145 /* HeroParallaxView.swift */; };
 		C97753282A7D147A004A21FD /* house.riv in Resources */ = {isa = PBXBuildFile; fileRef = C97753212A7D147A004A21FD /* house.riv */; };
 		C97753292A7D147A004A21FD /* confetti.riv in Resources */ = {isa = PBXBuildFile; fileRef = C97753222A7D147A004A21FD /* confetti.riv */; };
@@ -235,7 +234,6 @@
 		C96B708C2962DD74009B3444 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		C96B70912962E785009B3444 /* UserPostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCardView.swift; sourceTree = "<group>"; };
 		C96B70942962F6E1009B3444 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		C9712B502AFA41CC00B83F7B /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
 		C971D52F2A8B2201003AB145 /* HeroParallaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroParallaxView.swift; sourceTree = "<group>"; };
 		C97753212A7D147A004A21FD /* house.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = house.riv; sourceTree = "<group>"; };
 		C97753222A7D147A004A21FD /* confetti.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = confetti.riv; sourceTree = "<group>"; };
@@ -563,7 +561,6 @@
 				C94E60102AF63791005D0CB1 /* SplitListView.swift */,
 				C9DFBB0F2AF64A4C0095D073 /* BusinessRow.swift */,
 				C94F8D722AFA217E0008B3D3 /* CertificatesView.swift */,
-				C9712B502AFA41CC00B83F7B /* TrendView.swift */,
 				C94F8D742AFA28990008B3D3 /* FlipView.swift */,
 				C94F8D762AFA290D0008B3D3 /* CertificateItem.swift */,
 				C97C26D52B08BDA200BA7EBC /* FirebaseView.swift */,
@@ -813,7 +810,6 @@
 			files = (
 				C957AEB62A89B30900B8026B /* VerticalContentView.swift in Sources */,
 				C9FB29752A7D4F5800662A00 /* SideMenu.swift in Sources */,
-				C9712B512AFA41CC00B83F7B /* TrendView.swift in Sources */,
 				C9EE106629473F7600103492 /* ShadowModifier.swift in Sources */,
 				C9CE33832B0F5FB200B97192 /* Task.swift in Sources */,
 				C9A4AC8E29AA0D480038EB5D /* CustomPopUpSheetBar.swift in Sources */,
