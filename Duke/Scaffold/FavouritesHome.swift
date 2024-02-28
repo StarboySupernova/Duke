@@ -36,6 +36,9 @@ struct FavouritesHome: View {
             FavouritesCardView()
                 .zIndex(0)
         }
+        .onAppear(perform: {
+            homeViewModel.request()
+        })
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             ZStack(alignment: .bottom) {
@@ -195,7 +198,6 @@ struct FavouritesHome: View {
     
     @ViewBuilder func HeaderView () -> some View {
         var headerImages: [String] = ["pancakes", "breakfast","cooking", "eating", "groceries", "ice-cream"]
-        let trendingBusinesses = homeViewModel.businesses.randomSelection(count: 5)
         
         VStack {
             Image(headerImages.randomElement()!)
@@ -243,9 +245,9 @@ struct FavouritesHome: View {
     }
     
     @ViewBuilder func FavouritesCardView () -> some View {
+        let trendingBusinesses: [Business]? = homeViewModel.businesses.randomSelection(count: 5)
         VStack {
-            #warning("if user has no favourites, show trending below")
-            Text("Favourites")
+            Text("Trending on Duke")
                 .font(.caption)
                 .fontWeight(.semibold)
                 .foregroundColor(.gray)
@@ -253,7 +255,7 @@ struct FavouritesHome: View {
             
             GeometryReader { _ in
                 VStack(spacing: 0) {
-                    ForEach(sampleCards.indices, id: \.self) { index in
+                    ForEach(trendingBusinesses?.indices ?? sampleCards.indices, id: \.self) { index in
                         Favourite(index: index)
                     }
                 }
@@ -312,21 +314,47 @@ struct FavouritesHome: View {
     }
     
     @ViewBuilder func Favourite(index: Int) -> some View {
+        let trendingImages: [URL?] = {
+            var result: [URL?] = []
+            let randomBusinesses = homeViewModel.businesses.randomSelection(count: 5)
+            for business in randomBusinesses {
+                homeViewModel.requestOptionalDetails(forOptionalID: business.id)
+                result.append(homeViewModel.businessDetails?.images.first)
+            }
+            return result
+        }()
+        
         GeometryReader {
             let geometry = $0.size
             let minY = $0.frame(in: .named("SCROLL")).minY
             let progress = minY / geometry.height
             let constrainedProgress = progress > 1 ? 1 : progress < 0 ? 0 : progress
             
-            Image(sampleCards[index].cardImage)
-                .resizedToFill(width: geometry.width, height: geometry.height)
-                .cornerRadius(30)
-                .shadow(color: .black.opacity(0.5), radius: 8, x: 6, y: 6)
-            //MARK: Stacked Card Animation
-                .rotation3DEffect(.init(degrees: constrainedProgress * 40.0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
-                .padding(.top, progress * -160.0)
-            //moving current card out of view when dragged
-                .offset(y: progress < 0 ? progress * 250 : 0)
+            if trendingImages[index] == nil {
+                Image(sampleCards[index].cardImage)
+                    .resizedToFill(width: geometry.width, height: geometry.height)
+                    .cornerRadius(30)
+                    .shadow(color: .black.opacity(0.5), radius: 8, x: 6, y: 6)
+                //MARK: Stacked Card Animation
+                    .rotation3DEffect(.init(degrees: constrainedProgress * 40.0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
+                    .padding(.top, progress * -160.0)
+                //moving current card out of view when dragged
+                    .offset(y: progress < 0 ? progress * 250 : 0)
+            } else {
+                AsyncImage(url: trendingImages[index]) { image in
+                    image
+                        .resizedToFill(width: geometry.width, height: geometry.height)
+                        .clipShape(RoundedCorner(radius: 30, corners: [.topLeft, .bottomRight]))
+                        .shadow(color: .black.opacity(0.5), radius: 8, x: 6, y: 6)
+                    //MARK: Stacked Card Animation
+                        .rotation3DEffect(.init(degrees: constrainedProgress * 40.0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
+                        .padding(.top, progress * -160.0)
+                    //moving current card out of view when dragged
+                        .offset(y: progress < 0 ? progress * 250 : 0)
+                } placeholder: {
+                    Color.gray.shimmer()
+                }
+            }
         }
         .frame(height: 200)
         .zIndex(Double(sampleCards.count - index))
@@ -339,7 +367,7 @@ struct FavouritesHome: View {
 struct FavouritesHome_Previews: PreviewProvider {
     static var previews: some View {
         FavouritesContentView()
-            //.preferredColorScheme(.dark)
+            .environmentObject(HomeViewModel())
     }
 }
 

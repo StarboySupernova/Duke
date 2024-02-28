@@ -120,4 +120,24 @@ final class HomeViewModel: ObservableObject {
             .print()
             .assign(to: &$businessDetails)
     }
+    
+    func requestOptionalDetails(forOptionalID id : String?) {
+        let live = YelpAPIService.live
+        
+        let details = live.detailRequest(.detail(id: id ?? ""))
+            .share() //share output with multiple subscribers, i.e. business & region
+        
+        details
+            .compactMap { business in
+                CLLocationCoordinate2D(latitude: business?.coordinates?.latitude ?? 0, longitude: business?.coordinates?.longitude ?? 0)
+            }
+            .compactMap { coordinates in
+                MKCoordinateRegion(center: coordinates, span: .init(latitudeDelta: 0.001, longitudeDelta: 0.001))
+            }
+            .assign(to: &$region)
+        
+        details
+            .print()
+            .assign(to: &$businessDetails)
+    }
 }

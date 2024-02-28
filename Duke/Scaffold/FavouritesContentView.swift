@@ -21,5 +21,6 @@ struct FavouritesContentView: View {
 struct FavouritesContentView_Previews: PreviewProvider {
     static var previews: some View {
         FavouritesContentView()
+            .environmentObject(HomeViewModel())
     }
 }

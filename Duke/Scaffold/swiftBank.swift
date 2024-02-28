@@ -36,7 +36,7 @@ var sampleBankCards: [BankCard] = [
 
 //the first is the card to be expanded, so it has no data
 
-struct BankView: View {
+struct SliderView: View {
     var proxy: ScrollViewProxy
     var size: CGSize
     var safeArea: EdgeInsets
@@ -47,6 +47,8 @@ struct BankView: View {
     @State private var offset: CGFloat = 0
     @State var shouldScroll: Bool = true
     @State private var isScrollActionPending: Bool = false
+    @State var expandedTrends = false
+    @State var selectedBusiness: Business?
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -68,8 +70,7 @@ struct BankView: View {
                     
                     TabView(selection: $activePage) {
                         ForEach(myCards) { card in
-                            ZStack
-                            {
+                            ZStack{
                                 if card.isFirstBlankCard {
                                     Rectangle()
                                         .fill(.clear)
@@ -91,10 +92,14 @@ struct BankView: View {
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .background(
-                        RoundedRectangle(cornerRadius:40 * reverseProgress(size), style: .continuous)
-                            .fill(LinearGradient(colors: [.red, .yellow], startPoint: .top, endPoint: .bottom))
+                        SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends, isSearchable: true, cornerRadius: 40 * reverseProgress(size))
+                            .glow(color: .red, radius: reverseProgress(size))
+                        //                                            .offset(x: expandedTrends ? 3000 : 0)
+                        //                                            .offset(y: showTrends ? 20 : 0)
+                            .environmentObject(HomeViewModel())
+                            .environmentObject(StraddleScreen())
                             .frame(height: pageHeight + fullScreenHeight(size, pageHeight, safeArea: safeArea))
-                        //Expanding to Full Screen, Based on the Progress
+                        ///Expanding to Full Screen, Based on the Progress
                             .frame(width:geometry.width - (60 * reverseProgress(size)), height:pageHeight, alignment: .top)
                         /// Making it a little visible at Idle
                             .offset(x:-15 * reverseProgress(size))
@@ -107,10 +112,9 @@ struct BankView: View {
                 .frame(height: pageHeight)
                 .zIndex(1000)
                 
-                /// Displaying Expenses
-                ExpensesView(expenses: myCards[activePage == 0 ? 1 : activePage].expenses)
-                    .padding(.horizontal, 30)
-                    .padding(.top, 30)
+//                Text("Helter")
+//                    .padding(.horizontal, 30)
+//                    .padding(.top, 30)
             }
             .padding(.top, safeArea.top + 15)
             .padding(.bottom, safeArea.bottom + 15)
@@ -209,7 +213,7 @@ struct BankContentView: View {
             let size = $0.size
             let safeArea = $0.safeAreaInsets
             ScrollViewReader { proxy in
-                BankView(proxy: proxy, size: size, safeArea: safeArea)
+                SliderView(proxy: proxy, size: size, safeArea: safeArea)
             }
             .preferredColorScheme(.light)
             .ignoresSafeArea()
@@ -232,7 +236,7 @@ struct CardView: View {
                  .overlay(alignment: .top) {
                     VStack {
                         HStack {
-                            Image("Sim")
+                            Image(systemName: "clock")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width:65, height:65)
@@ -318,51 +322,6 @@ extension View {
             }
     }
     
-}
-
-///Expenses View
-struct ExpensesView: View {
-    var expenses: [Expense]
-    @State private var animateChange: Bool=true
-
-    var body: some View {
-        VStack(spacing: 18) {
-            ForEach(expenses) { expense in
-                HStack (spacing: 12) {
-                    Image(expense.productIcon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width:55, height:55)
-
-                    VStack(alignment: .leading, spacing: 8)
-                    {
-                        Text(expense.product)
-                        Text(expense.spendType)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Text(expense.amountSpent)
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                }
-            }
-        }
-        .opacity(animateChange ? 1 : 0)
-        .offset(y: animateChange ? 0 : 50)
-        .onChange(of: expenses) { newValue in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                animateChange = false
-            }
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    animateChange = true
-                }
-            }
-        }
-    }
 }
 
 struct swiftBank_Previews: PreviewProvider {

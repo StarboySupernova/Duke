@@ -79,9 +79,9 @@ struct ContentView: View {
                                     .shadow(color: Color("Background 2").opacity(0.2), radius: 5, x: 0, y: 5)
                                     .padding(.horizontal, .small)
                                 //                    .offset(y: getRect().height * 0.001)
-                                    .offset(x: isOpen ? 216 : 0) //may cause positioning issues. 216 is an arbitrary number which will not work on all screens. Easiest solution is to implement functionality to dismiss on tap outside SideMenu
+                                    .offset(x: isOpen ? 2160 : 0)
                                     .onTapGesture {
-                                        try? button.setInput("isOpen", value: isOpen)
+//                                        try? button.setInput("isOpen", value: isOpen)
                                         withAnimation(.spring(response: 0.2, dampingFraction: 1.5)) {
                                             isOpen.toggle()
                                         }

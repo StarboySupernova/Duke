@@ -30,19 +30,19 @@ struct CertificatesView: View {
                         .zIndex(3)
                 case 1:
                     flipView
-                        .offset(x: 0, y: show ? 0 : -200)
+                        .offset(x: 0, y: show ? 50 : -200)
                         .scaleEffect(show ? 1 : 0.9)
                         .opacity(show ? 1 : 0.3)
                         .zIndex(2)
                 case 2:
                     flipView
-                        .offset(x: 0, y: show ? 0 : -450)
+                        .offset(x: 0, y: show ? 100 : -450)
                         .scaleEffect(show ? 1 : 0.8)
                         .opacity(show ? 1 : 0.3)
                         .zIndex(1)
                 default:
                     flipView
-                        .offset(x: 0, y: show ? 0 : 0)
+                        .offset(x: 0, y: show ? 150 : 0)
                         .scaleEffect(show ? 1 : 0.7)
                         .opacity(show ? 1 : 0)
                         .zIndex(0)
@@ -86,6 +86,7 @@ struct CertificatesView_Previews: PreviewProvider {
 struct DateTitle: View {
     var title = ""
     var location = ""
+    var alignment: HorizontalAlignment = .leading
     
     let taskDateFormat: DateFormatter =     {
         let formatter = DateFormatter()
@@ -96,12 +97,15 @@ struct DateTitle: View {
     var currentDate = Date()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: alignment, spacing: 0) {
             
             Text("\(currentDate, formatter: taskDateFormat)")
                 .font(Font.subheadline.smallCaps()).bold()
             
             HStack {
+                if alignment == .trailing {
+                    Spacer()
+                }
                 Text(title)
                     .font(.largeTitle).bold()
                 
@@ -109,7 +113,9 @@ struct DateTitle: View {
                     .font(.body)
                     .foregroundColor(.pink)
                 
-                Spacer()
+                if alignment == .leading {
+                    Spacer()
+                }
             }
         }
         .padding(.small)

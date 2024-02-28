@@ -17,7 +17,7 @@ struct DetailView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
-                Rectangle() //note to self - alignment has no effect when this is a Spacer
+                Rectangle() ///note to self - alignment has no effect when this is a Spacer
                     .fill(LinearGradient(gradient: Gradient(colors: [ColorConstants
                         .RedA200,ColorConstants.PinkA100]),startPoint: .topLeading, endPoint: .bottomTrailing))
 

@@ -10,6 +10,7 @@ import ExtensionKit
 
 struct DetailCard: View {
     let businessDetail: BusinessDetails
+    @State private var showBooking: Bool = false
     var body: some View {
         //Booking button ought to come here
         ZStack(alignment: .topLeading) {
@@ -109,8 +110,17 @@ struct DetailCard: View {
                 .fill(Color.black.opacity(0.1)))
             .shadow(radius: 40)
         }
+        .overlay(alignment: .bottom) {
+            GradientButton(buttonTitle: "Make Booking") {
+                showBooking = true
+            }
+            .padding(.bottom, .medium)
+        }
         .padding(.xxLarge)
         .frame(maxWidth: .infinity, maxHeight: getRect().height * 0.65)
+        .fullScreenCover(isPresented: $showBooking) {
+            BookingView()
+        }
     }
     
     func phone () {

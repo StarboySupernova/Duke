@@ -17,6 +17,8 @@ struct SplitListView: View {
     @State var position: CGPoint = .zero
     @Namespace var animation
     private let coordinateSpaceName = UUID()
+    var isSearchable: Bool = false
+    var cornerRadius: CGFloat?
 
     var body: some View {
         HStack(spacing: 2) {
@@ -24,6 +26,7 @@ struct SplitListView: View {
             
 //            RightList()
         }
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius ?? 0))
     }
     
     @ViewBuilder func LeftList() -> some View {
@@ -69,7 +72,7 @@ struct SplitListView: View {
             homeViewModel.request()
         })
         .listStyle(.plain)
-        .if(!expandedTrends, transform: { thisView in
+        .if(isSearchable, transform: { thisView in
             thisView
                 .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
                     ForEach(homeViewModel.completions, id : \.self) { completion in
@@ -131,7 +134,7 @@ struct SplitListView: View {
             homeViewModel.request()
         })
         .listStyle(.plain)
-        .if(!expandedTrends, transform: { thisView in
+        .if(isSearchable, transform: { thisView in
             thisView
                 .searchable(text: $homeViewModel.searchText, prompt: Text(L10n.dukeSearch)) {
                     ForEach(homeViewModel.completions, id : \.self) { completion in

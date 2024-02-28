@@ -9,10 +9,9 @@ import SwiftUI
 
 struct SeatsView: View {
     @Environment(\.dismiss) var dismiss
-    
     @State var animate: Bool = false
-    
     @State var showButton: Bool = false
+    @State var seatType: String = "Standard"
 
     var body: some View {
         VStack(spacing: 0.0) {
@@ -29,8 +28,6 @@ struct SeatsView: View {
                     .fontWeight(.bold)
                 
                 Spacer()
-                
-                CircleButton(image: "calendar", action: {})
             }
             .padding(.top, 46)
             .padding(.horizontal, 20)
@@ -54,6 +51,21 @@ struct SeatsView: View {
                         showButton = true
                     }
                 }
+            
+            HStack {
+                GradientButton(buttonTitle: "VIP") {
+                    withAnimation(.spring()) {
+                        seatType = "VIP"
+                    }
+                }
+                
+                GradientButton(buttonTitle: "Standard") {
+                    withAnimation(.spring()) {
+                        seatType = "Standard"
+                    }
+                }
+            }
+            .padding(.top, .large)
             
             ZStack(alignment: .topLeading) {
                 Circle()
@@ -100,35 +112,27 @@ struct SeatsView: View {
                     
                     HStack(spacing: 10.0) {
                         Image(systemName: "ticket.fill")
-                        Text("VIP Section")
+                        Text("\(seatType) Section")
                         Circle()
                             .frame(width: 6, height: 6)
-                        Text("Seat 9 ,10")
+                        Image(systemName: "cart.fill")
                     }
                     
-                    HStack(spacing: 10.0) {
-                        Image(systemName: "cart.fill")
-                        Text("Total: $30")
+                        
+                    GradientButton(buttonTitle: "Continue") {
+                        
                     }
+                    .glow(color: .white.opacity(0.7), radius: 1)
                 }
                 .padding(42)
                 .font(.subheadline)
-                
-                HStack {
-                    Spacer()
-                    
-                    LargeSemiCircleButton(action: {
-                        
-                    })
-                }
-                .frame(maxHeight: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .clipped()
             .foregroundColor(.white)
             .background(.ultraThinMaterial)
             .padding(.top, 50)
-            .offset(y: showButton ? 0 : 250)
+//            .offset(y: showButton ? 0 : 250)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color("backgroundColor-1"))
