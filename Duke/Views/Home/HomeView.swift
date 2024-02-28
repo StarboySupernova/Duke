@@ -203,47 +203,48 @@ struct HomeView: View {
                                             .padding(.top)
                                         }
                                         
-                                        ScrollView(showsIndicators: false) {
-                                            ForEach(homeViewModel.businesses, id: \.id) { business in
-                                                CustomStackView {
-                                                    if business.id == homeViewModel.businesses.first?.id {
-                                                        DateTitle()
-                                                            .foregroundColor(.offWhite)
-                                                            .padding(.bottom, .large)
-                                                    } else {
-                                                        Label {
-                                                            Text(business.formattedCategory)
-                                                                .font(Font.subheadline.smallCaps()).bold()
-                                                        } icon: {
-                                                            Image(systemName: "clock")
-                                                        }
-                                                    }
-                                                } contentView: {
-                                                    GeometryReader { geometry in
-                                                        BusinessRow(business: business, size: geometry.size)
-                                                    }
-                                                    .frame(height: 100)
-                                                    .onTapGesture {
-                                                        selectedBusiness = business
-                                                    }
-                                                    .id(business.name ?? UUID().uuidString)
-                                                }
-                                                .padding(.medium)
-                                            }
-                                        }
-                                        .overlay(alignment: .topTrailing) {
-                                            ToggleButton {
-                                                withAnimation {
-                                                    showTrends.toggle()
-                                                }
-                                            }
-                                            .foregroundColor(.offWhite)
-                                            .padding()
-                                        }
+                                        #warning("add this to swiftbank")
+//                                        ScrollView(showsIndicators: false) {
+//                                            ForEach(homeViewModel.businesses, id: \.id) { business in
+//                                                CustomStackView {
+//                                                    if business.id == homeViewModel.businesses.first?.id {
+//                                                        DateTitle()
+//                                                            .foregroundColor(.offWhite)
+//                                                            .padding(.bottom, .large)
+//                                                    } else {
+//                                                        Label {
+//                                                            Text(business.formattedCategory)
+//                                                                .font(Font.subheadline.smallCaps()).bold()
+//                                                        } icon: {
+//                                                            Image(systemName: "clock")
+//                                                        }
+//                                                    }
+//                                                } contentView: {
+//                                                    GeometryReader { geometry in
+//                                                        BusinessRow(business: business, size: geometry.size)
+//                                                    }
+//                                                    .frame(height: 100)
+//                                                    .onTapGesture {
+//                                                        selectedBusiness = business
+//                                                    }
+//                                                    .id(business.name ?? UUID().uuidString)
+//                                                }
+//                                                .padding(.medium)
+//                                            }
+//                                        }
+//                                        .overlay(alignment: .topTrailing) {
+//                                            ToggleButton {
+//                                                withAnimation {
+//                                                    showTrends.toggle()
+//                                                }
+//                                            }
+//                                            .foregroundColor(.offWhite)
+//                                            .padding()
+//                                        }
                                             
-//                                        SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
-//                                            .offset(x: expandedTrends ? 3000 : 0)
-//                                            .offset(y: showTrends ? 20 : 0)
+                                        SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
+                                            .offset(x: expandedTrends ? 3000 : 0)
+                                            .offset(y: showTrends ? 20 : 0)
                                     }
                                     .offset(y: -bottomSheetTranslationProrated * 46)
                                 }

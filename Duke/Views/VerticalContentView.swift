@@ -19,9 +19,7 @@ struct VerticalContentView: View {
     @EnvironmentObject var userVM: UserViewModel
     @EnvironmentObject var preferenceStore: UserPreference
     
-    var randomBusinesses: [Business] {
-        homeVM.businesses.randomSelection(count: 4)
-    }
+    
     
     var body: some View {
         ResponsiveView { prop in
@@ -40,14 +38,10 @@ struct VerticalContentView: View {
                     FavouritesContentView()
                         .tag(Tab.user)
                     
-                    HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends, randomBusinesses: randomBusinesses)
-                        .environmentObject(HomeViewModel())
+                    HomeView(showSideBar: $isOpen, selectedMenu: $selectedMenu, expandedTrends: $expandedTrends, showTrends: $showTrends, randomBusinesses: homeVM.randomBusinesses)
+                        .environmentObject(homeVM)
                         .environmentObject(straddleScreen)
-                        .environmentObject(UserViewModel())
-//                        #("uncomment ths")
-//                            .environmentObject(homeVM)
-//                            .environmentObject(straddleScreen)
-//                            .environmentObject(userVM)
+                        .environmentObject(userVM)
                         .tag(Tab.home)
                 }
             }

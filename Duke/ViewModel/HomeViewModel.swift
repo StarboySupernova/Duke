@@ -141,3 +141,9 @@ final class HomeViewModel: ObservableObject {
             .assign(to: &$businessDetails)
     }
 }
+
+extension HomeViewModel {
+    var randomBusinesses: [Business] {
+        self.businesses.randomSelection(count: 4)
+    }
+}
