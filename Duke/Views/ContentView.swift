@@ -45,7 +45,7 @@ struct ContentView: View {
                                 .environmentObject(straddleScreen)
                                 .environmentObject(userVM)
                             
-                            ProfileView()
+                            PostsView()
                                 .environmentObject(UserViewModel())
                                 .tag(SelectedMenu.profile)
                             

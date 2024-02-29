@@ -103,6 +103,7 @@
 		C9B2C1DD2AE9D7540099A39D /* TextfieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2C1DC2AE9D7540099A39D /* TextfieldIcon.swift */; };
 		C9B2C1DF2AE9D78E0099A39D /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2C1DE2AE9D78E0099A39D /* VisualEffectBlur.swift */; };
 		C9B2C1E12AE9D84A0099A39D /* GradientIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2C1E02AE9D84A0099A39D /* GradientIcon.swift */; };
+		C9B61A242B90DBDA001D325D /* MwenjeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B61A232B90DBDA001D325D /* MwenjeListView.swift */; };
 		C9BE941C2AEAA6E1003EC889 /* GradientProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BE941B2AEAA6E1003EC889 /* GradientProfilePicture.swift */; };
 		C9BE941E2AEAAF44003EC889 /* GradientTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BE941D2AEAAF44003EC889 /* GradientTextfield.swift */; };
 		C9C1CEA52A618ED5007A1136 /* SigntureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C1CEA42A618ED5007A1136 /* SigntureGenerator.swift */; };
@@ -267,6 +268,7 @@
 		C9B2C1DC2AE9D7540099A39D /* TextfieldIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldIcon.swift; sourceTree = "<group>"; };
 		C9B2C1DE2AE9D78E0099A39D /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		C9B2C1E02AE9D84A0099A39D /* GradientIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientIcon.swift; sourceTree = "<group>"; };
+		C9B61A232B90DBDA001D325D /* MwenjeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MwenjeListView.swift; sourceTree = "<group>"; };
 		C9BE941B2AEAA6E1003EC889 /* GradientProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProfilePicture.swift; sourceTree = "<group>"; };
 		C9BE941D2AEAAF44003EC889 /* GradientTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientTextfield.swift; sourceTree = "<group>"; };
 		C9C1CEA42A618ED5007A1136 /* SigntureGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigntureGenerator.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				C94175642B53D5590033EF08 /* ComplexScrollUI.swift */,
 				C9E098352B69D2FD00D28332 /* storyHome.swift */,
 				C99344922B6A441600F53B46 /* swiftBank.swift */,
+				C9B61A232B90DBDA001D325D /* MwenjeListView.swift */,
 			);
 			path = Scaffold;
 			sourceTree = "<group>";
@@ -908,6 +911,7 @@
 				C95E42F52ABF3AC400C6DB20 /* VideoError.swift in Sources */,
 				C9C39AD02947EB200036874D /* ConcaveGlassModifier.swift in Sources */,
 				C9C39AF62947EDD10036874D /* ExtensionOnArray.swift in Sources */,
+				C9B61A242B90DBDA001D325D /* MwenjeListView.swift in Sources */,
 				C9C39AF02947EDD10036874D /* ExtensionOnString.swift in Sources */,
 				C9C39AD72947EB490036874D /* LabelledDivider.swift in Sources */,
 				C93B2E672A605625008BB251 /* PingCheckerView.swift in Sources */,
