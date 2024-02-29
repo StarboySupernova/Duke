@@ -245,6 +245,15 @@ struct HomeView: View {
                                         SplitListView(selectedBusiness: $selectedBusiness, expandedTrends: $expandedTrends)
                                             .offset(x: expandedTrends ? 3000 : 0)
                                             .offset(y: showTrends ? 20 : 0)
+                                            .overlay(alignment: .topTrailing) {
+                                                ToggleButton {
+                                                    withAnimation {
+                                                        showTrends.toggle()
+                                                    }
+                                                }
+                                                .foregroundColor(.offWhite)
+                                                .padding()
+                                            }
                                     }
                                     .offset(y: -bottomSheetTranslationProrated * 46)
                                 }
